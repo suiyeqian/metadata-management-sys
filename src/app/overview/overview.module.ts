@@ -14,12 +14,12 @@ import { PlatAbilityComponent } from './plat-ability/plat-ability.component';
     WhereComponent,
     PlatAbilityComponent
   ],
-  exports:      [
+  exports: [
     OverviewComponent,
     SeeWhatComponent,
     WhereComponent,
     PlatAbilityComponent
   ],
-  providers:    [ ]
+  providers: [ ]
 })
 export class OverviewModule { }
