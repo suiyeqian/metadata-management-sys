@@ -1,0 +1,85 @@
+.see-what{
+  margin-right: 0;
+  margin-top: 15px;
+}
+.info-box{
+  width: 320px;
+  height: 114px;
+  border: solid 1px #d3dadf;
+  background-color: #fff;
+  margin-bottom: 16px;
+  color: #000;
+}
+.info-desc{
+  height: 72px;
+  background-color: #f5f9fd;
+  border-bottom: solid 1px #d3dadf;
+}
+.info-desc h5{
+  font-size: 20px;
+  line-height: 72px;
+  margin-bottom: 0;
+}
+.desc{
+  display: none;
+}
+.info-cnt{
+  font-size: 16px;
+  line-height: 42px;
+}
+.count{
+  font-weight: bolder;
+  color: #2878fc;
+}
+.info-box:hover{
+  transform: scale(1,1.1);
+  -webkit-transform: scale(1,1.1);
+  // transition: transform 0.6s ease 0s;
+  // -webkit-transition: all 0.6s ease 0s;
+  border: solid 1px #3681fb;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+  h5{
+    line-height: 36px;
+  }
+  .info-desc{
+    color: #fff;
+    background-image:-webkit-linear-gradient(to bottom, #1cb0fb, #4c4efa);
+    background-image:linear-gradient(to bottom,#1cb0fb,#4c4efa);
+  }
+  .desc{
+    display: block;
+    margin: auto;
+    width:80%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  .icon-box{
+    background-image: url(/img/see-what-icon-w.png);
+  }
+}
+//icon 按顺序定位
+.icon-box{
+  width: 28px;
+  height: 23px;
+  display: inline-block;
+  background-image: url(/img/see-what-icon.png);
+  background-repeat: no-repeat;
+  vertical-align: text-top;
+  margin-right: 6px;
+}
+.usrCnt:nth-child(2) .icon-box,.usrCnt:nth-child(3) .icon-box,.usrCnt:nth-child(8) .icon-box,{
+  background-position: -37px 0;
+}
+.usrCnt:nth-child(4) .icon-box,.usrCnt:nth-child(6) .icon-box{
+  background-position: 0 -31px;
+}
+.usrCnt:nth-child(5) .icon-box{
+  background-position: -37px -31px;
+}
+.usrCnt:nth-child(7) .icon-box{
+  background-position: -37px -62px;
+}
+.usrCnt:nth-child(9) .icon-box{
+  background-position: 0 -62px;
+}

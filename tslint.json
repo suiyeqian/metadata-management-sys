@@ -97,7 +97,6 @@
     "component-selector": [
       true,
       "element",
-      "my",
       "kebab-case"
     ],
     "use-input-property-decorator": true,

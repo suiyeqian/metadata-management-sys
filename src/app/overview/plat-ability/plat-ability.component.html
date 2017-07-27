@@ -1,0 +1,47 @@
+<div class="row service">
+  <div class="service-box store">
+    <div class="icon icon-circle">
+      <i class="icon icon-store"></i>
+    </div>
+    <span class="service-title">
+      存储能力
+      <span class="border"></span>
+    </span>
+    <span class="number">{{platAbility.tableCount}}个+</span>
+    <span class="service-desc">总接入表数</span>
+    <span class="number">{{platAbility.hdfsCapacityTotal}}+</span>
+    <span class="service-desc">HDFS总容量</span>
+    <span class="number">{{platAbility.hdfsCapacityUsed}}+</span>
+    <span class="service-desc">总占用存储</span>
+  </div>
+  <div class="service-box">
+    <div class="icon-circle">
+      <i class="icon icon-count"></i>
+    </div>
+    <span class="service-title">
+      计算能力
+      <span class="border"></span>
+    </span>
+    <span class="number">{{platAbility.todayAppTotal}}个+</span>
+    <span class="service-desc">总Application数</span>
+    <span class="number">{{platAbility.totalVirtualCore}}Vcore+/{{platAbility.totalMb}}+</span>
+    <span class="service-desc">总Vcore/Memory</span>
+    <span class="number">{{platAbility.todayMapTotalCount}}个/{{platAbility.todayReduceTotalCount}}个</span>
+    <span class="service-desc">总Map/Reduces数</span>
+  </div>
+  <div class="service-box">
+    <div class="icon-circle">
+      <i class="icon icon-work"></i>
+    </div>
+    <span class="service-title">
+      作业能力
+      <span class="border"></span>
+    </span>
+    <span class="number">{{platAbility.jobTotal}}个+</span>
+    <span class="service-desc">日批处理任务数</span>
+    <span class="number">{{platAbility.complete}}</span>
+    <span class="service-desc">日批处理8点前完成率</span>
+    <span class="number">{{platAbility.over30MinutesJob}}个</span>
+    <span class="service-desc">超30分钟总作业数</span>
+  </div>
+</div>

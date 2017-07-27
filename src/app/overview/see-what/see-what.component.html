@@ -1,0 +1,11 @@
+<div class="row see-what">
+  <div class="col-md-4 usrCnt" *ngFor="let usrCnt of usrCnts">
+    <div class="info-box">
+      <div class="info-desc">
+        <h5><i class="icon-box"></i>{{usrCnt.appNm}}</h5>
+        <span class="desc">{{usrCnt.appDesc}}</span>
+      </div>
+      <span class="info-cnt">已有 <span class="count">{{usrCnt.cntTotal}}</span> 人开通</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+// where
+.where{
+  padding-left: 5px;
+  margin: 15px -10px 16px -15px;
+}
+.cmpy-box{
+  width: 178px;
+  height: 170px;
+  background-color: #fff;
+  margin: auto;
+  font-size: 20px;
+}
+.cmpy-cicle{
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  margin: 22px auto 16px;
+  color: #fff;
+  line-height: 92px;
+  background-color: #00abfc;
+  box-shadow: 3px 4px 4px rgba(0, 171, 252, 0.4);
+}
+.cmpy-total{
+  font-size: 28px;
+}
+.cmpy-box:nth-child(2) .cmpy-cicle{
+  background-color: #fe5b5f;
+  box-shadow: 3px 4px 4px rgba(254, 91, 95, 0.4);
+}
+.cmpy-box:nth-child(3) .cmpy-cicle{
+  background-color: #fdd41f;
+  box-shadow: 3px 4px 4px rgba(253, 212, 31, 0.4);
+}
+.cmpy-box:nth-child(4) .cmpy-cicle{
+  background-color: #4b53fa;
+  box-shadow: 3px 4px 4px rgba(75, 83, 250, 0.4);
+}
+.cmpy-box:nth-child(5) .cmpy-cicle{
+  background-color: #00cd77;
+  box-shadow: 3px 4px 4px rgba(0, 205, 119, .4);
+}
