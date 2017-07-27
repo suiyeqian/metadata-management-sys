@@ -1,0 +1,32 @@
+<nav class="sidebar">
+  <ul class="nav flex-column">
+    <li [ngClass]="{'expand' : showMenu === 'overview' }">
+      <a class="subtitle" (click)="addExpandClass('overview');">
+        <i class="icon-nav icon-overview"></i><span>数据概览</span><i class="icon-nav" [ngClass]="{true:'icon-expand',false:'icon-arrow'}[showMenu === 'overview']"></i>
+      </a>
+      <ul class="nav flex-column submenu">
+        <li><a [routerLink]="['']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">服务概览</a></li>
+        <li><a [routerLink]="['data-map']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">数据地图</a></li>
+        <li><a>统计查询</a></li>
+      </ul>
+    </li>
+    <li class="nav-divider"></li>
+    <li [ngClass]="{'expand' : showMenu === 'dictionary' }">
+      <a class="subtitle" (click)="addExpandClass('dictionary')">
+        <i class="icon-nav icon-dictionary"></i><span>数据字典</span><i class="icon-nav icon-arrow" [ngClass]="{true:'icon-expand',false:'icon-arrow'}[showMenu === 'dictionary']"></i>
+      </a>
+      <ul class="nav flex-column submenu">
+        <li><a>表搜索</a></li>
+      </ul>
+    </li>
+    <li class="nav-divider"></li>
+    <li [ngClass]="{'expand' : showMenu === 'index' }">
+      <a class="subtitle" (click)="addExpandClass('index')">
+        <i class="icon-nav icon-index"></i><span>指标体系</span><i class="icon-nav icon-arrow" [ngClass]="{true:'icon-expand',false:'icon-arrow'}[showMenu === 'index']"></i>
+      </a>
+      <ul class="nav flex-column submenu">
+        <li><a>指标搜索</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>

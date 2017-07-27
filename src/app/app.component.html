@@ -1,0 +1,21 @@
+<header>
+  <img src="/img/NDFlogo.png">
+  <div class="right">
+    <span class="wel">您好，{{user}}！欢迎登陆系统！</span>
+    <a href="#">帮助</a>
+    <a href="#">FAQ</a>
+    <a href="#">退出登录</a>
+  </div>
+</header>
+<main>
+  <my-sidenav></my-sidenav>
+  <section class="main-container">
+    <div class="breadcrumb text-left">
+      当前位置：<a>工作台</a> > <a>数据概览</a> >
+      <a class="active">服务概览</a>
+    </div>
+    <router-outlet></router-outlet>
+  </section>
+</main>
+<footer>
+</footer>

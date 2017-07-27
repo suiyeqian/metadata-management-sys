@@ -1,0 +1,70 @@
+.sidebar{
+  background-color: #d7dae6;
+  width: 168px;
+  position: fixed;
+  top: 63px;
+  left: 360px;
+  bottom: 0;
+  color: #000;
+  font-size: 18px;
+}
+a{
+  text-decoration: none;
+}
+a.subtitle{
+  line-height: 50px;
+  display: block;
+  cursor: pointer;
+}
+.subtitle span{
+  margin: auto 10px;
+}
+.icon-nav{
+  width: 20px;
+  height: 14px;
+  display: inline-block;
+  background-image: url(/img/sidebar-icon.png);
+  background-repeat: no-repeat;
+}
+.icon-overview{
+  background-position:4px 0;
+}
+.icon-dictionary{
+  background-position:-23px -1px;
+}
+.icon-index{
+  background-position:-50px 0;
+}
+.icon-arrow{
+  background-position:-22px -22px;
+}
+.icon-expand{
+  background-position:6px -22px;
+}
+.submenu{
+  height: 0;
+  display: none;
+}
+.expand .submenu{
+  height: auto !important;
+  display: block;
+}
+.submenu li a{
+  display: block;
+  line-height: 46px;
+  color: #555;
+  font-size: 16px;
+}
+.submenu li a.active{
+  color: #2878fc;
+  background-color: #eaf1f4;
+  border-left: 3px solid #2878fc;
+}
+.submenu li a:hover{
+  color: #2878fc;
+  background-color: #eaf1f4;
+  border-left: 3px solid #2878fc;
+}
+.nav-divider{
+  border: 1px solid #c9c9c9
+}
