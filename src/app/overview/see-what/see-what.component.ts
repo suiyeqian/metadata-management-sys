@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { OverviewService } from '../overview.service';
+import { BackendService } from '../../shared/backend.service';
 
 @Component({
   selector: 'see-what',
@@ -9,9 +9,11 @@ import { OverviewService } from '../overview.service';
 })
 export class SeeWhatComponent implements OnInit {
   usrCnts: any;
+  // private userCntUrl = 'http://xn071213-nb.xiaoniu.com:8088/mdms/servicesoverview/findUsrCntByAppCde';
+  private userCntUrl = 'api/datas';
 
   constructor(
-    private overviewService: OverviewService) {
+    private backendService: BackendService) {
   }
 
   ngOnInit() {
@@ -19,8 +21,8 @@ export class SeeWhatComponent implements OnInit {
   }
 
   getUsrCnt(): void {
-    this.overviewService
-        .getUsrCnt()
+    this.backendService
+        .getAll(this.userCntUrl)
         .then((res) => this.usrCnts = res);
   }
 

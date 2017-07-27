@@ -19,6 +19,8 @@ import { OverviewModule }    from './overview/overview.module';
 /* Routing Module */
 import { routing } from './app.routing';
 
+import { BackendService } from './shared/backend.service';
+
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
 @NgModule({
@@ -36,7 +38,7 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     DataMapComponent,
     SidenavComponent
   ],
-  providers: [ ],
+  providers: [ BackendService ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

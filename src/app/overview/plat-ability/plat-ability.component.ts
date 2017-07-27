@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { OverviewService } from '../overview.service';
+import { BackendService } from '../../shared/backend.service';
 
 @Component({
   selector: 'plat-ability',
@@ -9,9 +9,10 @@ import { OverviewService } from '../overview.service';
 })
 export class PlatAbilityComponent implements OnInit {
   platAbility = {};
+  private platAbilityUrl = 'api/platAbility';
 
   constructor(
-    private overviewService: OverviewService) {
+    private backendService: BackendService) {
   }
 
   ngOnInit() {
@@ -19,8 +20,8 @@ export class PlatAbilityComponent implements OnInit {
   }
 
   getPlatAbility(): void {
-    this.overviewService
-        .getPlatAbility()
+    this.backendService
+        .getAll(this.platAbilityUrl)
         .then((res) => this.platAbility = res);
   }
 

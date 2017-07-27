@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { OverviewService } from '../overview.service';
+import { BackendService } from '../../shared/backend.service';
 
 @Component({
   selector: 'my-where',
@@ -9,9 +9,10 @@ import { OverviewService } from '../overview.service';
 })
 export class WhereComponent implements OnInit {
   companys = [];
+  private companyUrl = 'api/company';
 
   constructor(
-    private overviewService: OverviewService) {
+    private backendService: BackendService) {
   }
 
   ngOnInit() {
@@ -19,8 +20,8 @@ export class WhereComponent implements OnInit {
   }
 
   getCompony(): void {
-    this.overviewService
-        .getCompony()
+    this.backendService
+        .getAll(this.companyUrl)
         .then((res) => {
           for (let item of res) {
             if (item.companyName !== '牛鼎丰') {
