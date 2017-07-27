@@ -7,7 +7,7 @@ import { WhereComponent } from './where/where.component';
 import { PlatAbilityComponent } from './plat-ability/plat-ability.component';
 
 @NgModule({
-  imports:      [ CommonModule ],
+  imports: [ CommonModule ],
   declarations: [
     OverviewComponent,
     SeeWhatComponent,
