@@ -28,10 +28,10 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     BrowserModule,
     HttpModule,
     FormsModule,
-    routing,
     NgbModule.forRoot(),
     InMemoryWebApiModule.forRoot(InMemoryDataService),
-    OverviewModule
+    OverviewModule,
+    routing
   ],
   declarations: [
     AppComponent,

@@ -11,13 +11,16 @@
 a{
   text-decoration: none;
 }
+.nav-section:not(:last-child){
+  border-bottom: 2px solid #c9c9c9;
+}
 a.subtitle{
   line-height: 50px;
   display: block;
   cursor: pointer;
 }
 .subtitle span{
-  margin: auto 10px;
+  margin: auto 10px auto 3px;
 }
 .icon-nav{
   width: 20px;
@@ -25,14 +28,12 @@ a.subtitle{
   display: inline-block;
   background-image: url(/img/sidebar-icon.png);
   background-repeat: no-repeat;
-}
-.icon-overview{
   background-position:4px 0;
 }
-.icon-dictionary{
+.icon-dataDict{
   background-position:-23px -1px;
 }
-.icon-index{
+.icon-indexSystem{
   background-position:-50px 0;
 }
 .icon-arrow{
@@ -64,7 +65,4 @@ a.subtitle{
   color: #2878fc;
   background-color: #eaf1f4;
   border-left: 3px solid #2878fc;
-}
-.nav-divider{
-  border: 1px solid #c9c9c9
 }

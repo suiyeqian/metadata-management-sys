@@ -88,6 +88,99 @@ export class InMemoryDataService implements InMemoryDbService {
         'totalMb': '1040.00G',
         'jobTotal': 3
     };
-    return {datas, company, platAbility};
+    let menu = [
+        {
+            'menuId': 1,
+            'menuCode': 'dataView',
+            'menuName': '数据概览',
+            'menuPath': null,
+            'parentMenuId': 0,
+            'subMenuCount': 3,
+            'menuLevel': 1,
+            'menuType': 'metadata',
+            'subMenuInfoList': [
+                {
+                    'menuId': 4,
+                    'menuCode': 'serviceView',
+                    'menuName': '服务概览',
+                    'menuPath': '1/4',
+                    'parentMenuId': 1,
+                    'subMenuCount': 0,
+                    'menuLevel': 1,
+                    'menuType': 'metadata',
+                    'subMenuInfoList': []
+                },
+                {
+                    'menuId': 5,
+                    'menuCode': 'dataMap',
+                    'menuName': '数据地图',
+                    'menuPath': '1/5',
+                    'parentMenuId': 1,
+                    'subMenuCount': 0,
+                    'menuLevel': 2,
+                    'menuType': 'metadata',
+                    'subMenuInfoList': []
+                },
+                {
+                    'menuId': 6,
+                    'menuCode': 'countView',
+                    'menuName': '统计查阅',
+                    'menuPath': '1/6',
+                    'parentMenuId': 1,
+                    'subMenuCount': 0,
+                    'menuLevel': 3,
+                    'menuType': 'metadata',
+                    'subMenuInfoList': []
+                }
+            ]
+        },
+        {
+            'menuId': 2,
+            'menuCode': 'dataDict',
+            'menuName': '数据字典',
+            'menuPath': null,
+            'parentMenuId': 0,
+            'subMenuCount': 1,
+            'menuLevel': 2,
+            'menuType': 'metadata',
+            'subMenuInfoList': [
+                {
+                    'menuId': 7,
+                    'menuCode': 'searchTabel',
+                    'menuName': '表搜索',
+                    'menuPath': '2/7',
+                    'parentMenuId': 2,
+                    'subMenuCount': 0,
+                    'menuLevel': 1,
+                    'menuType': 'metadata',
+                    'subMenuInfoList': []
+                }
+            ]
+        },
+        {
+            'menuId': 3,
+            'menuCode': 'indexSystem',
+            'menuName': '指标体系',
+            'menuPath': null,
+            'parentMenuId': 0,
+            'subMenuCount': 1,
+            'menuLevel': 3,
+            'menuType': 'metadata',
+            'subMenuInfoList': [
+                {
+                    'menuId': 8,
+                    'menuCode': 'indexSearch',
+                    'menuName': '指标搜索',
+                    'menuPath': '3/8',
+                    'parentMenuId': 3,
+                    'subMenuCount': 0,
+                    'menuLevel': 1,
+                    'menuType': 'metadata',
+                    'subMenuInfoList': []
+                }
+            ]
+        }
+    ];
+    return {datas, company, platAbility, menu};
   }
 }
