@@ -157,6 +157,12 @@ module.exports = function makeWebpackConfig() {
    * List: http://webpack.github.io/docs/list-of-plugins.html
    */
   config.plugins = [
+    //Load echarts module automatic for ngx-echarts
+    //Reference: https://github.com/xieziyu/ngx-echarts
+    new webpack.ProvidePlugin({
+      echarts: "echarts"
+    }),
+
     // Define env variables to help with builds
     // Reference: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
     new webpack.DefinePlugin({

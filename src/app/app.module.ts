@@ -14,7 +14,8 @@ import { DataMapComponent } from './data-map/data-map.component';
 import { SidenavComponent } from './shared/layout/sidenav/sidenav.component';
 
 /* Feature Modules */
-import { OverviewModule }    from './overview/overview.module';
+import { OverviewModule } from './overview/overview.module';
+import { CountViewModule } from './count-view/count-view.module';
 
 /* Routing Module */
 import { routing } from './app.routing';
@@ -31,6 +32,7 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     NgbModule.forRoot(),
     InMemoryWebApiModule.forRoot(InMemoryDataService),
     OverviewModule,
+    CountViewModule,
     routing
   ],
   declarations: [

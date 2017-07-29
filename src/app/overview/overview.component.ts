@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./overview.component.scss']
 })
 export class OverviewComponent implements OnInit {
+  pagetitle = '服务概览';
 
   constructor() {
   }

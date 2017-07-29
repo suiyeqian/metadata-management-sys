@@ -1,0 +1,25 @@
+.page-title{
+  position: relative;
+  width: 100%;
+}
+.page-title h3{
+  font-size: 22px;
+}
+h3:before {
+	content: "";
+	border-top: 1px solid #d3dadf;
+	display: block;
+	position: absolute;
+	width: 410px;
+	top: 10px;
+	left: 0
+}
+h3:after {
+	content: "";
+	border-top: 1px solid #d3dadf;
+	display: block;
+	position: absolute;
+	width: 410px;
+	top: 10px;
+	right: 0
+}
