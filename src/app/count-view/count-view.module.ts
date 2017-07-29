@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { AngularEchartsModule } from 'ngx-echarts';
 
 import { CountViewComponent } from './count-view.component';
 
+import { AngularEchartsModule } from 'ngx-echarts';
+
+import { SharedModule } from '../shared/shared.module';
+
 @NgModule({
   imports: [
-    CommonModule,
-    AngularEchartsModule
+    AngularEchartsModule,
+    SharedModule
   ],
   declarations: [
     CountViewComponent

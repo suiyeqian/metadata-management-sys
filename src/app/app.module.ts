@@ -11,11 +11,11 @@ import { InMemoryDataService }  from './shared/in-memory-data.service';
 
 import { AppComponent } from './app.component';
 import { DataMapComponent } from './data-map/data-map.component';
-import { SidenavComponent } from './shared/layout/sidenav/sidenav.component';
 
 /* Feature Modules */
-import { OverviewModule } from './overview/overview.module';
+import { CoreModule } from './core/core.module';
 import { CountViewModule } from './count-view/count-view.module';
+import { OverviewModule } from './overview/overview.module';
 
 /* Routing Module */
 import { routing } from './app.routing';
@@ -27,18 +27,18 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 @NgModule({
   imports: [
     BrowserModule,
-    HttpModule,
     FormsModule,
-    NgbModule.forRoot(),
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
-    OverviewModule,
+    HttpModule,
     CountViewModule,
+    CoreModule,
+    InMemoryWebApiModule.forRoot(InMemoryDataService),
+    NgbModule.forRoot(),
+    OverviewModule,
     routing
   ],
   declarations: [
     AppComponent,
-    DataMapComponent,
-    SidenavComponent
+    DataMapComponent
   ],
   providers: [ BackendService ],
   bootstrap: [AppComponent]

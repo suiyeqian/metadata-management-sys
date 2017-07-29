@@ -7,6 +7,8 @@ import { Component, OnInit, ViewEncapsulation  } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class CountViewComponent implements OnInit {
+  pagetitle = '统计查阅';
+  
   chartOption = {
     tooltip: {
         trigger: 'axis'

@@ -1,6 +1,5 @@
 <nav class="sidebar">
   <ul class="nav flex-column">
-
     <li class="nav-section" *ngFor="let menu of menus" [class.expand]=" showMenu === menu.menuCode ">
       <a class="subtitle" (click)="addExpandClass(menu.menuCode);">
         <i class="icon-nav" [ngClass]="'icon-'+menu.menuCode"></i>
