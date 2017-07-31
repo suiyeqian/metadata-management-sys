@@ -9,7 +9,7 @@ import { BackendService } from '../../shared/backend.service';
 })
 export class PlatAbilityComponent implements OnInit {
   platAbility = {};
-  private platAbilityUrl = 'api/platAbility';
+  private platAbilityUrl = '/mdms/servicesoverview/countPlatAbility';
 
   constructor(
     private backendService: BackendService) {

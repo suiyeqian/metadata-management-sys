@@ -181,6 +181,38 @@ export class InMemoryDataService implements InMemoryDbService {
             ]
         }
     ];
-    return {datas, company, platAbility, menu};
+    let browseRecord = [
+        {
+            "id": "02b6ccd9-6cac-11e7-b2d4-d8cb8a4c1789",
+            "tblEnNm": "dmb_fin_xcf_sal_achv_mng",
+            "recordTime": "2017-7-22 12:33:13"
+        },
+        {
+            "id": "02b6cf79-6cac-11e7-b2d4-d8cb8a4c1789",
+            "tblEnNm": "t_user_person_stg",
+            "recordTime": "2017-7-21 03:46:44"
+        }
+    ]
+    let collection = [
+        {
+            "id": "02b6cf79-6cac-11e7-b2d4-d8cb8a4c1789",
+            "tblEnNm": "t_user_person_stg",
+            "tblOwner": "liaojinbo;liujun19",
+            "collectionDate": "2017-7-22"
+        },
+        {
+            "id": "02b6ccd9-6cac-11e7-b2d4-d8cb8a4c1789",
+            "tblEnNm": "dmb_fin_xcf_sal_achv_mng",
+            "tblOwner": "liumingming",
+            "collectionDate": "2017-7-21"
+        },
+        {
+            "id": "02b6ce87-6cac-11e7-b2d4-d8cb8a4c1789",
+            "tblEnNm": "dma_opr_zx_cust_inv_smr",
+            "tblOwner": "liaojinbo",
+            "collectionDate": "2017-7-21"
+        }
+    ]
+    return {datas, company, platAbility, menu, browseRecord, collection};
   }
 }

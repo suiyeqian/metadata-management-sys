@@ -9,8 +9,7 @@ import { BackendService } from '../../shared/backend.service';
 })
 export class SeeWhatComponent implements OnInit {
   usrCnts: any;
-  // private userCntUrl = 'http://xn071213-nb.xiaoniu.com:8088/mdms/servicesoverview/findUsrCntByAppCde';
-  private userCntUrl = 'api/datas';
+  private userCntUrl = '/mdms/servicesoverview/findUsrCntByAppCde';
 
   constructor(
     private backendService: BackendService) {

@@ -10,7 +10,7 @@ import { BackendService } from '../../shared/backend.service';
 
 export class SidenavComponent implements OnInit {
   showMenu: string;
-  private menuUrl = 'api/menu';
+  private menuUrl = '/mdms/menu/findMenuInfoByMenuType';
   menus = [];
 
   constructor(

@@ -1,4 +1,53 @@
-.demo-chart {
-  height: 305px;
+.chart,.table {
+  margin-bottom: 24px;
+}
+.chart-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 12px auto;
+}
+.chart-box,.table-box {
   background-color: #fff;
+  box-shadow: 2px 4px 4px rgba(220, 220, 220, 0.8);
+  border-radius: 2px;
+}
+.chart-graph {
+  height: 305px;
+}
+.divider{
+  border-bottom: 1px solid #d3dadf;
+  margin-bottom: 18px;
+}
+.table-box{
+  height: 310px;
+}
+.table{
+  border-bottom: 1px solid #eceeef;
+}
+thead{
+  background-color: #03aafe;
+  color: #fff;
+}
+tbody{
+  font-size: 18px;
+}
+.table-hover tbody tr:hover{
+  background-color: #e5f7fe;
+  cursor: pointer;
+}
+td{
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+td.tblEnNm{
+  width: 55%;
+  max-width: 300px;
+}
+td.tblOwner{
+  width: 15%;
+  max-width: 100px;
+}
+td.date{
+  width: 30%;
 }

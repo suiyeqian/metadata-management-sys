@@ -3,12 +3,69 @@
 <my-page-title [pagetitle]="pagetitle"></my-page-title>
 
 <div class="row">
-  <div class="col-md-6">
-    <h5>子公司数据表分布</h5>
-    <div echarts [options]="chartOption" class="demo-chart"></div>
+  <div class="col-md-6 chart">
+    <h5 class="chart-title">子公司数据表分布</h5>
+    <div class="chart-box">
+      <div echarts [options]="chartOption" class="chart-graph"></div>
+    </div>
   </div>
-  <div class="col-md-6">
-    <h5>子公司数据库空间分布</h5>
-    <div echarts [options]="chartOption" class="demo-chart"></div>
+  <div class="col-md-6 chart">
+    <h5 class="chart-title">子公司数据库空间分布</h5>
+    <div class="chart-box">
+      <div echarts [options]="chartOption" class="chart-graph"></div>
+    </div>
+  </div>
+  <div class="col-md-6 chart">
+    <h5 class="chart-title">业务线占用存储TOP5</h5>
+    <div class="chart-box">
+      <div echarts [options]="barOption" class="chart-graph"></div>
+    </div>
+  </div>
+  <div class="col-md-6 chart">
+    <h5 class="chart-title">表占用存储TOP5</h5>
+    <div class="chart-box">
+      <div echarts [options]="barOption" class="chart-graph"></div>
+    </div>
+  </div>
+  <div class="col-md-12 divider"></div>
+  <div class="col-md-6 chart">
+    <h5 class="chart-title">我最近访问的表</h5>
+    <div class="table-box">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">表名</th>
+            <th class="text-center">访问时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = " let record of topRecords" (click)="moveTo(record)">
+            <td class="tblEnNm">{{record.tblEnNm}}</td>
+            <td class="record-time">{{record.recordTime}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-6 chart">
+    <h5 class="chart-title">我收藏的表</h5>
+    <div class="table-box">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">表名</th>
+            <th class="text-center">负责人</th>
+            <th class="text-center">访问时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let col of topCollections" (click)="moveTo(record)">
+            <td class="tblEnNm">{{col.tblEnNm}}</td>
+            <td class="tblOwner">{{col.tblOwner}}</td>
+            <td class="date">{{col.collectionDate}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

@@ -6,8 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Imports for loading & configuring the in-memory web api
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './shared/in-memory-data.service';
+// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { InMemoryDataService }  from './shared/in-memory-data.service';
 
 import { AppComponent } from './app.component';
 import { DataMapComponent } from './data-map/data-map.component';
@@ -31,7 +31,7 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     HttpModule,
     CountViewModule,
     CoreModule,
-    InMemoryWebApiModule.forRoot(InMemoryDataService),
+    // InMemoryWebApiModule.forRoot(InMemoryDataService),
     NgbModule.forRoot(),
     OverviewModule,
     routing
