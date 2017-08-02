@@ -9,7 +9,7 @@ import { BackendService } from '../../shared/backend.service';
 })
 export class SeeWhatComponent implements OnInit {
   usrCnts: any;
-  private userCntUrl = '/mdms/servicesoverview/findUsrCntByAppCde';
+  private userCntUrl = 'servicesoverview/findUsrCntByAppCde';
 
   constructor(
     private backendService: BackendService) {

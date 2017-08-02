@@ -14,40 +14,40 @@
 .chart-graph {
   height: 305px;
 }
-.divider{
+.divider {
   border-bottom: 1px solid #d3dadf;
   margin-bottom: 18px;
 }
-.table-box{
+.table-box {
   height: 310px;
 }
-.table{
+.table {
   border-bottom: 1px solid #eceeef;
 }
-thead{
+thead {
   background-color: #03aafe;
   color: #fff;
 }
-tbody{
+tbody {
   font-size: 18px;
 }
-.table-hover tbody tr:hover{
+.table-hover tbody tr:hover {
   background-color: #e5f7fe;
   cursor: pointer;
 }
-td{
+td {
   overflow: hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
 }
-td.tblEnNm{
+td.tblEnNm {
   width: 55%;
   max-width: 300px;
 }
-td.tblOwner{
+td.tblOwner {
   width: 15%;
   max-width: 100px;
 }
-td.date{
+td.date {
   width: 30%;
 }

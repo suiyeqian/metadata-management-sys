@@ -45,6 +45,7 @@
           </tr>
         </tbody>
       </table>
+      <img class="no-record"  *ngIf = "topRecords.length === 0" src="img/no_record.png" />
     </div>
   </div>
   <div class="col-md-6 chart">
@@ -66,6 +67,7 @@
           </tr>
         </tbody>
       </table>
+      <img class="no-record"  *ngIf ="topCollections.length === 0" src="img/no_record.png" />
     </div>
   </div>
 </div>

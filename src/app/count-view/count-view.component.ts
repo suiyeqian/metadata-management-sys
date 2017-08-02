@@ -12,9 +12,9 @@ import { BackendService } from '../shared/backend.service';
 })
 export class CountViewComponent implements OnInit {
   pagetitle = '统计查阅';
-  private browseRecordUrl = '/mdms/record/findTopBrowseRecord';
+  private browseRecordUrl = 'record/findTopBrowseRecord';
   topRecords = [];
-  private collectionUrl = '/mdms/collection/findTopCollection';
+  private collectionUrl = 'collection/findTopCollection';
   topCollections = [];
 
 
@@ -160,13 +160,13 @@ export class CountViewComponent implements OnInit {
 
   getTopRecord(): void {
     this.backendService
-        .getAll(this.browseRecordUrl,'post')
+        .getItemsByParams(this.browseRecordUrl,'userId=test')
         .then((res) => this.topRecords = res);
   }
 
   getTopCollections(): void {
     this.backendService
-        .getAll(this.collectionUrl)
+        .getItemsByParams(this.collectionUrl,'userId=test')
         .then((res) => this.topCollections = res);
   }
 

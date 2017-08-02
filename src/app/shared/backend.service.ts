@@ -1,29 +1,40 @@
 import { Injectable }    from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, RequestOptions } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class BackendService {
-  private baseUrl = 'http://10.17.2.26:8188';
+  private baseUrl = 'http://10.17.2.26:8188/' + 'mdms/';
+  // private baseUrl = 'http://xn071213-nb.xiaoniu.com:8088/';
+  headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded'});
+  options = new RequestOptions({ headers: this.headers});
+  jsonHeaders = new Headers({ 'Content-Type': 'application/json' });
+  jsonOption = new RequestOptions({ headers: this.jsonHeaders});
+
 
   constructor(private http: Http) {}
 
-  getAll(url,type: string = 'get'): Promise<any> {
-    if(type == 'post'){
-      return this.http.post(this.baseUrl, { userId:'test' })
-             .toPromise()
-             .then(response => response.json().data)
-             .catch(this.handleError);
-    }else{
-      return this.http.get(this.baseUrl + url)
-                 .toPromise()
-                 .then(response => response.json().data)
-                 .catch(this.handleError);
-    }
+  getAll(url: string ): Promise<any> {
+    return this.http.get(this.baseUrl + url)
+               .toPromise()
+               .then(response => response.json().data)
+               .catch(this.handleError);
   }
 
+  getItemsByParams(url: string, params): Promise<any> {
+    return this.http.post(this.baseUrl + url, params, this.options)
+           .toPromise()
+           .then(response => response.json().data)
+           .catch(this.handleError);
+  }
 
+  getItemsByJsonParams(url: string, params): Promise<any> {
+    return this.http.post(this.baseUrl + url, params, this.jsonOption)
+           .toPromise()
+           .then(response => response.json().data)
+           .catch(this.handleError);
+  }
 
   private handleError(error: any): Promise<any> {
     console.log(error);

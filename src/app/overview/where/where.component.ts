@@ -9,7 +9,7 @@ import { BackendService } from '../../shared/backend.service';
 })
 export class WhereComponent implements OnInit {
   companys = [];
-  private companyUrl = '/mdms/servicesoverview/findUserCntByCompanyFlag';
+  private companyUrl = 'servicesoverview/findUserCntByCompanyFlag';
 
   constructor(
     private backendService: BackendService) {

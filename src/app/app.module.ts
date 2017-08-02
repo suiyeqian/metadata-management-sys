@@ -16,9 +16,10 @@ import { DataMapComponent } from './data-map/data-map.component';
 import { CoreModule } from './core/core.module';
 import { CountViewModule } from './count-view/count-view.module';
 import { OverviewModule } from './overview/overview.module';
+import { SearchTableModule } from './search-table/search-table.module';
 
 /* Routing Module */
-import { routing } from './app.routing';
+import { AppRoutingModule } from './app-routing.module';
 
 import { BackendService } from './shared/backend.service';
 
@@ -34,7 +35,8 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     // InMemoryWebApiModule.forRoot(InMemoryDataService),
     NgbModule.forRoot(),
     OverviewModule,
-    routing
+    SearchTableModule,
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,
