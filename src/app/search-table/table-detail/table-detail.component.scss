@@ -1,0 +1,72 @@
+.table-detail{
+  background-color: #fff;
+  width: 990px;
+}
+.table-detail .title{
+  font-size: 22px;
+  padding: 13px 0;
+  background-color: #f8f8f8;
+  border-bottom: 2px solid #e5e5e5;
+}
+.content{
+  padding: 22px 24px 22px;
+}
+h5{
+  font-size: 20px;
+}
+.content i{
+  display: inline-block;
+  width: 23px;
+  height: 23px;
+  background-repeat: no-repeat;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.icon-base{
+  background-image: url(/img/tbl-base-icon.png);
+}
+.icon-store{
+  background-image: url(/img/tbl-store-icon.png);
+}
+.icon-field{
+  background-image: url(/img/field-icon.png);
+}
+
+.base-info{
+  margin-bottom: 30px;
+}
+.form-control:disabled {
+  cursor: default;
+  background-color: #fff;
+}
+.form-group{
+  width: 100%;
+  margin-bottom: 10px;
+  height: 38px;
+}
+label{
+  float: left;
+  font-size: 18px;
+  line-height: 38px;
+  width: 25%;
+}
+.input-box{
+  float: left;
+  width: 75%;
+}
+.wide-label label{
+  width: 45%
+}
+.wide-label .input-box{
+  width: 55%;
+}
+.field-list{
+  border: 1px solid #e6e6e6;
+  padding: 10px;
+  height: 677px;
+  overflow-y: scroll;
+}
+th{
+  border-top-width: 0;
+  font-size: 15px;
+}

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { SearchTableComponent } from './search-table.component';
+import { RmPrefixPipe } from './rm-prefix.pipe';
 
 import { SharedModule } from '../shared/shared.module';
 
@@ -9,7 +10,8 @@ import { SharedModule } from '../shared/shared.module';
     SharedModule
   ],
   declarations: [
-    SearchTableComponent
+    SearchTableComponent,
+    RmPrefixPipe
   ],
   exports: [
     SearchTableComponent

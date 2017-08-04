@@ -1,0 +1,129 @@
+<my-breadcrumb [curPath]="pagetitle" [parentPath]="parentPath" ></my-breadcrumb>
+
+<div class="table-detail">
+  <div class="title">表详情</div>
+  <div class="content row">
+    <div class="col-md-5">
+      <div class="base-info">
+        <h5 class="text-left"><i class="icon-base"></i>表基本数据</h5>
+        <form class="form-horizontal" #tblBaseForm="ngForm">
+          <fieldset disabled>
+            <div class="form-group">
+              <label class="text-left">表名：</label>
+              <div class="input-box">
+                <input type="text" class="form-control" [(ngModel)]="tblDetail.tblEnNm" name="tblEnNm"
+               #tblEnNm="ngModel">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="text-left">中文名：</label>
+              <div class="input-box">
+                <input type="text" class="form-control" [(ngModel)]="tblDetail.tblChNm" name="tblChNm"
+               #tblChNm="ngModel">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="text-left">数据层级：</label>
+              <div class="input-box">
+                <input type="text" class="form-control" [(ngModel)]="tblDetail.dataLvl" name="dataLvl"
+               #dataLvl="ngModel">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="text-left">子公司：</label>
+              <div class="input-box">
+                <input type="text" class="form-control" [(ngModel)]="tblDetail.companyFlag" name="companyFlag"
+               #companyFlag="ngModel">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="text-left">业务主题：</label>
+              <div class="input-box">
+                <input type="text" class="form-control" [(ngModel)]="tblDetail.busiMart" name="busiMart"
+               #busiMart="ngModel">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="text-left">应用集市：</label>
+              <div class="input-box">
+                <input type="text" class="form-control" [(ngModel)]="tblDetail.appMart" name="appMart"
+               #appMart="ngModel">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="text-left">负责人：</label>
+              <div class="input-box">
+                <input type="text" class="form-control" [(ngModel)]="tblDetail.tblOwner" name="tblOwner"
+               #tblOwner="ngModel">
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="store-info">
+        <h5 class="text-left"><i class="icon-store"></i>表存储信息</h5>
+        <form class="form-horizontal" #tblBaseForm="ngForm">
+          <fieldset disabled>
+            <div class="form-group">
+              <label class="text-left">生命周期：</label>
+              <div class="input-box">
+                <input type="text" class="form-control" [(ngModel)]="tblDetail.lifePeriod" name="lifePeriod"
+               #lifePeriod="ngModel">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="text-left">物理存储：</label>
+              <div class="input-box">
+                <input type="text" class="form-control" [(ngModel)]="tblDetail.physicsStore" name="physicsStore"
+               #physicsStore="ngModel">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="text-left">是否分区：</label>
+              <div class="input-box">
+                <input type="text" class="form-control" [(ngModel)]="tblDetail.isPartitionTbl" name="isPartitionTbl"
+               #isPartitionTbl="ngModel">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="text-left">创建时间：</label>
+              <div class="input-box">
+                <input type="text" class="form-control" [(ngModel)]="tblDetail.createTime" name="createTime"
+               #createTime="ngModel">
+              </div>
+            </div>
+            <div class="form-group wide-label">
+              <label class="text-left">DDL最后更新时间：</label>
+              <div class="input-box">
+                <input type="text" class="form-control" [(ngModel)]="tblDetail.ddlUpdateTime" name="ddlUpdateTime"
+               #ddlUpdateTime="ngModel">
+              </div>
+            </div>
+            <div class="form-group wide-label">
+              <label class="text-left">数据最后更新时间：</label>
+              <div class="input-box">
+                <input type="text" class="form-control" [(ngModel)]="tblDetail.dataUpdateTime" name="dataUpdateTime"
+               #dataUpdateTime="ngModel">
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-7 field-info">
+      <h5 class="text-left"><i class="icon-field"></i>字段信息</h5>
+      <div class="field-list">
+        <table class="table">
+          <thead>
+            <th>序号</th>
+            <th>字段名称</th>
+            <th>中文名称</th>
+            <th>数据类型</th>
+            <th>是否主键</th>
+            <th>是否分区键</th>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

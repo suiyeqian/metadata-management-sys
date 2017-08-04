@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   `<div class="breadcrumb text-left">
     当前位置：<a>工作台</a>
     >
-    <a>数据概览</a>
+    <a>{{parentPath}}</a>
     >
     <a class="active">{{curPath}}</a>
   </div>`,
@@ -20,6 +20,7 @@ import { Component, Input } from '@angular/core';
 })
 export class BreadcrumbComponent {
   @Input() curPath: string;
+  @Input() parentPath: string = '数据概览';
 
   constructor() {
   }

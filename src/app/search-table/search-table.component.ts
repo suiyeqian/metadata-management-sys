@@ -9,6 +9,7 @@ import { BackendService } from '../shared/backend.service';
 })
 export class SearchTableComponent implements OnInit {
   pagetitle = '表搜索';
+  parentPath = '数据字典';
   private menucodeUrl = 'menucde/get_cde';
   private searchTableUrl = 'tablesearch/search';
   searchModel = {};

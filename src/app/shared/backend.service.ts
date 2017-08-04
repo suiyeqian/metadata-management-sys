@@ -30,7 +30,7 @@ export class BackendService {
   }
 
   getItemsByJsonParams(url: string, params): Promise<any> {
-    return this.http.post(this.baseUrl + url, params, this.jsonOption)
+    return this.http.post(this.baseUrl + url, JSON.stringify(params), this.jsonOption)
            .toPromise()
            .then(response => response.json().data)
            .catch(this.handleError);

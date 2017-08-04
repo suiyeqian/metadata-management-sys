@@ -17,6 +17,7 @@ import { CoreModule } from './core/core.module';
 import { CountViewModule } from './count-view/count-view.module';
 import { OverviewModule } from './overview/overview.module';
 import { SearchTableModule } from './search-table/search-table.module';
+import { TableDetailModule } from './search-table/table-detail/table-detail.module';
 
 /* Routing Module */
 import { AppRoutingModule } from './app-routing.module';
@@ -36,6 +37,7 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     NgbModule.forRoot(),
     OverviewModule,
     SearchTableModule,
+    TableDetailModule,
     AppRoutingModule
   ],
   declarations: [

@@ -1,4 +1,4 @@
-<my-breadcrumb [curPath]="pagetitle"></my-breadcrumb>
+<my-breadcrumb [curPath]="pagetitle" [parentPath]="parentPath" ></my-breadcrumb>
 
 <my-page-title [pagetitle]="pagetitle"></my-page-title>
 
@@ -59,7 +59,7 @@
                   <li *ngFor = "let selOpt of option.valueList" class="selector" [class.selected]="advancedOpt.selResult.indexOf(selOpt.cdeValue)!==-1">
                     <label>
                       <input type="checkbox" class="checkbox show" [checked]="advancedOpt.selResult.indexOf(selOpt.cdeValue)!==-1"  name="selOpt.cdeValue" (click)="select(advancedOpt,selOpt)">
-                      {{selOpt.cdeValue}}({{selOpt.cdeValueDesc}})
+                      {{selOpt.cdeValue | myRmPrefix}}({{selOpt.cdeValueDesc}})
                     </label>
                   </li>
                 </ul>
