@@ -1,4 +1,4 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { BackendService } from '../shared/backend.service';
 
@@ -15,6 +15,15 @@ export class SearchTableComponent implements OnInit {
   options = [];
   advancedOps = [];
   tblResult = {};
+  currentPage = 1;
+  pageNums = [];
+  sorts = [
+    {orderBy: 'tbl_en_nm', desc: '表名', sortType: 'asc', isActive: false},
+    {orderBy: 'tbl_owner_name', desc: '负责人', sortType: 'asc', isActive: false},
+    {orderBy: 'ddl_update_time', desc: '更新时间', sortType: 'desc', isActive: true}
+  ];
+  advancedOpt = {};
+  isShow = false;
 
   constructor(
     private backendService: BackendService) {
@@ -30,13 +39,17 @@ export class SearchTableComponent implements OnInit {
         .getItemsByJsonParams(this.menucodeUrl, {menuId: 7})
         .then((res) => {
           for (let value of res){
+            value.selResult = [];
             if (value.isOption === '0') {
               value.selMore = false;
               value.ifSingle = false;
-              value.selResult = [];
               this.options.push(value);
             } else {
-              this.advancedOps.push(value);
+              value.selMore = true;
+              // 不显示表形态
+              if (value.parmName !== 'Tbl_Type') {
+                this.advancedOps.push(value);
+              }
             }
           }
         });
@@ -45,7 +58,27 @@ export class SearchTableComponent implements OnInit {
   getTables(): void {
     this.backendService
         .getItemsByJsonParams(this.searchTableUrl, {currentPage: 1, pageSize: 20})
-        .then((res) => this.tblResult = res);
+        .then((res) => {
+          this.tblResult = res;
+          this.getPageNums(res.totalPage);
+        });
+  }
+
+  getPageNums(totalPage): void {
+    if ( totalPage < 7 ) {
+      for ( let i = 1; i <= totalPage; i++) {
+        this.pageNums.push(i);
+      }
+      return;
+    }
+    let initNums = [1, 2, 3, 4, 5, 6, 7];
+    if ( this.currentPage < 4 ) {
+      this.pageNums = initNums;
+    } else if ( totalPage - this.currentPage < 4 ) {
+      this.pageNums = initNums.map((i) => totalPage - i + 1).reverse();
+    } else {
+      this.pageNums = initNums.map((i) => this.currentPage + 4 - i ).reverse();
+    }
   }
 
   select(selOpt, item): void {
@@ -66,6 +99,15 @@ export class SearchTableComponent implements OnInit {
       } else {
         selOpt.selResult.push(item.cdeValue);
       }
+    }
+  }
+
+  openCard(advancedOpt: any): void {
+    if ( !this.isShow || advancedOpt !== this.advancedOpt ) {
+      this.advancedOpt = advancedOpt;
+      this.isShow = true;
+    } else {
+      this.isShow = false;
     }
   }
 

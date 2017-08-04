@@ -13,7 +13,8 @@ import { Component, Input } from '@angular/core';
   styles: [`
     .breadcrumb {
       background-color: inherit;
-      padding-left: 0;
+      height:40px;
+      padding: 18px 0;
     }
   `]
 })

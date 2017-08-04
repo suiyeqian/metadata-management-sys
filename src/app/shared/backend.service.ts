@@ -5,7 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class BackendService {
-  private baseUrl = 'http://10.17.2.26:8188/' + 'mdms/';
+  private baseUrl = 'http://10.17.2.26:8190/' + 'mdms/';
   // private baseUrl = 'http://xn071213-nb.xiaoniu.com:8088/';
   headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded'});
   options = new RequestOptions({ headers: this.headers});

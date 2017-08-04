@@ -24,11 +24,10 @@
               <input type="checkbox" class="checkbox" [checked]="option.selResult.indexOf(selOpt.cdeValue)!==-1"  name="selOpt.cdeValue" [disabled]="option.selResult.length>1 && !option.selMore"   [ngClass]="{'show':option.selMore}" (click)="select(option,selOpt)">
               {{selOpt.cdeValueDesc}}
             </label>
-            <!--[checked]="option.selResult.indexOf(selOpt.cdeValue)!==-1"  -->
           </li>
         </ul>
         <div class="select-btn" [class.show] = "option.selMore">
-          <button type="button" name="button" class="btn btn-sm btn-ok" [disabled]="!option.selResult.length" (click)="option.selMore = false">确定</button>
+          <button type="button" name="button" class="btn btn-sm btn-ok" (click)="option.selMore = false">确定</button>
           <button type="button" name="button" class="btn btn-sm btn-cancel" (click)="option.selMore = false">取消</button>
         </div>
       </div>
@@ -42,60 +41,148 @@
       </div>
       <div class="select-value">
         <ul class="select-list">
-          <li *ngFor = "let advancedOpt of advancedOps" class="selector">
+          <!-- <li *ngFor = "let advancedOpt of advancedOps" class="selector" [ngbPopover]="optCard"  placement="bottom" #p="ngbPopover" triggers="manual" (click)="openOptCard(advancedOpt)" container="body"> -->
+          <li *ngFor = "let advancedOpt of advancedOps" class="selector" (click)="openCard(advancedOpt)">
             {{advancedOpt.cdeTypeDesc}}
           </li>
         </ul>
+        <!-- 高级选项卡 -->
+        <div class="optCard" [ngClass]="'card'+advancedOpt.parmName" [class.show]="isShow" >
+          <!-- 子菜单分级 -->
+          <div *ngIf="advancedOpt.cdeLvlFlag === 1">
+            <div *ngFor = "let option of advancedOpt.childList" class="select-items">
+              <div class="select-key">
+                {{option.parmName}} :
+              </div>
+              <div class="select-value">
+                <ul class="select-list">
+                  <li *ngFor = "let selOpt of option.valueList" class="selector" [class.selected]="advancedOpt.selResult.indexOf(selOpt.cdeValue)!==-1">
+                    <label>
+                      <input type="checkbox" class="checkbox show" [checked]="advancedOpt.selResult.indexOf(selOpt.cdeValue)!==-1"  name="selOpt.cdeValue" (click)="select(advancedOpt,selOpt)">
+                      {{selOpt.cdeValue}}({{selOpt.cdeValueDesc}})
+                    </label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+          <!-- 子菜单不分级 -->
+          <div *ngIf="advancedOpt.cdeLvlFlag === 0">
+            <div class="select-value">
+              <ul class="select-list list-nokey">
+                <li *ngFor = "let selOpt of advancedOpt.valueList" class="selector" [class.selected]="advancedOpt.selResult.indexOf(selOpt.cdeValue)!==-1">
+                  <label>
+                    <input type="checkbox" class="checkbox show" [checked]="advancedOpt.selResult.indexOf(selOpt.cdeValue)!==-1"  name="selOpt.cdeValue" (click)="select(advancedOpt,selOpt)">
+                      {{selOpt.cdeValue}}({{selOpt.cdeValueDesc}})
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="select-btn show">
+            <button type="button" name="button" class="btn btn-sm btn-ok">确定</button>
+            <button type="button" name="button" class="btn btn-sm btn-cancel" (click)="isShow = false">取消</button>
+          </div>
+        </div>
       </div>
+
+      <!-- <ng-template #optCard>
+        {{advancedOpt.cdeTypeDesc}} {{advancedOpt.cdeLvlFlag}}
+        <div *ngIf="advancedOpt.cdeLvlFlag === 1">
+          <div *ngFor = "let option of advancedOpt.childList" class="select-items">
+            <div class="select-key">
+              {{option.parmName}} :
+            </div>
+            <div class="select-value">
+              <ul class="select-list">
+                <li *ngFor = "let selOpt of option.valueList" class="selector" [class.selected]="advancedOpt.selResult.indexOf(selOpt.cdeValue)!==-1">
+                  <label>
+                    <input type="checkbox" class="checkbox show" [checked]="advancedOpt.selResult.indexOf(selOpt.cdeValue)!==-1"  name="selOpt.cdeValue" (click)="select(advancedOpt,selOpt)">
+                    {{selOpt.cdeValueDesc}}
+                  </label>
+                </li>
+              </ul>
+            </div>
+            <div class="select-btn">
+              <button type="button" name="button" class="btn btn-sm btn-ok" [disabled]="!advancedOpt.selResult.length">确定</button>
+              <button type="button" name="button" class="btn btn-sm btn-cancel" (click)="option.selMore = false">取消</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="select-value">
+            <ul class="select-list">
+              <li *ngFor = "let selOpt of advancedOpt.valueList" class="selector" [class.selected]="advancedOpt.selResult.indexOf(selOpt.cdeValue)!==-1">
+                <label>
+                  <input type="checkbox" class="checkbox show" [checked]="advancedOpt.selResult.indexOf(selOpt.cdeValue)!==-1"  name="selOpt.cdeValue" (click)="select(advancedOpt,selOpt)">
+                  {{selOpt.cdeValueDesc}}
+                </label>
+              </li>
+            </ul>
+          </div>
+          <div class="select-btn">
+            <button type="button" name="button" class="btn btn-sm btn-ok" [disabled]="!advancedOpt.selResult.length">确定</button>
+            <button type="button" name="button" class="btn btn-sm btn-cancel" (click)="option.selMore = false">取消</button>
+          </div>
+        </div>
+      </ng-template> -->
+
     </div>
   </div>
+
 </form>
 <div class="result">
   <div class="res-top">
     <div class="sort">
-      <a href="javascript:;" class="tbl-name">表名 &#8593;</a>
-      <a href="javascript:;" class="tbl-owner">负责人 &#8593;</a>
-      <a href="javascript:;" class="tbl-updtime">更新时间 &#8595;</a>
+      <a href="javascript:;" *ngFor = "let sort of sorts" [class.active]="sort.isActive" >
+        {{sort.desc}} <span *ngIf="sort.sortType === 'asc'">&#8593;</span><span *ngIf="sort.sortType === 'desc'">&#8595;</span>
+      </a>
     </div>
     <button type="button" name="button" class="collect btn btn-blue">收藏的表</button>
   </div>
   <div class="tbl-list">
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th class="text-center">英文表名</th>
-          <th class="text-center">中文表名</th>
-          <th class="text-center">数据层级</th>
-          <th class="text-center">负责人</th>
-          <th class="text-center">更新时间</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor = "let tbl of tblResult.datas" class="text-left">
-          <td class="tblEnNms">{{tbl.tblEnNm}}</td>
-          <td class="tblChNm">{{tbl.tblChNm}}</td>
-          <td class="dataLvl">{{tbl.dataLvl}}</td>
-          <td class="tblOwner">{{tbl.tblOwner}}</td>
-          <td class="updtime">{{tbl.ddlUpdateTime}}</td>
-          <td><button class="btn btn-collect">收藏</button><button class="btn btn-collected">已收藏</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="res-foot">
-    <div class="page-wrap">
-      <span class="page-num">
-        <a href="javascript:;">< 上一页</a>
-        <b class="page-break">...</b>
-        <a href="javascript:;" *ngFor = "let i of [1,2,3,4,5,6,7]">{{i}}</a>
-        <b class="page-break">...</b>
-        <a href="javascript:;">下一页 ></a>
-      </span>
-      <span class="page-skip">
-        共{{tblResult.totalPage}}页 到第 <input type="text" name="" class="skip-num" > 页
-        <button class="btn btn-sm btn-blue">确定</button>
-      </span>
+    <div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="text-center">英文表名</th>
+            <th class="text-center">中文表名</th>
+            <th class="text-center">数据层级</th>
+            <th class="text-center">负责人</th>
+            <th class="text-center">更新时间</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let tbl of tblResult.datas" class="text-left">
+            <td class="tblEnNms">{{tbl.tblEnNm}}</td>
+            <td class="tblChNm">{{tbl.tblChNm}}</td>
+            <td class="dataLvl">{{tbl.dataLvl}}</td>
+            <td class="tblOwner">{{tbl.tblOwner}}</td>
+            <td class="updtime">{{tbl.ddlUpdateTime}}</td>
+            <td>
+              <button class="btn btn-collect" *ngIf="tbl.collModel.isCollection">收藏</button>
+              <button class="btn btn-collected" *ngIf="tbl.collModel.isCollection === 0">已收藏</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="res-foot">
+      <div class="page-wrap">
+        <span class="page-num">
+          <a href="javascript:;" class="page-prev" [class.disabled]="currentPage === 1"><上一页</a>
+          <b class="page-break" *ngIf="currentPage > 4 " >...</b>
+          <a href="javascript:;" *ngFor = "let i of pageNums" [class.active]="currentPage === i" class="page-nb">{{i}}</a>
+          <b class="page-break" *ngIf="tblResult.totalPage - currentPage > 4">...</b>
+          <a href="javascript:;" class="page-next" [class.disabled]="currentPage === tblResult.totalPage">下一页></a>
+        </span>
+        <span class="page-skip">
+          共{{tblResult.totalPage}}页 到第 <input type="text" name="" class="skip-num" > 页
+          <button class="btn btn-sm btn-blue">确定</button>
+        </span>
+      </div>
     </div>
   </div>
 </div>
