@@ -1,3 +1,16 @@
-<p>
-  数据地图页面!
-</p>
+<my-breadcrumb [curPath]="pagetitle"></my-breadcrumb>
+
+<my-page-title [pagetitle]="pagetitle"></my-page-title>
+
+<form (ngSubmit)='onSearch()'>
+  <div class="search">
+    <div class="form-group">
+      <input type="text" list="list" [(ngModel)]="searchModel.tableName" name="tableName" class="form-control search-input" placeholder="按中文表名、英文表名搜索" #tableName="ngModel" (ngModelChange)='tableNameChange($event)'>
+    </div>
+    <button type="submit" name="button" class="btn btn-blue btn-search">搜索</button>
+  </div>
+</form>
+
+<datalist id="list" [(ng)]>
+  
+</datalist>

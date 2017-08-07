@@ -10,7 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { InMemoryDataService }  from './shared/in-memory-data.service';
 
 import { AppComponent } from './app.component';
-import { DataMapComponent } from './data-map/data-map.component';
+// import { DataMapComponent } from './data-map/data-map.component';
 
 /* Feature Modules */
 import { CoreModule } from './core/core.module';
@@ -18,6 +18,7 @@ import { CountViewModule } from './count-view/count-view.module';
 import { OverviewModule } from './overview/overview.module';
 import { SearchTableModule } from './search-table/search-table.module';
 import { TableDetailModule } from './search-table/table-detail/table-detail.module';
+import { DataMapModule } from './data-map/data-map.module';
 
 /* Routing Module */
 import { AppRoutingModule } from './app-routing.module';
@@ -38,11 +39,12 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     OverviewModule,
     SearchTableModule,
     TableDetailModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DataMapModule
   ],
   declarations: [
-    AppComponent,
-    DataMapComponent
+    AppComponent
+    // DataMapComponent
   ],
   providers: [ BackendService ],
   bootstrap: [AppComponent]

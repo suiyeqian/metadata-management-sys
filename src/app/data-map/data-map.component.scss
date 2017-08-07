@@ -1,3 +1,27 @@
-* {
-  color: #f87c08;
+.search {
+  display: inline-flex;
+  margin: auto;
+}
+
+.search-input {
+  width: 350px;
+  display: inherit;
+  margin-right: 5px;
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.btn-blue,
+.btn-white:hover,
+.select-more .active {
+  background-color: #2795fc;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(39, 149, 252, 0.5);
+  border-color: #2795fc;
+}
+
+.btn-search {
+  height: 38px;
 }
