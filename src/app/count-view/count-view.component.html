@@ -2,17 +2,17 @@
 
 <my-page-title [pagetitle]="pagetitle"></my-page-title>
 
-<div class="row">
+<div class="row view-content">
   <div class="col-md-6 chart">
     <h5 class="chart-title">子公司数据表分布</h5>
     <div class="chart-box">
-      <div echarts [options]="chartOption1" class="chart-graph"></div>
+      <div echarts [options]="tblDistOption1" class="chart-graph"></div>
     </div>
   </div>
   <div class="col-md-6 chart">
     <h5 class="chart-title">子公司数据库空间分布</h5>
     <div class="chart-box">
-      <div echarts [options]="chartOption2" class="chart-graph"></div>
+      <div echarts [options]="SpaceDistOption2" class="chart-graph"></div>
     </div>
   </div>
   <div class="col-md-6 chart">
@@ -39,7 +39,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor = " let record of topRecords" (click)="moveTo(record)">
+          <tr *ngFor = " let record of topRecords" (click)="goTo(record)">
             <td class="tblEnNm">{{record.tblEnNm}}</td>
             <td class="record-time">{{record.recordTime}}</td>
           </tr>
@@ -60,7 +60,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor = "let col of topCollections" (click)="moveTo(record)">
+          <tr *ngFor = "let col of topCollections" (click)="goTo(col)">
             <td class="tblEnNm">{{col.tblEnNm}}</td>
             <td class="tblOwner">{{col.tblOwner}}</td>
             <td class="date">{{col.collectionDate}}</td>

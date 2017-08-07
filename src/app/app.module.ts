@@ -18,6 +18,7 @@ import { CountViewModule } from './count-view/count-view.module';
 import { OverviewModule } from './overview/overview.module';
 import { SearchTableModule } from './search-table/search-table.module';
 import { TableDetailModule } from './search-table/table-detail/table-detail.module';
+import { SearchIndexModule } from './search-index/search-index.module';
 
 /* Routing Module */
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +39,7 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     OverviewModule,
     SearchTableModule,
     TableDetailModule,
+    SearchIndexModule,
     AppRoutingModule
   ],
   declarations: [

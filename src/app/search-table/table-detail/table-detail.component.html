@@ -3,7 +3,7 @@
 <div class="table-detail">
   <div class="title">表详情</div>
   <div class="content row">
-    <div class="col-md-5">
+    <div class="col-md-6">
       <div class="base-info">
         <h5 class="text-left"><i class="icon-base"></i>表基本数据</h5>
         <form class="form-horizontal" #tblBaseForm="ngForm">
@@ -60,6 +60,8 @@
           </fieldset>
         </form>
       </div>
+    </div>
+    <div class="col-md-6">
       <div class="store-info">
         <h5 class="text-left"><i class="icon-store"></i>表存储信息</h5>
         <form class="form-horizontal" #tblBaseForm="ngForm">
@@ -110,20 +112,37 @@
         </form>
       </div>
     </div>
-    <div class="col-md-7 field-info">
+    <div class="col-md-12 field-info">
       <h5 class="text-left"><i class="icon-field"></i>字段信息</h5>
       <div class="field-list">
-        <table class="table">
+        <table class="table table-striped">
           <thead>
-            <th>序号</th>
-            <th>字段名称</th>
-            <th>中文名称</th>
-            <th>数据类型</th>
-            <th>是否主键</th>
-            <th>是否分区键</th>
+            <tr>
+              <th>序号</th>
+              <th>字段名称</th>
+              <th>中文名称</th>
+              <th>数据类型</th>
+              <th>是否主键</th>
+              <!-- <th>是否分区键</th> -->
+            </tr>
           </thead>
+          <tbody>
+            <tr *ngFor = "let column of tblDetail.columnList;let i = index" class="text-left">
+              <td>{{i}}</td>
+              <td>{{column.columnEnNm}}</td>
+              <td>{{column.columnChNm}}</td>
+              <td>{{column.columnDatatype}}</td>
+              <td>{{column.isPk}}</td>
+              <!-- <td>{{column.isPartitionKey}}</td> -->
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
+  </div>
+  <div class="option">
+    <!-- <button class="btn btn-blue">刷新</button> -->
+    <button class="btn btn-collect" *ngIf="tblDetail.collModel&&tblDetail.collModel.isCollection" (click)="tblDetail.collModel.isCollection = 0">收藏</button>
+    <button class="btn btn-collected" *ngIf="tblDetail.collModel&&tblDetail.collModel.isCollection===0" (click)="tblDetail.collModel.isCollection = 1">已收藏</button>
   </div>
 </div>

@@ -63,10 +63,57 @@ label{
 .field-list{
   border: 1px solid #e6e6e6;
   padding: 10px;
-  height: 677px;
+  height: 500px;
   overflow-y: scroll;
+}
+thead{
+  background-color: #fff;
+  color: #000;
 }
 th{
   border-top-width: 0;
-  font-size: 15px;
+  font-size: 16px;
+}
+tbody{
+  font-size: 16px;
+}
+td {
+  max-width: 365px;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+}
+.option{
+  padding-bottom: 24px;
+}
+.btn{
+  width: 84px;
+  font-size: 20px;
+  padding: 0.5rem 0;
+  cursor: pointer;
+}
+.btn-blue{
+  background-color: #2795fc;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(39, 149, 252, 0.5);
+  border-color: #2795fc;
+  margin-right: 26px;
+}
+.btn-collect{
+  color:#a8a8a8;
+  background-color: #fff;
+  border: 1px solid #d3d2d2;
+}
+.btn-collect:hover {
+  color: #2896fc;
+  border-color: #2896fc;
+}
+.btn-collected{
+  color:#fcab2b;
+  background-color: #fff;
+  border: 1px solid #fcab2b;
+}
+.btn-collected:hover {
+  color: red;
+  border-color: red;
 }
