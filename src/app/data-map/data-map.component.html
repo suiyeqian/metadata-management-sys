@@ -11,6 +11,9 @@
   </div>
 </form>
 
-<datalist id="list" [(ng)]>
-  
+<datalist>
+  <ng-container *ngFor="let option of searchList.data">
+    <option  *ngIf="!isChNm" [value]="option.tableEnNm" >
+    <option  *ngIf="isChNm" [value]="option.tableCnNm">
+  </ng-container>
 </datalist>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { BackendService } from '../../shared/backend.service';
 
@@ -13,16 +14,19 @@ export class TableDetailComponent implements OnInit {
   tblDetail = {};
 
   constructor(
+    private router: ActivatedRoute,
     private backendService: BackendService) {
   }
 
   ngOnInit() {
-    this.getTblDtail();
+    this.router.params.subscribe((params: Params) => {
+        this.getTblDtail(+params.id);
+    });
   }
 
-  getTblDtail(): void {
+  getTblDtail(id): void {
     this.backendService
-        .getItemsByParams('tablesearch/table_detail', 'tableId=4')
+        .getItemsByJsonParams('tablesearch/table_detail', {tableId: id, userId: 'test'})
         .then((res) => {
           this.tblDetail = res;
         });

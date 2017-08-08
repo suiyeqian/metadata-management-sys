@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BackendService } from '../shared/backend.service';
 
 @Component({
   selector: 'my-data-map',
@@ -8,20 +9,40 @@ import { Component, OnInit } from '@angular/core';
 
 export class DataMapComponent implements OnInit {
   pagetitle = '数据地图';
-  searchModel = {
-    tableName: string
-  };
+  searchModel= { };
+  searchList = {};
+  isChNm = false;
 
-  private searchTableUrl = 'tablesearch/search';
+  private tableNameType = /^[\u4e00-\u9fa5]$/;
+  private searchTableUrl = 'datamap/searchTableInfo';
 
   
-  constructor() {
+  constructor(private backendService: BackendService) {
+
   }
 
-  ngOnInit() {
+  ngOnInit():void {
+    this.searchList = {};
+    this.isChNm = false;
   }
 
-  tableNameChange(name: string) {
+  
+  getTableList(name: string):void {
+    this.backendService
+        .getItemsByJsonParams(this.searchTableUrl, {tableName: name})
+        .then((res) => {
+          this.searchList = res;
+        })
+  }
+
+  tableNameChange(name: string):void {
 console.log(name);
+    this.getTableList(name);
+    if (this.tableNameType.test(name)) {
+      this.isChNm = true;
+    }else {
+      this.isChNm = false;
+    }
+console.log(this.isChNm);
   }
 }

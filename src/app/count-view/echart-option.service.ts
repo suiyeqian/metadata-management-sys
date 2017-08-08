@@ -4,7 +4,7 @@ import { Injectable }    from '@angular/core';
 export class EchartOptionService {
   constructor() {}
 
-  getOption(type: string ): void {
+  getOption(type: string ) {
     let option;
     switch (type) {
     case 'line':
@@ -12,14 +12,16 @@ export class EchartOptionService {
       tooltip: {
           trigger: 'axis'
       },
-      legend: { },
+      legend: {
+        data: []
+      },
       grid: {
           left: '3%',
           right: '4%',
           bottom: '3%',
           containLabel: true
       },
-      color:['#16c6eb', '#29e9bd', '#ae8ad1', '#f4c42d', '#f44336', '#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae'],
+      color: ['#16c6eb', '#29e9bd', '#ae8ad1', '#f4c42d', '#f44336', '#c23531', '#2f4554', '#61a0a8', '#d48265', '#91c7ae'],
       xAxis: {
           type: 'category',
           boundaryGap: false,
@@ -73,7 +75,7 @@ export class EchartOptionService {
         ],
         series : [
             {
-                type:'bar',
+                type: 'bar',
                 barWidth: '60%',
                 label: {
                     normal: {
@@ -81,7 +83,7 @@ export class EchartOptionService {
                         position: 'top'
                     }
                 },
-                data:[50, 30, 20, 10, 10,],
+                data: [50, 30, 20, 10, 10],
                 itemStyle: {
                     normal: {
                       color: {
@@ -100,7 +102,7 @@ export class EchartOptionService {
                 }
             }
         ]
-      }
+      };
       break;
     default:
       throw new Error('Undefined chart type');

@@ -20,7 +20,7 @@ import { Component, Input } from '@angular/core';
 })
 export class BreadcrumbComponent {
   @Input() curPath: string;
-  @Input() parentPath: string = '数据概览';
+  @Input() parentPath = '数据概览';
 
   constructor() {
   }
