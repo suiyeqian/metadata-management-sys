@@ -10,9 +10,9 @@
     <button type="submit" name="button" class="btn btn-blue btn-search">搜索</button>
   </div>
   <div class="select-box">
-    <div class="result-desc">
+    <!-- <div class="result-desc">
       表搜索 共{{tblResult.totalCount}}个
-    </div>
+    </div> -->
     <div *ngFor = "let option of options" class="select-items">
       <div class="select-key">
         {{option.cdeTypeDesc}} :
@@ -45,32 +45,28 @@
         {{sort.desc}} <span *ngIf="sort.sortType === 'asc'">&#8593;</span><span *ngIf="sort.sortType === 'desc'">&#8595;</span>
       </a>
     </div>
-    <button type="button" name="button" class="collect btn btn-blue">收藏的表</button>
   </div>
   <div class="tbl-list">
-    <div>
+    <div class="tbl-box" >
       <table class="table table-hover">
         <thead>
           <tr>
-            <th class="text-center">英文表名</th>
-            <th class="text-center">中文表名</th>
-            <th class="text-center">数据层级</th>
+            <th class="text-center">指标名</th>
+            <th class="text-center">指标编号</th>
+            <th class="text-center">应用领域</th>
+            <th class="text-center">模块</th>
             <th class="text-center">负责人</th>
-            <th class="text-center">更新时间</th>
-            <th></th>
+            <th class="text-center">指标定义</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor = "let tbl of tblResult.datas" class="text-left">
-            <td class="tblEnNms">{{tbl.tblEnNm}}</td>
-            <td class="tblChNm">{{tbl.tblChNm}}</td>
-            <td class="dataLvl">{{tbl.dataLvl}}</td>
-            <td class="tblOwner">{{tbl.tblOwner}}</td>
-            <td class="updtime">{{tbl.ddlUpdateTime}}</td>
-            <td>
-              <button class="btn btn-collect" *ngIf="tbl.collModel.isCollection">收藏</button>
-              <button class="btn btn-collected" *ngIf="tbl.collModel.isCollection === 0">已收藏</button>
-            </td>
+          <tr *ngFor = "let idx of indexResult.datas" class="text-left">
+            <td>{{idx.idxNm}}</td>
+            <td>{{idx.idxId}}</td>
+            <td>{{idx.appSub}}</td>
+            <td>{{idx.appMod}}</td>
+            <td>{{idx.idxOwner}}</td>
+            <td>{{idx.idxDef}}</td>
           </tr>
         </tbody>
       </table>
@@ -81,11 +77,11 @@
           <a href="javascript:;" class="page-prev" [class.disabled]="currentPage === 1"><上一页</a>
           <b class="page-break" *ngIf="currentPage > 4 " >...</b>
           <a href="javascript:;" *ngFor = "let i of pageNums" [class.active]="currentPage === i" class="page-nb">{{i}}</a>
-          <b class="page-break" *ngIf="tblResult.totalPage - currentPage > 4">...</b>
-          <a href="javascript:;" class="page-next" [class.disabled]="currentPage === tblResult.totalPage">下一页></a>
+          <b class="page-break" *ngIf="indexResult.totalPage - currentPage > 4">...</b>
+          <a href="javascript:;" class="page-next" [class.disabled]="currentPage === indexResult.totalPage">下一页></a>
         </span>
         <span class="page-skip">
-          共{{tblResult.totalPage}}页 到第 <input type="text" name="" class="skip-num" > 页
+          共{{indexResult.totalPage}}页 到第 <input type="text" name="" class="skip-num" > 页
           <button class="btn btn-sm btn-blue">确定</button>
         </span>
       </div>

@@ -10,18 +10,15 @@ import { BackendService } from '../shared/backend.service';
 export class SearchIndexComponent implements OnInit {
   pagetitle = '指标搜索';
   parentPath = '指标体系';
-  private menucodeUrl = 'menucde/get_cde';
-  private searchTableUrl = 'tablesearch/search';
   searchModel = {};
   options = [];
   advancedOps = [];
-  tblResult = {};
+  indexResult = {};
   currentPage = 1;
   pageNums = [];
   sorts = [
-    {orderBy: 'tbl_en_nm', desc: '表名', sortType: 'asc', isActive: false},
-    {orderBy: 'tbl_owner_name', desc: '负责人', sortType: 'asc', isActive: false},
-    {orderBy: 'ddl_update_time', desc: '更新时间', sortType: 'desc', isActive: true}
+    {orderBy: 'tbl_en_nm', desc: '指标名', sortType: 'asc', isActive: false},
+    {orderBy: 'tbl_owner_name', desc: '负责人', sortType: 'asc', isActive: false}
   ];
 
   constructor(
@@ -30,35 +27,28 @@ export class SearchIndexComponent implements OnInit {
 
   ngOnInit() {
     this.getMenucodes();
-    this.getTables();
+    this.getIndex();
   }
 
   getMenucodes(): void {
     this.backendService
-        .getItemsByJsonParams(this.menucodeUrl, {menuId: 8})
+        .getItemsByJsonParams('menucde/get_cde', {menuId: 8})
         .then((res) => {
           for (let value of res){
             value.selResult = [];
-            if (value.isOption === '0') {
-              value.selMore = false;
-              value.ifSingle = false;
-              this.options.push(value);
-            } else {
-              value.selMore = true;
-              // 不显示表形态
-              if (value.parmName !== 'Tbl_Type') {
-                this.advancedOps.push(value);
-              }
-            }
+            value.selMore = false;
+            value.ifSingle = false;
+            this.options.push(value);
           }
         });
   }
 
-  getTables(): void {
+  getIndex(): void {
     this.backendService
-        .getItemsByJsonParams(this.searchTableUrl, {currentPage: 1, pageSize: 20})
+        .getItemsByJsonParams('indexSearch/search', {pageModel: {'currentPage': 1, 'pageSize': 10}, companyName: ['在线']})
         .then((res) => {
-          this.tblResult = res;
+          this.indexResult = res;
+          console.log(res);
           this.getPageNums(res.totalPage);
         });
   }
@@ -84,14 +74,15 @@ export class SearchIndexComponent implements OnInit {
     }
   }
 
-  getPageNums(totalPage): void {
-    if ( totalPage < 7 ) {
-      for ( let i = 1; i <= totalPage; i++) {
-        this.pageNums.push(i);
-      }
+  getPageNums(totalPage, displayNum = 7): void {
+    let initNums = [];
+    for ( let i = 1; i <= (totalPage > displayNum ? displayNum : totalPage); i++) {
+      initNums.push(i);
+    }
+    if ( totalPage < displayNum ) {
+      this.pageNums = initNums;
       return;
     }
-    let initNums = [1, 2, 3, 4, 5, 6, 7];
     if ( this.currentPage < 4 ) {
       this.pageNums = initNums;
     } else if ( totalPage - this.currentPage < 4 ) {

@@ -23,7 +23,7 @@ export class SidenavComponent implements OnInit {
 
   getMenus(): void {
     this.backendService
-        .getAll(this.menuUrl)
+        .getItemsByJsonParams(this.menuUrl, {})
         .then((res) => {
           this.menus = res;
           this.showMenu = this.menus[0].menuCode;

@@ -26,7 +26,7 @@ export class TableDetailComponent implements OnInit {
 
   getTblDtail(id): void {
     this.backendService
-        .getItemsByJsonParams('tablesearch/table_detail', {tableId: id, userId: 'test'})
+        .getItemsByJsonParams('tablesearch/table_detail', {tableId: id, userId: JSON.parse(sessionStorage.user).id})
         .then((res) => {
           this.tblDetail = res;
         });

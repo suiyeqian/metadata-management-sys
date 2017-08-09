@@ -62,7 +62,7 @@ export class EchartOptionService {
         xAxis : [
             {
                 type : 'category',
-                data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                data : [],
                 axisTick: {
                     alignWithLabel: true
                 }
@@ -83,7 +83,7 @@ export class EchartOptionService {
                         position: 'top'
                     }
                 },
-                data: [50, 30, 20, 10, 10],
+                data: [],
                 itemStyle: {
                     normal: {
                       color: {

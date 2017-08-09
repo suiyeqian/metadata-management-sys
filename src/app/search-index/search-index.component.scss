@@ -143,6 +143,9 @@ a{
   border-radius: 4px;
   box-shadow: 1px 2px 4px rgba(0,0,0,0.15);
 }
+.tbl-box {
+  min-height: 400px;
+}
 .table{
   margin-bottom:0;
 }
@@ -171,7 +174,7 @@ tbody{
 td {
   overflow: hidden;
   text-overflow:ellipsis;
-  white-space:nowrap;
+  // white-space:nowrap;
   vertical-align: middle;
   max-width: 300px;
 }

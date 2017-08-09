@@ -7,6 +7,7 @@ import 'rxjs/add/operator/toPromise';
 export class BackendService {
   private baseUrl = 'http://10.17.2.26:8190/' + 'mdms/';
   // private baseUrl = 'http://xn071213-nb.xiaoniu.com:8088/';
+  // private baseUrl = 'http://10.14.1.155:8188/mdms/';
   headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded'});
   options = new RequestOptions({ headers: this.headers});
   jsonHeaders = new Headers({ 'Content-Type': 'application/json' });

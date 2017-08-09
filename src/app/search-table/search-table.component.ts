@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { BackendService } from '../shared/backend.service';
+import { SearchParams } from '../shared/data-model';
 
 @Component({
   selector: 'my-search-table',
@@ -10,21 +11,22 @@ import { BackendService } from '../shared/backend.service';
 export class SearchTableComponent implements OnInit {
   pagetitle = '表搜索';
   parentPath = '数据字典';
-  private menucodeUrl = 'menucde/get_cde';
-  private searchTableUrl = 'tablesearch/search';
-  searchModel = {};
+  searchTblName: string;
   options = [];
   advancedOps = [];
   tblResult = {};
   currentPage = 1;
   pageNums = [];
   sorts = [
-    {orderBy: 'tbl_en_nm', desc: '表名', sortType: 'asc', isActive: false},
+    {orderBy: 'tbl_en_nm', desc: '表名', sortType: 'asc', isActive: true},
     {orderBy: 'tbl_owner_name', desc: '负责人', sortType: 'asc', isActive: false},
-    {orderBy: 'ddl_update_time', desc: '更新时间', sortType: 'desc', isActive: true}
+    {orderBy: 'ddl_update_time', desc: '更新时间', sortType: 'desc', isActive: false}
   ];
   advancedOpt = {};
-  isShow = false;
+  // isShow = false;
+  private searchUrl = 'tablesearch/search';
+  pageState = { isCollected: false, btnName: '收藏的表' };
+  params = new SearchParams();
 
   constructor(
     private backendService: BackendService) {
@@ -32,15 +34,16 @@ export class SearchTableComponent implements OnInit {
 
   ngOnInit() {
     this.getMenucodes();
-    this.getTables();
+    this.getTables('init');
   }
 
   getMenucodes(): void {
     this.backendService
-        .getItemsByJsonParams(this.menucodeUrl, {menuId: 7})
+        .getItemsByJsonParams('menucde/get_cde', {menuId: 7})
         .then((res) => {
           for (let value of res){
             value.selResult = [];
+            value.tmpResult = [];
             if (value.isOption === '0') {
               value.selMore = false;
               value.ifSingle = false;
@@ -56,35 +59,38 @@ export class SearchTableComponent implements OnInit {
         });
   }
 
-  getTables(): void {
+  getTables(type: string): void {
+    this.setParams(type);
+    console.log(this.params);
     this.backendService
-        .getItemsByJsonParams(this.searchTableUrl, {currentPage: 1, pageSize: 20})
+        .getItemsByJsonParams(this.searchUrl, this.params)
         .then((res) => {
           this.tblResult = res;
-          this.getPageNums(res.totalPage);
+          this.setPageNums(res.totalPage);
         });
   }
 
-  getPageNums(totalPage): void {
-    if ( totalPage < 7 ) {
-      for ( let i = 1; i <= totalPage; i++) {
-        this.pageNums.push(i);
-      }
+  setPageNums(totalPage, displayNum = 7): void {
+    let initNums = [];
+    for ( let i = 1; i <= (totalPage > displayNum ? displayNum : totalPage); i++) {
+      initNums.push(i);
+    }
+    if ( totalPage < displayNum ) {
+      this.pageNums = initNums;
       return;
     }
-    let initNums = [1, 2, 3, 4, 5, 6, 7];
     if ( this.currentPage < 4 ) {
       this.pageNums = initNums;
     } else if ( totalPage - this.currentPage < 4 ) {
       this.pageNums = initNums.map((i) => totalPage - i + 1).reverse();
     } else {
-      this.pageNums = initNums.map((i) => this.currentPage + 4 - i ).reverse();
+      this.pageNums = initNums.map((i) => this.currentPage - i + 4 ).reverse();
     }
   }
 
   select(selOpt, item): void {
-    let curIndex = selOpt.selResult.indexOf(item.cdeValue);
     if (!selOpt.selMore) {
+      let curIndex = selOpt.selResult.indexOf(item.cdeValue);
       if (selOpt.selResult.length > 1) {
         return;
       }
@@ -94,22 +100,108 @@ export class SearchTableComponent implements OnInit {
         selOpt.selResult[0] = item.cdeValue;
       }
       selOpt.ifSingle = selOpt.selResult.length ? true : false;
+      this.getTables('byOption');
     } else {
+      let curIndex = selOpt.tmpResult.indexOf(item.cdeValue);
       if ( curIndex !== -1) {
-        selOpt.selResult.splice(curIndex, 1);
+        selOpt.tmpResult.splice(curIndex, 1);
+        // selOpt.selResult.splice(curIndex, 1);
       } else {
-        selOpt.selResult.push(item.cdeValue);
+        selOpt.tmpResult.push(item.cdeValue);
+        // selOpt.selResult.push(item.cdeValue);
       }
     }
   }
 
+  selOk(selOpt: any): void {
+    selOpt.selResult = [...selOpt.tmpResult];
+    selOpt.selMore = false;
+    this.getTables('byOption');
+  }
+
+  setParams(type: string): void {
+    let initPageModel = { currentPage: 1, pageSize: 10};
+    switch (type) {
+      case 'init':
+        let initParamBase = { userId: JSON.parse(sessionStorage.user).id, tableName: ''};
+        let initOrderRule = { orderBy: 'tbl_en_nm', sortType: 'asc'};
+        this.params.paramMap = Object.assign({}, initParamBase);
+        this.params.conditionMap = Object.assign({});
+        this.params.sortOrderModel = Object.assign({}, initOrderRule);
+        this.params.pageModel = Object.assign({}, initPageModel);
+        break;
+      case 'byTblname':
+        this.params.paramMap.tableName = this.searchTblName;
+        break;
+      case 'byOption':
+        let conditions = Object.assign({});
+        for (let opt of  [...this.options,...this.advancedOps]) {
+          if(opt.selResult.length){
+            conditions[opt.parmName] = opt.selResult;
+          }
+        };
+        console.log(conditions);
+        this.params.conditionMap = Object.assign({}, conditions);
+        break;
+      case 'byOrderRule':
+        let orderRule = Object.assign({});
+        for (let sort of this.sorts){
+          if (sort.isActive) {
+            orderRule.orderBy = sort.orderBy;
+            orderRule.sortType = sort.sortType;
+          }
+        };
+        this.params.sortOrderModel = Object.assign({}, orderRule);
+        this.params.pageModel.currentPage = 1;
+        break;
+      case 'byPage':
+        this.params.pageModel.currentPage = this.currentPage;
+        break;
+    }
+    console.log(this.searchTblName, this.options, this.advancedOps, this.sorts);
+  }
+
   openCard(advancedOpt: any): void {
-    if ( !this.isShow || advancedOpt !== this.advancedOpt ) {
+    if ( !advancedOpt.selMore || advancedOpt !== this.advancedOpt ) {
       this.advancedOpt = advancedOpt;
-      this.isShow = true;
+      advancedOpt.selMore = true;
     } else {
-      this.isShow = false;
+      advancedOpt.selMore = false;
     }
   }
 
+  onSearch(tblName: string): void {
+    this.searchTblName = tblName;
+    this.getTables('byTblname');
+  }
+
+  changeOrder(order): void {
+    if (order.isActive) {
+      order.sortType = order.sortType === 'asc' ? 'desc' : 'asc';
+    } else {
+      for (let sort of this.sorts) {
+        sort.isActive = false;
+      }
+      order.isActive = true;
+    }
+    this.getTables('byOrderRule');
+  }
+
+  turnState(): void {
+    this.pageState.isCollected = !this.pageState.isCollected;
+    if (this.pageState.isCollected) {
+      this.searchUrl = 'tablesearch/coll_table ';
+      this.pageState.btnName = '返回';
+    } else {
+      this.searchUrl = 'tablesearch/search ';
+      this.pageState.btnName = '收藏的表';
+    }
+    this.getTables('init');
+  }
+
+  turnPage(num: number): void {
+    if (!num) { return; }
+    this.currentPage = +num;
+    this.getTables('byPage');
+  }
 }

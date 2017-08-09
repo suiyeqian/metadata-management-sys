@@ -8,8 +8,9 @@ import '../style/app.scss';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  user = 'admin';
+  user = { name: '测试账号', id: 'test'};
 
   constructor() {
+    sessionStorage.user = JSON.stringify(this.user);
   }
 }

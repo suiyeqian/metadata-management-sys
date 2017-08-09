@@ -46,7 +46,6 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
   ],
   declarations: [
     AppComponent
-    // DataMapComponent
   ],
   providers: [ BackendService ],
   bootstrap: [AppComponent]
