@@ -17,7 +17,8 @@ export class CountViewComponent implements OnInit {
   topCollections = [];
   tblDistOption1: any;
   SpaceDistOption2: any;
-  barOption: any;
+  cpyStoragebarOpt: any;
+  tblStoragebarOpt: any;
 
   constructor(
     private router: Router,
@@ -71,26 +72,35 @@ export class CountViewComponent implements OnInit {
     this.backendService
         .getItemsByJsonParams('occupystorage/storage ', {'type': 'company'})
         .then((res) => {
-          console.log(res);
-          this.barOption = this.echartOpt.getOption('bar');
+          let initOpt = this.echartOpt.getOption('bar');
+          for (let item of res) {
+            initOpt.xAxis[0].data.push(item.name);
+            initOpt.series[0].data.push(item.size);
+          }
+          this.cpyStoragebarOpt = initOpt;
         });
 
     this.backendService
         .getItemsByJsonParams('occupystorage/storage ', {'type': 'table'})
         .then((res) => {
-          console.log(res);
+          let initOpt = this.echartOpt.getOption('bar');
+          for (let item of res) {
+            initOpt.xAxis[0].data.push(item.name);
+            initOpt.series[0].data.push(item.size);
+          }
+          this.tblStoragebarOpt = initOpt;
         });
   }
 
   getTopRecord(): void {
     this.backendService
-        .getItemsByJsonParams('record/findTopBrowseRecord', {userId: 'test'})
+        .getItemsByJsonParams('record/findTopBrowseRecord', {userId: JSON.parse(sessionStorage.user).id})
         .then((res) => this.topRecords = res);
   }
 
   getTopCollections(): void {
     this.backendService
-        .getItemsByJsonParams('collection/findTopCollection', {userId: 'test'})
+        .getItemsByJsonParams('collection/findTopCollection', {userId: JSON.parse(sessionStorage.user).id})
         .then((res) => this.topCollections = res);
   }
 

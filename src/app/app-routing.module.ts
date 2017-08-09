@@ -15,7 +15,12 @@ const appRoutes: Routes = [
   { path: 'searchTable', component: SearchTableComponent },
   { path: 'tableDetail/:id', component: TableDetailComponent },
   { path: 'indexSearch', component: SearchIndexComponent },
+  {
+    path: 'admin',
+    loadChildren: 'app/admin/admin.module#AdminModule'
+  },
   { path: '', redirectTo: '/serviceView', pathMatch: 'full' },
+  { path: '**', component: OverviewComponent }
 ];
 
 @NgModule({

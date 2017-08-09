@@ -143,6 +143,9 @@ a{
   border-radius: 4px;
   box-shadow: 1px 2px 4px rgba(0,0,0,0.15);
 }
+.tbl-box {
+  min-height: 400px;
+}
 .table{
   margin-bottom:0;
 }
@@ -173,7 +176,14 @@ td {
   text-overflow:ellipsis;
   white-space:nowrap;
   vertical-align: middle;
-  max-width: 300px;
+  max-width: 270px;
+}
+td.tblEnNms, td.tblChNm{
+  width: 253px;
+  max-width: 253px;
+}
+img.no-record{
+  margin-top: 100px;
 }
 .btn-collect{
   color:#a8a8a8;
@@ -311,12 +321,12 @@ a.disabled, a.disabled:hover{
   border-color: transparent;
   border-style: solid;
 }
-.optCard.show.cardSs_Nm::after, .optCard.show.cardSs_Nm::before{
+.optCard.show.card1::after, .optCard.show.card1::before{
   left: 16%;
 }
-.optCard.show.cardDwd_Sub::after, .optCard.show.cardDwd_Sub::before{
+.optCard.show.card2::after, .optCard.show.card2::before{
   left: 29%;
 }
-.optCard.show.cardTbl_Type::after, .optCard.show.cardTbl_Type::before{
+.optCard.show.card3::after, .optCard.show.card3::before{
   left: 40%;
 }
