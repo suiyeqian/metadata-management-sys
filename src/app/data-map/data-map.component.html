@@ -11,9 +11,15 @@
   </div>
 </form>
 
-<datalist>
-  <ng-container *ngFor="let option of searchList.data">
-    <option  *ngIf="!isChNm" [value]="option.tableEnNm" >
-    <option  *ngIf="isChNm" [value]="option.tableCnNm">
+<!-- <div class="col-md-10 chart">
+  <div class="chart-box">
+     <div echarts [options]="relatedOption" class="chart-graph"></div> 
+</div>
+</div> -->
+
+<datalist id="list">
+  <ng-container *ngFor="let option of searchList">
+    <option  *ngIf="!isChNm" [value]="option.tblChNm" >
+    <option  *ngIf="isChNm" [value]="option.tblEnNm">
   </ng-container>
 </datalist>
