@@ -15,6 +15,7 @@ export class DataMapComponent implements OnInit {
   searchList = {};
   isChNm = false;
   tableName: string;
+  searchResult = false;
 
   relatedOption: any;
   bloodRelationMapOption: any;
@@ -119,6 +120,7 @@ console.log(res);
   renderBloodRelationMap(data: any):void {
     let initOp = this.datamapOpt.getOption();
     let seriesData = [];
+    let links = [];
     seriesData[0] = {
       id: data.groupBlood.groupId,
       name: data.groupBlood.groupName,
@@ -128,41 +130,122 @@ console.log(res);
     let arr1 = data.groupBlood.subGroupBloodDTO;
     let arr2 = data.groupBlood.parentGroupBloodDTO;
     if (arr1) {
-       seriesData.concat(this.getItem(arr1,"subGroupBloodDTO"))
-    }else if(arr2) {
-      seriesData.concat(this.getItem(arr2,"parentGroupBloodDTO"))
-    }
-    initOp.series[0].data = seriesData;
-    initOp.series[0].links;
-console.log(seriesData);
-  }
-
-   getItem(arr: Array, groupType: string): Array {
-     var resArr = [];
-    for (var i = 0; i < arr.length; i++) {
+      for (let i = 0; i < arr1.length; i++) {
         let element = {
           id: '',
           name: '',
           symbolSize: 100,
           draggable: true
-        };
-        element.id = arr[i].groupId;
-        element.name = arr[i].groupName;
-        resArr.push(element);
-        if (arr.groupType) {
-          for (var j = 0; j < arr.groupType.length; j++) {
+        }
+        let link = {
+          source: '',
+          target: '',
+        }
+        link.source = data.groupBlood.groupId;
+        link.target = arr1[i].groupId;
+        links.push(link);
+
+        element.id = arr1[i].groupId;
+        element.name = arr1[i].groupName;
+        seriesData.push(element);
+        if (arr1[i].subGroupBloodDTO) {
+          for (let j = 0; j < arr1[i].subGroupBloodDTO.length; j++) {
             let element = {
               id: '',
               name: '',
               symbolSize: 100,
               draggable: true
-            };
-            element.id = arr.groupType[i].groupId;
-            element.name = arr.groupType[i].groupName;
-            resArr.push(element);
+            }
+            let link = {
+              source: '',
+              target: '',
+            }
+            link.source = data.groupBlood.groupId;
+            link.target = arr1[i].subGroupBloodDTO[j].groupId;
+            links.push(link);
+            element.id = arr1[i].subGroupBloodDTO[j].groupId;
+            element.name = arr1[i].subGroupBloodDTO[j].groupName;
+            seriesData.push(element);
           }
         }
       }
-    return resArr;
-  } 
+    }
+    if(arr2) {
+      for (let i = 0; i < arr2.length; i++) {
+        let element = {
+          id: '',
+          name: '',
+          symbolSize: 100,
+          draggable: true
+        }
+        let link = {
+          source: '',
+          target: '',
+        }
+        link.target = data.groupBlood.groupId;
+        link.source = arr2[i].groupId;
+        links.push(link);
+
+        element.id = arr2[i].groupId;
+        element.name = arr2[i].groupName;
+        seriesData.push(element);
+        if (arr2[i].parentGroupBloodDTO) {
+          for (let j = 0; j < arr2[i].parentGroupBloodDTO.length; j++) {
+            let element = {
+              id: '',
+              name: '',
+              symbolSize: 100,
+              draggable: true
+            }
+            let link = {
+              source: '',
+              target: '',
+            }
+            link.target = data.groupBlood.groupId;
+            link.source = arr2[i].parentGroupBloodDTO[j].groupId;
+            links.push(link);
+            element.id = arr2[i].parentGroupBloodDTO[j].groupId;
+            element.name = arr2[i].parentGroupBloodDTO[j].groupName;
+            seriesData.push(element);
+          }
+        }
+      }
+    }
+    initOp.series[0].data = seriesData;
+    initOp.series[0].links = links;
+    this.bloodRelationMapOption = initOp;
+    this.searchResult = true;
+  }
+
+  /* getItem(arr: Array): Array {
+    let resArr = [];
+    let links = [];
+    for (let i = 0; i < arr.length; i++) {
+      let obj = {
+        id: '',
+        name: '',
+        symbolSize: 100,
+        draggable: true
+      }
+      let link = {
+        source: '',
+        target: '',
+        value: 100
+      }
+      obj.id = arr[i].groupId;
+      obj.name = arr[i].groupName;
+      if (arr[i].sub) {
+        
+      }
+      resArr.push(obj);
+      if (arr[i].subGroupBloodDTO) {
+        resArr = resArr.concat(this.getItem(arr[i].subGroupBloodDTO))
+      }else if(arr[i].parentGroupBloodDTO) {
+        resArr = resArr.concat(this.getItem(arr[i].parentGroupBloodDTO));
+    }
+console.log(resArr);
+      return resArr;
+    }
+  } */
+
 }

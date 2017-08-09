@@ -27,7 +27,27 @@
 }
 
 .chart-box {
-  // width: 800px;
   height: 800px;
-  // margin: 0 auto;
+  position: relative;
+}
+
+.bg {
+  width: 621px;
+  height: 616px;
+  background: url('../../public/img/bg.png') center 100%;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 73px;
+  left: 20px;
+  animation: rotate-frame 40s infinite linear;
+}
+
+@keyframes rotate-frame {
+  //定义动画关键帧
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
 }

@@ -11,11 +11,14 @@
   </div>
 </form>
 
-<!-- <div class="col-md-10 chart">
+<div class="col-md-10 chart">
   <div class="chart-box">
-     <div echarts [options]="relatedOption" class="chart-graph"></div> 
+    <div class="bg"></div>
+    <div echarts *ngIf="!searchResult" [options]="relatedOption" class="chart-graph"></div>
+    <div echarts *ngIf="searchResult" [options]="bloodRelationMapOption" class="chart-graph"></div>
+  </div>
 </div>
-</div> -->
+
 
 <datalist id="list">
   <ng-container *ngFor="let option of searchList">

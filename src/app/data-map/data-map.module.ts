@@ -6,7 +6,8 @@ import { SharedModule } from '../shared/shared.module';
 
 import { AngularEchartsModule } from 'ngx-echarts';
 
-import { datamapOptionService } from './dataMap-option.service'
+import { datamapOptionService } from './dataMap-option.service';
+
 
 @NgModule({
   imports: [
