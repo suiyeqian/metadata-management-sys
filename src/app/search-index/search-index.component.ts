@@ -17,7 +17,7 @@ export class SearchIndexComponent implements OnInit {
   currentPage = 1;
   pageNums = [];
   sorts = [
-    {orderBy: 'tbl_en_nm', desc: '指标名', sortType: 'asc', isActive: false},
+    {orderBy: 'tbl_en_nm', desc: '指标名', sortType: 'asc', isActive: true},
     {orderBy: 'tbl_owner_name', desc: '负责人', sortType: 'asc', isActive: false}
   ];
 
@@ -49,7 +49,7 @@ export class SearchIndexComponent implements OnInit {
         .then((res) => {
           this.indexResult = res;
           console.log(res);
-          this.getPageNums(res.totalPage);
+          // this.getPageNums(res.totalPage);
         });
   }
 
@@ -74,22 +74,27 @@ export class SearchIndexComponent implements OnInit {
     }
   }
 
-  getPageNums(totalPage, displayNum = 7): void {
-    let initNums = [];
-    for ( let i = 1; i <= (totalPage > displayNum ? displayNum : totalPage); i++) {
-      initNums.push(i);
-    }
-    if ( totalPage < displayNum ) {
-      this.pageNums = initNums;
-      return;
-    }
-    if ( this.currentPage < 4 ) {
-      this.pageNums = initNums;
-    } else if ( totalPage - this.currentPage < 4 ) {
-      this.pageNums = initNums.map((i) => totalPage - i + 1).reverse();
-    } else {
-      this.pageNums = initNums.map((i) => this.currentPage + 4 - i ).reverse();
-    }
+  onPageChanged(num: number): void {
+    this.currentPage = +num;
+    this.getIndex();
   }
+
+  // getPageNums(totalPage, displayNum = 7): void {
+  //   let initNums = [];
+  //   for ( let i = 1; i <= (totalPage > displayNum ? displayNum : totalPage); i++) {
+  //     initNums.push(i);
+  //   }
+  //   if ( totalPage < displayNum ) {
+  //     this.pageNums = initNums;
+  //     return;
+  //   }
+  //   if ( this.currentPage < 4 ) {
+  //     this.pageNums = initNums;
+  //   } else if ( totalPage - this.currentPage < 4 ) {
+  //     this.pageNums = initNums.map((i) => totalPage - i + 1).reverse();
+  //   } else {
+  //     this.pageNums = initNums.map((i) => this.currentPage + 4 - i ).reverse();
+  //   }
+  // }
 
 }

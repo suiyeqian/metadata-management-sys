@@ -12,6 +12,7 @@ export class TableDetailComponent implements OnInit {
   pagetitle = '表详情';
   parentPath = '数据字典';
   tblDetail = {};
+  paramMap = {};
 
   constructor(
     private router: ActivatedRoute,
@@ -20,15 +21,56 @@ export class TableDetailComponent implements OnInit {
 
   ngOnInit() {
     this.router.params.subscribe((params: Params) => {
-        this.getTblDtail(+params.id);
+      this.paramMap = {
+        paramMap: {
+          tableId: +params.id,
+          userId: JSON.parse(sessionStorage.user).id,
+          userName: JSON.parse(sessionStorage.user).name,
+          recordType: 'table'
+        }
+      };
+        this.getTblDtail(this.paramMap);
     });
   }
 
-  getTblDtail(id): void {
+  getTblDtail(params): void {
     this.backendService
-        .getItemsByJsonParams('tablesearch/table_detail', {tableId: id, userId: JSON.parse(sessionStorage.user).id})
+        .getItemsByJsonParams('tablesearch/table_detail', params)
         .then((res) => {
           this.tblDetail = res;
+          console.log(this.tblDetail);
+        });
+  }
+
+  collectTbl(tbl): void {
+    let params = {
+      userId: JSON.parse(sessionStorage.user).id,
+      userName: JSON.parse(sessionStorage.user).name,
+      collectType: 'table',
+      collectValue: tbl.id
+    };
+    this.backendService
+        .getItemsByJsonParams('collection/addCollection', params)
+        .then((res) => {
+          if (res === 1) {
+            console.log('成功');
+            this.getTblDtail(this.paramMap);
+          }
+        });
+  }
+
+  cancelCollect(tbl): void {
+    let params = {
+      userId: JSON.parse(sessionStorage.user).id,
+      id: tbl.collModel.id
+    };
+    this.backendService
+        .getItemsByJsonParams('collection/cancleCollection ', params)
+        .then((res) => {
+          if (res === 1) {
+            console.log('成功');
+            this.getTblDtail(this.paramMap);
+          }
         });
   }
 

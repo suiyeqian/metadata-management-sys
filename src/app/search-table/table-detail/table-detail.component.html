@@ -140,9 +140,8 @@
       </div>
     </div>
   </div>
-  <div class="option">
-    <!-- <button class="btn btn-blue">刷新</button> -->
-    <button class="btn btn-collect" *ngIf="tblDetail.collModel&&tblDetail.collModel.isCollection" (click)="tblDetail.collModel.isCollection = 0">收藏</button>
-    <button class="btn btn-collected" *ngIf="tblDetail.collModel&&tblDetail.collModel.isCollection===0" (click)="tblDetail.collModel.isCollection = 1">已收藏</button>
+  <div class="option" *ngIf="tblDetail.collModel">
+    <button class="btn btn-collect" *ngIf="tblDetail.collModel.isCollection != 0" (click)="collectTbl(tblDetail)">收藏</button>
+    <button class="btn btn-collected" *ngIf="tblDetail.collModel.isCollection == 0" (click)="cancelCollect(tblDetail)">已收藏</button>
   </div>
 </div>

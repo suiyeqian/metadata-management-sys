@@ -119,8 +119,8 @@
             <td class="tblOwner">{{tbl.tblOwner}}</td>
             <td class="updtime">{{tbl.ddlUpdateTime}}</td>
             <td>
-              <button class="btn btn-collect" *ngIf="tbl.collModel.isCollection">收藏</button>
-              <button class="btn btn-collected" *ngIf="!tbl.collModel.isCollection">已收藏</button>
+              <button class="btn btn-collect" *ngIf="tbl.collModel.isCollection == 1" (click)="collectTbl(tbl)">收藏</button>
+              <button class="btn btn-collected" *ngIf="!tbl.collModel.isCollection || tbl.collModel.isCollection == 0" (click)="cancelCollect(tbl)" >已收藏</button>
             </td>
           </tr>
         </tbody>
@@ -128,7 +128,7 @@
       <img class="no-record"  *ngIf = "tblResult.datas&&tblResult.datas.length === 0" src="img/no_record.png" />
     </div>
     <div class="res-foot">
-      <div class="page-wrap">
+      <!-- <div class="page-wrap">
         <span class="page-num">
           <a href="javascript:;" class="page-prev" [class.disabled]="currentPage === 1" (click)="turnPage(currentPage-1<1?1:currentPage-1)" ><上一页</a>
           <b class="page-break" *ngIf="currentPage > 4 " >...</b>
@@ -140,7 +140,9 @@
           共{{tblResult.totalPage}}页 到第 <input type="text" class="skip-num" #skipNum > 页
           <button class="btn btn-sm btn-blue" (click)="turnPage(skipNum.value>tblResult.totalPage?tblResult.totalPage:skipNum.value)">确定</button>
         </span>
-      </div>
+      </div> -->
+      <my-paginator [totalPage]="tblResult.totalPage" [currentPage]="currentPage" (onPageChanged)="onPageChanged($event)"></my-paginator>
     </div>
+
   </div>
 </div>
