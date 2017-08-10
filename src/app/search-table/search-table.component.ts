@@ -17,11 +17,7 @@ export class SearchTableComponent implements OnInit {
   tblResult = {};
   currentPage = 1;
   pageNums = [];
-  sorts = [
-    {orderBy: 'tbl_en_nm', desc: '表名', sortType: 'asc', isActive: true},
-    {orderBy: 'tbl_owner_name', desc: '负责人', sortType: 'asc', isActive: false},
-    {orderBy: 'ddl_update_time', desc: '更新时间', sortType: 'desc', isActive: false}
-  ];
+  sorts = [];
   advancedOpt = {};
   // isShow = false;
   private searchUrl = 'tablesearch/search';
@@ -33,6 +29,8 @@ export class SearchTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.params.paramMap.userId = JSON.parse(sessionStorage.user).id;
+    this.initSort();
     this.getMenucodes();
     this.getTables('init');
   }
@@ -59,33 +57,47 @@ export class SearchTableComponent implements OnInit {
         });
   }
 
-  getTables(type: string): void {
+  getTables(type?: string): void {
     this.setParams(type);
     console.log(this.params);
     this.backendService
         .getItemsByJsonParams(this.searchUrl, this.params)
         .then((res) => {
           this.tblResult = res;
-          this.setPageNums(res.totalPage);
+          // this.setPageNums(res.totalPage);
         });
   }
 
-  setPageNums(totalPage, displayNum = 7): void {
-    let initNums = [];
-    for ( let i = 1; i <= (totalPage > displayNum ? displayNum : totalPage); i++) {
-      initNums.push(i);
-    }
-    if ( totalPage < displayNum ) {
-      this.pageNums = initNums;
-      return;
-    }
-    if ( this.currentPage < 4 ) {
-      this.pageNums = initNums;
-    } else if ( totalPage - this.currentPage < 4 ) {
-      this.pageNums = initNums.map((i) => totalPage - i + 1).reverse();
-    } else {
-      this.pageNums = initNums.map((i) => this.currentPage - i + 4 ).reverse();
-    }
+  collectTbl(tbl): void {
+    let params = {
+      userId: JSON.parse(sessionStorage.user).id,
+      userName: JSON.parse(sessionStorage.user).name,
+      collectType: 'table',
+      collectValue: tbl.id
+    };
+    this.backendService
+        .getItemsByJsonParams('collection/addCollection', params)
+        .then((res) => {
+          if (res === 1) {
+            console.log('成功');
+            this.getTables();
+          }
+        });
+  }
+
+  cancelCollect(tbl): void {
+    let params = {
+      userId: JSON.parse(sessionStorage.user).id,
+      id: tbl.collModel.id
+    };
+    this.backendService
+        .getItemsByJsonParams('collection/cancleCollection ', params)
+        .then((res) => {
+          if (res === 1) {
+            console.log('成功');
+            this.getTables();
+          }
+        });
   }
 
   select(selOpt, item): void {
@@ -119,46 +131,57 @@ export class SearchTableComponent implements OnInit {
     this.getTables('byOption');
   }
 
-  setParams(type: string): void {
-    let initPageModel = { currentPage: 1, pageSize: 10};
-    switch (type) {
-      case 'init':
-        let initParamBase = { userId: JSON.parse(sessionStorage.user).id, tableName: ''};
-        let initOrderRule = { orderBy: 'tbl_en_nm', sortType: 'asc'};
-        this.params.paramMap = Object.assign({}, initParamBase);
-        this.params.conditionMap = Object.assign({});
-        this.params.sortOrderModel = Object.assign({}, initOrderRule);
-        this.params.pageModel = Object.assign({}, initPageModel);
-        break;
-      case 'byTblname':
-        this.params.paramMap.tableName = this.searchTblName;
-        break;
-      case 'byOption':
-        let conditions = Object.assign({});
-        for (let opt of  [...this.options,...this.advancedOps]) {
-          if(opt.selResult.length){
-            conditions[opt.parmName] = opt.selResult;
-          }
-        };
-        console.log(conditions);
-        this.params.conditionMap = Object.assign({}, conditions);
-        break;
-      case 'byOrderRule':
-        let orderRule = Object.assign({});
-        for (let sort of this.sorts){
-          if (sort.isActive) {
-            orderRule.orderBy = sort.orderBy;
-            orderRule.sortType = sort.sortType;
-          }
-        };
-        this.params.sortOrderModel = Object.assign({}, orderRule);
-        this.params.pageModel.currentPage = 1;
-        break;
-      case 'byPage':
-        this.params.pageModel.currentPage = this.currentPage;
-        break;
+  initSort(): void {
+    this.sorts = [
+      {orderBy: 'tbl_en_nm', desc: '表名', sortType: 'asc', isActive: true},
+      {orderBy: 'tbl_owner_name', desc: '负责人', sortType: 'asc', isActive: false},
+      {orderBy: 'ddl_update_time', desc: '更新时间', sortType: 'desc', isActive: false}
+    ];
+  }
+
+  initOption(): void {
+    for (let opt of  [...this.options]) {
+      opt.selMore = false;
+      opt.ifSingle = false;
+      opt.selResult = [];
     }
-    console.log(this.searchTblName, this.options, this.advancedOps, this.sorts);
+    for (let adOpt of [...this.advancedOps]){
+      adOpt.selResult = [];
+    }
+  }
+
+  setParams(type?: string): void {
+    if (type === 'init' ) {
+      this.searchTblName = '';
+      this.currentPage = 1;
+      this.initSort();
+      this.initOption();
+    } else if (type === 'byOption') {
+      this.currentPage = 1;
+    } else if (type === 'byTblname') {
+      this.currentPage = 1;
+      this.initSort();
+      this.initOption();
+    }
+    // set params of paramMap
+    this.params.paramMap.tableName = this.searchTblName;
+    // set params of pageModel
+    this.params.pageModel.currentPage = this.currentPage;
+    // set params of sortOrderModel
+    for (let sort of this.sorts){
+      if (sort.isActive) {
+        this.params.sortOrderModel.orderBy = sort.orderBy;
+        this.params.sortOrderModel.sortType = sort.sortType;
+      }
+    };
+    // set params of conditionMap
+    let contditions = {};
+    for (let opt of  [...this.options, ...this.advancedOps]) {
+      if (opt.selResult.length) {
+        contditions[opt.parmName] = opt.selResult;
+      }
+    };
+    this.params.conditionMap = Object.assign({}, contditions);
   }
 
   openCard(advancedOpt: any): void {
@@ -184,7 +207,7 @@ export class SearchTableComponent implements OnInit {
       }
       order.isActive = true;
     }
-    this.getTables('byOrderRule');
+    this.getTables('byOption');
   }
 
   turnState(): void {
@@ -199,9 +222,32 @@ export class SearchTableComponent implements OnInit {
     this.getTables('init');
   }
 
-  turnPage(num: number): void {
-    if (!num) { return; }
+  onPageChanged(num: number): void {
     this.currentPage = +num;
-    this.getTables('byPage');
+      this.getTables();
   }
+
+  // turnPage(num: number): void {
+  //   if (!num) { return; }
+  //   this.currentPage = +num;
+  //   this.getTables('byPage');
+  // }
+
+  // setPageNums(totalPage, displayNum = 7): void {
+  //   let initNums = [];
+  //   for ( let i = 1; i <= (totalPage > displayNum ? displayNum : totalPage); i++) {
+  //     initNums.push(i);
+  //   }
+  //   if ( totalPage < displayNum ) {
+  //     this.pageNums = initNums;
+  //     return;
+  //   }
+  //   if ( this.currentPage < 4 ) {
+  //     this.pageNums = initNums;
+  //   } else if ( totalPage - this.currentPage < 4 ) {
+  //     this.pageNums = initNums.map((i) => totalPage - i + 1).reverse();
+  //   } else {
+  //     this.pageNums = initNums.map((i) => this.currentPage - i + 4 ).reverse();
+  //   }
+  // }
 }

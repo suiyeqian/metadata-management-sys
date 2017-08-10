@@ -72,19 +72,7 @@
       </table>
     </div>
     <div class="res-foot">
-      <div class="page-wrap">
-        <span class="page-num">
-          <a href="javascript:;" class="page-prev" [class.disabled]="currentPage === 1"><上一页</a>
-          <b class="page-break" *ngIf="currentPage > 4 " >...</b>
-          <a href="javascript:;" *ngFor = "let i of pageNums" [class.active]="currentPage === i" class="page-nb">{{i}}</a>
-          <b class="page-break" *ngIf="indexResult.totalPage - currentPage > 4">...</b>
-          <a href="javascript:;" class="page-next" [class.disabled]="currentPage === indexResult.totalPage">下一页></a>
-        </span>
-        <span class="page-skip">
-          共{{indexResult.totalPage}}页 到第 <input type="text" name="" class="skip-num" > 页
-          <button class="btn btn-sm btn-blue">确定</button>
-        </span>
-      </div>
+      <my-paginator [totalPage]="indexResult.totalPage" [currentPage]="currentPage" (onPageChanged)="onPageChanged($event)"></my-paginator>
     </div>
   </div>
 </div>
