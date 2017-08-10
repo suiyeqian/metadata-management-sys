@@ -14,7 +14,7 @@ export class datamapOptionService {
       layout: 'force',
       force: {
         // initLayout:'circular',
-        edgeLength: 100,
+        edgeLength: 200,
         repulsion: 50,
         gravity: 0.01
       },
@@ -36,7 +36,7 @@ export class datamapOptionService {
       focusNodeAdjacency: true,
       lineStyle: {
         normal: {
-          width: 0.8,
+          width: 1.2,
           curveness: 0.4,
           opacity: 0.7
         }

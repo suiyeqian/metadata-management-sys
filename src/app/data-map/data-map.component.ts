@@ -92,19 +92,19 @@ export class DataMapComponent implements OnInit {
     opt.series[0].data.map(function(node:any) {
       node.symbolSize = ((value: any):number => {
         if (value < 50) {
-          return 65;
-        }else if (value >= 50 && value < 100) {
           return 75;
-        }else if (100 < value && value < 200) {
+        }else if (value >= 50 && value < 100) {
           return 85;
-        }else if (200 < value && value < 300) {
+        }else if (100 < value && value < 200) {
           return 95;
-        }else if (300 < value && value < 500) {
+        }else if (200 < value && value < 300) {
           return 105;
-        }else if (500 < value && value < 1000) {
+        }else if (300 < value && value < 500) {
           return 115;
-        }else {
+        }else if (500 < value && value < 1000) {
           return 125;
+        }else {
+          return 135;
         }
       })(node.symbolSize);
 
@@ -185,12 +185,14 @@ console.log(res);
 
   renderBloodRelationMap(data: any):void {
     let initOp = this.datamapOpt.getOption();
+    // delete initOp.series[0].force;
     let seriesData = [];
     let links = [];
     seriesData[0] = {
       id: data.groupBlood.groupId,
       name: data.groupBlood.groupName,
       symbolSize: 80,
+      edgeSymbol: "arrow",
       draggable: true
     };
     let arr1 = data.groupBlood.subGroupBloodDTO;
@@ -201,11 +203,18 @@ console.log(res);
           id: '',
           name: '',
           symbolSize: 80,
-          draggable: true
+          draggable: true,
+          // edgeSymbol: "arrow",
+          itemStyle: {
+            normal: {
+              color: "#494ff8"
+            }
+          }
         }
         let link = {
           source: '',
           target: '',
+          value: 100
         }
         link.source = data.groupBlood.groupId;
         link.target = arr1[i].groupId;
@@ -220,11 +229,13 @@ console.log(res);
               id: '',
               name: '',
               symbolSize: 80,
+              // edgeSymbol: "arrow",
               draggable: true
             }
             let link = {
               source: '',
               target: '',
+              value: 100
             }
             link.source = data.groupBlood.groupId;
             link.target = arr1[i].subGroupBloodDTO[j].groupId;
@@ -242,11 +253,18 @@ console.log(res);
           id: '',
           name: '',
           symbolSize: 80,
-          draggable: true
+          draggable: true,
+          // edgeSymbol: "arrow",
+          itemStyle: {
+            normal: {
+              color: "#494ff8"
+            }
+          }
         }
         let link = {
           source: '',
           target: '',
+          value: 100          
         }
         link.target = data.groupBlood.groupId;
         link.source = arr2[i].groupId;
@@ -261,11 +279,13 @@ console.log(res);
               id: '',
               name: '',
               symbolSize: 80,
+              // edgeSymbol: "arrow",
               draggable: true
             }
             let link = {
               source: '',
               target: '',
+              value: 100              
             }
             link.target = data.groupBlood.groupId;
             link.source = arr2[i].parentGroupBloodDTO[j].groupId;
@@ -279,6 +299,7 @@ console.log(res);
     }
     initOp.series[0].data = seriesData;
     initOp.series[0].links = links;
+    initOp.series[0]['edgeSymbol'] = ['circle','arrow'];
     this.bloodRelationMapOption = initOp;
     this.searchResult = true;
 console.log(this.bloodRelationMapOption);
