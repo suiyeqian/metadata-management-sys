@@ -190,7 +190,7 @@ console.log(res);
     seriesData[0] = {
       id: data.groupBlood.groupId,
       name: data.groupBlood.groupName,
-      symbolSize: 100,
+      symbolSize: 80,
       draggable: true
     };
     let arr1 = data.groupBlood.subGroupBloodDTO;
@@ -200,7 +200,7 @@ console.log(res);
         let element = {
           id: '',
           name: '',
-          symbolSize: 100,
+          symbolSize: 80,
           draggable: true
         }
         let link = {
@@ -219,7 +219,7 @@ console.log(res);
             let element = {
               id: '',
               name: '',
-              symbolSize: 100,
+              symbolSize: 80,
               draggable: true
             }
             let link = {
@@ -241,7 +241,7 @@ console.log(res);
         let element = {
           id: '',
           name: '',
-          symbolSize: 100,
+          symbolSize: 80,
           draggable: true
         }
         let link = {
@@ -260,7 +260,7 @@ console.log(res);
             let element = {
               id: '',
               name: '',
-              symbolSize: 100,
+              symbolSize: 80,
               draggable: true
             }
             let link = {
