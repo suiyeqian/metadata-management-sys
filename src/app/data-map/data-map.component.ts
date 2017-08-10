@@ -12,7 +12,7 @@ import { datamapOptionService } from './dataMap-option.service';
 export class DataMapComponent implements OnInit {
   pagetitle = '数据地图';
   searchModel= { };
-  searchList = {};
+  searchList = [];
   isChNm = false;
   tableName: string;
   searchResult = false;
@@ -32,9 +32,9 @@ export class DataMapComponent implements OnInit {
   }
 
   ngOnInit():void {
-    this.searchList = {};
     this.isChNm = false;
     this.getBubbleData();
+    this.bloodRelationMapOption = this.datamapOpt.getOption();
   }
 
   getBubbleData():void {
@@ -44,7 +44,7 @@ export class DataMapComponent implements OnInit {
   }
 
   bubbleOption(data):void {
-console.log(data);
+// console.log(data);
     let initOp = this.datamapOpt.getOption();
     let links = [];
     for (let i = 0; i < data.length; i++) {
@@ -65,13 +65,13 @@ console.log(data);
         }
       }
     }
-console.log(links);
-    let seriesData = data.map(function(val,i,arr) {
+// console.log(links);
+    let seriesData = data.map(function(node) {
       return {
-        id: arr[i].dataAreaName,
-        name: arr[i].tableCnt + '\n' + arr[i].dataAreaName,
-        // symbol: node.symbol,
-        symbolSize: arr[i].tableCnt,
+        id: node.dataAreaName,
+        name: node.tableCnt + '\n' + node.dataAreaName,
+        symbol: '',
+        symbolSize: node.tableCnt,
         draggable: true,
         itemStyle: {
           normal: {
@@ -83,10 +83,76 @@ console.log(links);
     initOp.series[0].data = seriesData;
     initOp.series[0].links = links;
     this.relatedOption = initOp;
-    
-console.log(this.relatedOption);
+    this.adjustBubble(this.relatedOption);
+// console.log(this.relatedOption);
   }
   
+  adjustBubble(opt) {
+    
+    opt.series[0].data.map(function(node:any) {
+      node.symbolSize = ((value: any):number => {
+        if (value < 50) {
+          return 65;
+        }else if (value >= 50 && value < 100) {
+          return 75;
+        }else if (100 < value && value < 200) {
+          return 85;
+        }else if (200 < value && value < 300) {
+          return 95;
+        }else if (300 < value && value < 500) {
+          return 105;
+        }else if (500 < value && value < 1000) {
+          return 115;
+        }else {
+          return 125;
+        }
+      })(node.symbolSize);
+
+      node.symbol = ((str: string):String => {
+        
+         switch (str) {
+          case '大数据稽核':
+            return 'image://img/大数据稽核.png';
+          case '在线运营分析':
+            return 'image://img/在线运营分析.png';
+          case '信贷基础数据':
+            return 'image://img/信贷基础数据.png';
+          case '信贷风控应用':
+            return 'image://img/信贷风控应用.png';
+          case '分期基础数据':
+            return 'image://img/分期基础数据.png';
+          case '分期风控应用':
+            return 'image://img/分期风控应用.png';
+          case '在线基础数据':
+            return 'image://img/在线基础数据.png';
+          case '小牛司南':
+            return 'image://img/小牛司南.png';
+          case '数据质量平台':
+            return 'image://img/数据质量平台.png';
+          case '新财富基础数据':
+            return 'image://img/新财富基础数据.png';
+          case '新财富运营分析':
+            return 'image://img/新财富运营分析.png';
+          case '爬虫基础数据':
+            return 'image://img/爬虫基础数据.png';
+          case '赋格基础数据':
+            return 'image://img/赋格基础数据.png';
+          case '钱罐子运营分析':
+            return 'image://img/钱罐子运营分析.png';
+          case '黑名单':
+            return 'image://img/黑名单.png';
+          case '牛鼎丰基础平台数据':
+            return 'image://img/牛鼎丰基础平台数据.png';
+          default:
+            break;
+        } 
+      })(node.id)
+    })
+console.log(opt);
+    
+  }
+
+
   getTableList(name: string):void {
     this.backendService
         .getItemsByJsonParams(this.searchTableUrl, {tableName: name})
@@ -215,6 +281,7 @@ console.log(res);
     initOp.series[0].links = links;
     this.bloodRelationMapOption = initOp;
     this.searchResult = true;
+console.log(this.bloodRelationMapOption);
   }
 
   /* getItem(arr: Array): Array {
