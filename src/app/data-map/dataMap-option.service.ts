@@ -37,7 +37,7 @@ export class datamapOptionService {
       lineStyle: {
         normal: {
           width: 1.2,
-          curveness: 0.4,
+          curveness: 0.2,
           opacity: 0.7
         }
       }

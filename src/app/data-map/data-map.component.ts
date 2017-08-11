@@ -31,19 +31,19 @@ export class DataMapComponent implements OnInit {
     private datamapOpt: datamapOptionService) {
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.isChNm = false;
     this.getBubbleData();
     this.bloodRelationMapOption = this.datamapOpt.getOption();
   }
 
-  getBubbleData():void {
+  getBubbleData(): void {
     this.backendService
         .getAll(this.bubbleDataUrl)
         .then((res) => this.bubbleOption(res))
   }
 
-  bubbleOption(data):void {
+  bubbleOption(data): void {
 // console.log(data);
     let initOp = this.datamapOpt.getOption();
     let links = [];
@@ -89,27 +89,26 @@ export class DataMapComponent implements OnInit {
   
   adjustBubble(opt) {
     
-    opt.series[0].data.map(function(node:any) {
+    opt.series[0].data.map((node: any) => {
       node.symbolSize = ((value: any):number => {
         if (value < 50) {
           return 75;
-        }else if (value >= 50 && value < 100) {
+        }else if (50 <= value && value < 100) {
           return 85;
-        }else if (100 < value && value < 200) {
+        }else if (100 <= value && value < 200) {
           return 95;
-        }else if (200 < value && value < 300) {
+        }else if (200 <= value && value < 300) {
           return 105;
-        }else if (300 < value && value < 500) {
+        }else if (300 <= value && value < 500) {
           return 115;
-        }else if (500 < value && value < 1000) {
+        }else if (500 <= value && value < 1000) {
           return 125;
         }else {
           return 135;
         }
       })(node.symbolSize);
 
-      node.symbol = ((str: string):String => {
-        
+      node.symbol = ((str: string): String => {
          switch (str) {
           case '大数据稽核':
             return 'image://img/大数据稽核.png';
@@ -148,12 +147,45 @@ export class DataMapComponent implements OnInit {
         } 
       })(node.id)
     })
+
+    opt.series[0].links.map((node: any) => {
+      node['stringVal'] = this.order(node.source + node.target);
+    })
+
+    // let res = this.unique(opt.series[0].links);
+    opt.series[0].links = this.unique(opt.series[0].links);
+// console.log(res);
 console.log(opt);
     
   }
 
+  unique(arr) {
+    var ret = [];
+    var len = arr.length;
+    var isRepeat;
+    for(var i=0; i<len; i++) {
+        isRepeat = false;
+        for(var j=i+1; j<len; j++) {
+            if(arr[i].stringVal === arr[j].stringVal){
+                isRepeat = true;
+                break;
+            }
+        }
+        if(!isRepeat){
+            ret.push(arr[i]);
+        }
+    }
+    return ret;
+  }
 
-  getTableList(name: string):void {
+  order(words): string {
+      return words.split('').sort(function(a, b){
+          return a.localeCompare(b);
+      }).join('');
+  }
+
+
+  getTableList(name: string): void {
     this.backendService
         .getItemsByJsonParams(this.searchTableUrl, {tableName: name})
         .then((res) => {
@@ -162,7 +194,7 @@ console.log(this.searchList);
         })
   }
 
-  tableNameChange(name: string):void {
+  tableNameChange(name: string): void {
 console.log(name);
     this.getTableList(name);
     this.tableName = name;
@@ -174,7 +206,7 @@ console.log(name);
 console.log(this.isChNm);
   }
 
-  onSearch():void {
+  onSearch(): void {
     this.backendService
         .getItemsByJsonParams(this.searchBloodRelationTableUrl, {tableName: this.tableName})
         .then((res) => {
@@ -183,7 +215,7 @@ console.log(res);
         })
   }
 
-  renderBloodRelationMap(data: any):void {
+  renderBloodRelationMap(data: any): void {
     let initOp = this.datamapOpt.getOption();
     // delete initOp.series[0].force;
     let seriesData = [];
@@ -257,14 +289,14 @@ console.log(res);
           // edgeSymbol: "arrow",
           itemStyle: {
             normal: {
-              color: "#494ff8"
+              color: '#494ff8'
             }
           }
         }
         let link = {
           source: '',
           target: '',
-          value: 100          
+          value: 100
         }
         link.target = data.groupBlood.groupId;
         link.source = arr2[i].groupId;
@@ -285,7 +317,7 @@ console.log(res);
             let link = {
               source: '',
               target: '',
-              value: 100              
+              value: 100
             }
             link.target = data.groupBlood.groupId;
             link.source = arr2[i].parentGroupBloodDTO[j].groupId;
@@ -299,7 +331,7 @@ console.log(res);
     }
     initOp.series[0].data = seriesData;
     initOp.series[0].links = links;
-    initOp.series[0]['edgeSymbol'] = ['circle','arrow'];
+    initOp.series[0]['edgeSymbol'] = ['circle', 'arrow'];
     this.bloodRelationMapOption = initOp;
     this.searchResult = true;
 console.log(this.bloodRelationMapOption);
