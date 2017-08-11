@@ -9,84 +9,7 @@
     </div>
     <button type="submit" name="button" class="btn btn-blue btn-search" (click)="onSearch(tableName.value)">搜索</button>
   </div>
-  <div class="select-box">
-    <div class="result-desc">
-      表搜索 共{{tblResult.totalCount}}个
-    </div>
-    <div *ngFor = "let option of options" class="select-items">
-      <div class="select-key">
-        {{option.cdeTypeDesc}} :
-      </div>
-      <div class="select-value">
-        <ul class="select-list">
-          <li *ngFor = "let selOpt of option.valueList" class="selector" [class.selected]="option.selResult.indexOf(selOpt.cdeValue)!==-1">
-            <label>
-              <input type="checkbox" class="checkbox" [checked]="option.selResult.indexOf(selOpt.cdeValue)!==-1"  name="selOpt.cdeValue" [disabled]="option.selResult.length>1 && !option.selMore"   [ngClass]="{'show':option.selMore}" (click)="select(option,selOpt)">
-              {{selOpt.cdeValueDesc}}
-            </label>
-          </li>
-        </ul>
-        <div class="select-btn" [class.show] = "option.selMore">
-          <button type="button" name="button" class="btn btn-sm btn-ok" (click)="selOk(option)">确定</button>
-          <button type="button" name="button" class="btn btn-sm btn-cancel" (click)="option.selMore = false">取消</button>
-        </div>
-      </div>
-      <div class="select-more">
-        <button type="button" name="button" class="btn btn-sm btn-white" [ngClass]="{'active':option.selMore,'hide':option.ifSingle}" (click)="option.selMore = !option.selMore">多选</button>
-      </div>
-    </div>
-    <div class="select-items" *ngIf = "advancedOps.length">
-      <div class="select-key">
-        高级选项 :
-      </div>
-      <div class="select-value">
-        <ul class="select-list">
-          <li *ngFor = "let advancedOpt of advancedOps" class="selector" (click)="openCard(advancedOpt)">
-            {{advancedOpt.cdeTypeDesc}}
-          </li>
-        </ul>
-        <!-- 高级选项卡 -->
-        <div class="optCard" [ngClass]="'card'+advancedOpt.priorityLevel" [class.show]="advancedOpt.selMore" >
-          <!-- 子菜单分级 -->
-          <div *ngIf="advancedOpt.cdeLvlFlag === 1">
-            <div *ngFor = "let option of advancedOpt.childList" class="select-items">
-              <div class="select-key">
-                {{option.parmName}} :
-              </div>
-              <div class="select-value">
-                <ul class="select-list">
-                  <li *ngFor = "let selOpt of option.valueList" class="selector" [class.selected]="advancedOpt.selResult.indexOf(selOpt.cdeValue)!==-1">
-                    <label>
-                      <input type="checkbox" class="checkbox show" [checked]="advancedOpt.selResult.indexOf(selOpt.cdeValue)!==-1"  name="selOpt.cdeValue" (click)="select(advancedOpt,selOpt)">
-                      {{selOpt.cdeValue | myRmPrefix}}({{selOpt.cdeValueDesc}})
-                    </label>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-          <!-- 子菜单不分级 -->
-          <div *ngIf="advancedOpt.cdeLvlFlag === 0">
-            <div class="select-value">
-              <ul class="select-list list-nokey">
-                <li *ngFor = "let selOpt of advancedOpt.valueList" class="selector" [class.selected]="advancedOpt.selResult.indexOf(selOpt.cdeValue)!==-1">
-                  <label>
-                    <input type="checkbox" class="checkbox show" [checked]="advancedOpt.selResult.indexOf(selOpt.cdeValue)!==-1"  name="selOpt.cdeValue" (click)="select(advancedOpt,selOpt)">
-                      {{selOpt.cdeValue}}({{selOpt.cdeValueDesc}})
-                  </label>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="select-btn show">
-            <button type="button" name="button" class="btn btn-sm btn-ok" (click)="selOk(advancedOpt)">确定</button>
-            <button type="button" name="button" class="btn btn-sm btn-cancel" (click)="advancedOpt.selMore = false">取消</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <my-select-box [resultDesc]="resultDesc" [options]="options" [advancedOps]="advancedOps" (onSelectChanged)="onSelectChanged()" ></my-select-box>
 </div>
 
 <div class="result">
@@ -113,8 +36,8 @@
         </thead>
         <tbody>
           <tr *ngFor = "let tbl of tblResult.datas" class="text-left">
-            <td class="tblEnNms">{{tbl.tblEnNm}}</td>
-            <td class="tblChNm">{{tbl.tblChNm}}</td>
+            <td class="tblEnNms" (click)="goToDetail(tbl)">{{tbl.tblEnNm}}</td>
+            <td class="tblChNm" (click)="goToDetail(tbl)">{{tbl.tblChNm}}</td>
             <td class="dataLvl">{{tbl.dataLvl}}</td>
             <td class="tblOwner">{{tbl.tblOwner}}</td>
             <td class="updtime">{{tbl.ddlUpdateTime}}</td>
@@ -128,21 +51,7 @@
       <img class="no-record"  *ngIf = "tblResult.datas&&tblResult.datas.length === 0" src="img/no_record.png" />
     </div>
     <div class="res-foot">
-      <!-- <div class="page-wrap">
-        <span class="page-num">
-          <a href="javascript:;" class="page-prev" [class.disabled]="currentPage === 1" (click)="turnPage(currentPage-1<1?1:currentPage-1)" ><上一页</a>
-          <b class="page-break" *ngIf="currentPage > 4 " >...</b>
-          <a href="javascript:;" *ngFor = "let i of pageNums" [class.active]="currentPage === i" class="page-nb" (click)="turnPage(i)">{{i}}</a>
-          <b class="page-break" *ngIf="tblResult.totalPage - currentPage > 4">...</b>
-          <a href="javascript:;" class="page-next" [class.disabled]="currentPage === tblResult.totalPage" (click)="turnPage(currentPage+1>tblResult.totalPage?tblResult.totalPage:currentPage+1)" >下一页></a>
-        </span>
-        <span class="page-skip">
-          共{{tblResult.totalPage}}页 到第 <input type="text" class="skip-num" #skipNum > 页
-          <button class="btn btn-sm btn-blue" (click)="turnPage(skipNum.value>tblResult.totalPage?tblResult.totalPage:skipNum.value)">确定</button>
-        </span>
-      </div> -->
       <my-paginator [totalPage]="tblResult.totalPage" [currentPage]="currentPage" (onPageChanged)="onPageChanged($event)"></my-paginator>
     </div>
-
   </div>
 </div>

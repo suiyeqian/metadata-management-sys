@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { BackendService } from '../shared/backend.service';
 import { SearchParams } from '../shared/data-model';
@@ -16,20 +17,20 @@ export class SearchTableComponent implements OnInit {
   advancedOps = [];
   tblResult = {};
   currentPage = 1;
-  pageNums = [];
   sorts = [];
-  advancedOpt = {};
-  // isShow = false;
   private searchUrl = 'tablesearch/search';
   pageState = { isCollected: false, btnName: '收藏的表' };
   params = new SearchParams();
+  resultDesc: string;
 
   constructor(
+    private router: Router,
     private backendService: BackendService) {
   }
 
   ngOnInit() {
     this.params.paramMap.userId = JSON.parse(sessionStorage.user).id;
+    this.params.pageModel.pageSize = 10;
     this.initSort();
     this.getMenucodes();
     this.getTables('init');
@@ -64,7 +65,7 @@ export class SearchTableComponent implements OnInit {
         .getItemsByJsonParams(this.searchUrl, this.params)
         .then((res) => {
           this.tblResult = res;
-          // this.setPageNums(res.totalPage);
+          this. resultDesc = `表搜索 共${res.totalCount}个`;
         });
   }
 
@@ -98,37 +99,6 @@ export class SearchTableComponent implements OnInit {
             this.getTables();
           }
         });
-  }
-
-  select(selOpt, item): void {
-    if (!selOpt.selMore) {
-      let curIndex = selOpt.selResult.indexOf(item.cdeValue);
-      if (selOpt.selResult.length > 1) {
-        return;
-      }
-      if (curIndex !== -1) {
-        selOpt.selResult.splice(curIndex, 1);
-      } else {
-        selOpt.selResult[0] = item.cdeValue;
-      }
-      selOpt.ifSingle = selOpt.selResult.length ? true : false;
-      this.getTables('byOption');
-    } else {
-      let curIndex = selOpt.tmpResult.indexOf(item.cdeValue);
-      if ( curIndex !== -1) {
-        selOpt.tmpResult.splice(curIndex, 1);
-        // selOpt.selResult.splice(curIndex, 1);
-      } else {
-        selOpt.tmpResult.push(item.cdeValue);
-        // selOpt.selResult.push(item.cdeValue);
-      }
-    }
-  }
-
-  selOk(selOpt: any): void {
-    selOpt.selResult = [...selOpt.tmpResult];
-    selOpt.selMore = false;
-    this.getTables('byOption');
   }
 
   initSort(): void {
@@ -184,15 +154,6 @@ export class SearchTableComponent implements OnInit {
     this.params.conditionMap = Object.assign({}, contditions);
   }
 
-  openCard(advancedOpt: any): void {
-    if ( !advancedOpt.selMore || advancedOpt !== this.advancedOpt ) {
-      this.advancedOpt = advancedOpt;
-      advancedOpt.selMore = true;
-    } else {
-      advancedOpt.selMore = false;
-    }
-  }
-
   onSearch(tblName: string): void {
     this.searchTblName = tblName;
     this.getTables('byTblname');
@@ -222,32 +183,16 @@ export class SearchTableComponent implements OnInit {
     this.getTables('init');
   }
 
+  onSelectChanged(): void {
+    this.getTables('byOption');
+  }
+
+  goToDetail(tbl): void {
+    this.router.navigate(['/tableDetail', tbl.id]);
+  }
+
   onPageChanged(num: number): void {
     this.currentPage = +num;
       this.getTables();
   }
-
-  // turnPage(num: number): void {
-  //   if (!num) { return; }
-  //   this.currentPage = +num;
-  //   this.getTables('byPage');
-  // }
-
-  // setPageNums(totalPage, displayNum = 7): void {
-  //   let initNums = [];
-  //   for ( let i = 1; i <= (totalPage > displayNum ? displayNum : totalPage); i++) {
-  //     initNums.push(i);
-  //   }
-  //   if ( totalPage < displayNum ) {
-  //     this.pageNums = initNums;
-  //     return;
-  //   }
-  //   if ( this.currentPage < 4 ) {
-  //     this.pageNums = initNums;
-  //   } else if ( totalPage - this.currentPage < 4 ) {
-  //     this.pageNums = initNums.map((i) => totalPage - i + 1).reverse();
-  //   } else {
-  //     this.pageNums = initNums.map((i) => this.currentPage - i + 4 ).reverse();
-  //   }
-  // }
 }
