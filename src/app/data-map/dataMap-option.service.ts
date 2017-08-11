@@ -32,11 +32,17 @@ export class datamapOptionService {
           formatter: '{c}'
         }
       },
+      symbol: 'circle',
+      itemStyle: {
+        normal: {
+          color: '自适应'
+        }
+      },
       roam: true,
       focusNodeAdjacency: true,
       lineStyle: {
         normal: {
-          width: 1.2,
+          width: 2,
           curveness: 0.2,
           opacity: 0.7
         }

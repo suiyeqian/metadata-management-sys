@@ -36,14 +36,14 @@
 }
 
 .bg {
-  width: 621px;
+  width: 100%;
   height: 616px;
   background: url('/img/bg.png') center 100%;
   background-repeat: no-repeat;
   position: absolute;
   top: 73px;
   left: 20px;
-  animation: rotate-frame 40s infinite linear;
+  animation: rotate-frame 60s infinite linear;
   zoom: 1.2;
 }
 

@@ -92,7 +92,7 @@ export class DataMapComponent implements OnInit {
     opt.series[0].data.map((node: any) => {
       node.symbolSize = ((value: any):number => {
         if (value < 50) {
-          return 75;
+          return 80;
         }else if (50 <= value && value < 100) {
           return 85;
         }else if (100 <= value && value < 200) {
@@ -108,40 +108,232 @@ export class DataMapComponent implements OnInit {
         }
       })(node.symbolSize);
 
-      node.symbol = ((str: string): String => {
+      node.itemStyle.normal.color = ((str: string): object => {
          switch (str) {
           case '大数据稽核':
-            return 'image://img/大数据稽核.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#fcb846' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#f6922d' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };
           case '在线运营分析':
-            return 'image://img/在线运营分析.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#9478ca' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#6640b2' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };;
           case '信贷基础数据':
-            return 'image://img/信贷基础数据.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#28b4fc' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#4a50fb' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };;
           case '信贷风控应用':
-            return 'image://img/信贷风控应用.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#6aba6e' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#30a435' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };;
           case '分期基础数据':
-            return 'image://img/分期基础数据.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#28b4fc' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#4a50fb' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };;
           case '分期风控应用':
-            return 'image://img/分期风控应用.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#fbb745' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#f8922b' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };;
           case '在线基础数据':
-            return 'image://img/在线基础数据.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#28b4fc' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#4a50fb' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };;
           case '小牛司南':
-            return 'image://img/小牛司南.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#15ddf4' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#1b8ebe' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };;
           case '数据质量平台':
-            return 'image://img/数据质量平台.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#b50bfc' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#7b25ff' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };;
           case '新财富基础数据':
-            return 'image://img/新财富基础数据.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#28b4fc' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#4a50fb' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };;
           case '新财富运营分析':
-            return 'image://img/新财富运营分析.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#fcc945' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#f6a205' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };;
           case '爬虫基础数据':
-            return 'image://img/爬虫基础数据.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#28b4fc' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#4a50fb' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };;
           case '赋格基础数据':
-            return 'image://img/赋格基础数据.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#28b4fc' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#4a50fb' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };;
           case '钱罐子运营分析':
-            return 'image://img/钱罐子运营分析.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#f86052' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#f13033' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };;
           case '黑名单':
-            return 'image://img/黑名单.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#717070' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#0e0f0c' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };;
           case '牛鼎丰基础平台数据':
-            return 'image://img/牛鼎丰基础平台数据.png';
+            return {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                  offset: 0, color: '#1cb1fe' // 0% 处的颜色
+              }, {
+                  offset: 1, color: '#474ef2' // 100% 处的颜色
+              }],
+              globalCoord: false
+            };;
           default:
             break;
         } 
@@ -217,14 +409,30 @@ console.log(res);
 
   renderBloodRelationMap(data: any): void {
     let initOp = this.datamapOpt.getOption();
-    // delete initOp.series[0].force;
     let seriesData = [];
     let links = [];
     seriesData[0] = {
       id: data.groupBlood.groupId,
       name: data.groupBlood.groupName,
-      symbolSize: 80,
+      symbolSize: 100,
       edgeSymbol: "arrow",
+      itemStyle: {
+        normal: {
+          color: {
+            type: 'linear',
+            x: 0,
+            y: 0,
+            x2: 0,
+            y2: 1,
+            colorStops: [{
+                offset: 0, color: '#f86052' // 0% 处的颜色
+            }, {
+                offset: 1, color: '#f23232' // 100% 处的颜色
+            }],
+            globalCoord: false // 缺省为 false
+          }
+        }
+      },
       draggable: true
     };
     let arr1 = data.groupBlood.subGroupBloodDTO;
@@ -234,19 +442,41 @@ console.log(res);
         let element = {
           id: '',
           name: '',
-          symbolSize: 80,
-          draggable: true,
-          // edgeSymbol: "arrow",
+          symbolSize: 100,
           itemStyle: {
             normal: {
-              color: "#494ff8"
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [{
+                    offset: 0, color: '#1daefa' // 0% 处的颜色
+                }, {
+                    offset: 1, color: '#494ff8' // 100% 处的颜色
+                }],
+                globalCoord: false // 缺省为 false
+              }
             }
-          }
+          },
+          draggable: true
         }
         let link = {
           source: '',
           target: '',
-          value: 100
+          symbolSize: [5, 15],
+          lineStyle: {
+            normal: {
+              color: '#1caffa'
+            }
+          },
+          label: {
+            normal: {
+              show: false
+            }
+          }
+          // value: 100
         }
         link.source = data.groupBlood.groupId;
         link.target = arr1[i].groupId;
@@ -260,14 +490,41 @@ console.log(res);
             let element = {
               id: '',
               name: '',
-              symbolSize: 80,
-              // edgeSymbol: "arrow",
+              symbolSize: 100,
+              itemStyle: {
+                normal: {
+                  color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [{
+                        offset: 0, color: '#1daefa' // 0% 处的颜色
+                    }, {
+                        offset: 1, color: '#494ff8' // 100% 处的颜色
+                    }],
+                    globalCoord: false // 缺省为 false
+                  }
+                }
+              },
               draggable: true
             }
             let link = {
               source: '',
               target: '',
-              value: 100
+              symbolSize: [5, 15],
+              lineStyle: {
+                normal: {
+                  color: '#1caffa'
+                }
+              },
+              label: {
+                normal: {
+                  show: false
+                }
+              }
+              // value: 100
             }
             link.source = data.groupBlood.groupId;
             link.target = arr1[i].subGroupBloodDTO[j].groupId;
@@ -284,19 +541,41 @@ console.log(res);
         let element = {
           id: '',
           name: '',
-          symbolSize: 80,
-          draggable: true,
-          // edgeSymbol: "arrow",
+          symbolSize: 100,
           itemStyle: {
             normal: {
-              color: '#494ff8'
+              color: {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 0,
+                y2: 1,
+                colorStops: [{
+                    offset: 0, color: '#1daefa' // 0% 处的颜色
+                }, {
+                    offset: 1, color: '#494ff8' // 100% 处的颜色
+                }],
+                globalCoord: false // 缺省为 false
+              }
             }
-          }
+          },
+          draggable: true,
         }
         let link = {
           source: '',
           target: '',
-          value: 100
+          symbolSize: [5, 15],
+          lineStyle: {
+            normal: {
+              color: '#1caffa'
+            }
+          },
+          label: {
+            normal: {
+              show: false
+            }
+          }
+          // value: 100
         }
         link.target = data.groupBlood.groupId;
         link.source = arr2[i].groupId;
@@ -310,14 +589,41 @@ console.log(res);
             let element = {
               id: '',
               name: '',
-              symbolSize: 80,
-              // edgeSymbol: "arrow",
+              symbolSize: 100,
+              itemStyle: {
+                normal: {
+                  color: {
+                    type: 'linear',
+                    x: 0,
+                    y: 0,
+                    x2: 0,
+                    y2: 1,
+                    colorStops: [{
+                        offset: 0, color: '#1daefa' // 0% 处的颜色
+                    }, {
+                        offset: 1, color: '#494ff8' // 100% 处的颜色
+                    }],
+                    globalCoord: false // 缺省为 false
+                  }
+                }
+              },
               draggable: true
             }
             let link = {
               source: '',
               target: '',
-              value: 100
+              symbolSize: [5, 15],
+              lineStyle: {
+                normal: {
+                  color: '#1caffa'
+                }
+              },
+              label: {
+                normal: {
+                  show: false
+                }
+              }
+              // value: 100
             }
             link.target = data.groupBlood.groupId;
             link.source = arr2[i].parentGroupBloodDTO[j].groupId;
@@ -332,6 +638,7 @@ console.log(res);
     initOp.series[0].data = seriesData;
     initOp.series[0].links = links;
     initOp.series[0]['edgeSymbol'] = ['circle', 'arrow'];
+    // initOp.series[0].label.normal.show = false;
     this.bloodRelationMapOption = initOp;
     this.searchResult = true;
 console.log(this.bloodRelationMapOption);
