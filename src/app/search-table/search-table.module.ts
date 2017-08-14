@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 
 import { SearchTableComponent } from './search-table.component';
-import { RmPrefixPipe } from './rm-prefix.pipe';
+
+import { SelectBoxModule } from '../my-components/select-box/select-box.module';
+import { PaginatorModule } from '../my-components/paginator/paginator.module';
 
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
-    SharedModule
+    SelectBoxModule,
+    SharedModule,
+    PaginatorModule
   ],
   declarations: [
     SearchTableComponent,
-    RmPrefixPipe
   ],
   exports: [
     SearchTableComponent

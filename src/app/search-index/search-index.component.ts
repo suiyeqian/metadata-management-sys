@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { BackendService } from '../shared/backend.service';
+import { SearchParams } from '../shared/data-model';
 
 @Component({
   selector: 'my-search-index',
@@ -10,24 +11,22 @@ import { BackendService } from '../shared/backend.service';
 export class SearchIndexComponent implements OnInit {
   pagetitle = '指标搜索';
   parentPath = '指标体系';
-  searchModel = {};
+  searchIdxName: string;
   options = [];
-  advancedOps = [];
   indexResult = {};
   currentPage = 1;
-  pageNums = [];
-  sorts = [
-    {orderBy: 'tbl_en_nm', desc: '指标名', sortType: 'asc', isActive: true},
-    {orderBy: 'tbl_owner_name', desc: '负责人', sortType: 'asc', isActive: false}
-  ];
+  sorts = [];
+  params = new SearchParams();
 
   constructor(
     private backendService: BackendService) {
   }
 
   ngOnInit() {
+    this.params.pageModel.pageSize = 10;
+    this.initSort();
     this.getMenucodes();
-    this.getIndex();
+    this.getIndex('init');
   }
 
   getMenucodes(): void {
@@ -35,7 +34,11 @@ export class SearchIndexComponent implements OnInit {
         .getItemsByJsonParams('menucde/get_cde', {menuId: 8})
         .then((res) => {
           for (let value of res){
+            value.parmName = value.parmName === 'Company_Flag' ? 'company_name' : value.parmName;
             value.selResult = [];
+            value.tmpResult = [];
+            // 指标传中文名筛选
+            value.selChResult = [];
             value.selMore = false;
             value.ifSingle = false;
             this.options.push(value);
@@ -43,58 +46,94 @@ export class SearchIndexComponent implements OnInit {
         });
   }
 
-  getIndex(): void {
+  getIndex(type?: string): void {
+    this.setParams(type);
     this.backendService
-        .getItemsByJsonParams('indexSearch/search', {pageModel: {'currentPage': 1, 'pageSize': 10}, companyName: ['在线']})
+        .getItemsByJsonParams('indexSearch/search', this.params)
         .then((res) => {
           this.indexResult = res;
-          console.log(res);
-          // this.getPageNums(res.totalPage);
         });
   }
 
-  select(selOpt, item): void {
-    let curIndex = selOpt.selResult.indexOf(item.cdeValue);
-    if (!selOpt.selMore) {
-      if (selOpt.selResult.length > 1) {
-        return;
-      }
-      if (curIndex !== -1) {
-        selOpt.selResult.splice(curIndex, 1);
-      } else {
-        selOpt.selResult[0] = item.cdeValue;
-      }
-      selOpt.ifSingle = selOpt.selResult.length ? true : false;
-    } else {
-      if ( curIndex !== -1) {
-        selOpt.selResult.splice(curIndex, 1);
-      } else {
-        selOpt.selResult.push(item.cdeValue);
-      }
+  initSort(): void {
+    this.sorts = [
+      {orderBy: 'idx_nm', desc: '指标名', sortType: 'asc', isActive: true},
+      {orderBy: 'idx_owner', desc: '负责人', sortType: 'asc', isActive: false}
+    ];
+  }
+
+  initOption(): void {
+    for (let opt of  [...this.options]) {
+      opt.selMore = false;
+      opt.ifSingle = false;
+      opt.selResult = [];
     }
+  }
+
+  setParams(type?: string): void {
+    if (type === 'init' ) {
+      this.searchIdxName = '';
+      this.currentPage = 1;
+      this.initSort();
+      this.initOption();
+    } else if (type === 'byOption') {
+      this.currentPage = 1;
+    } else if (type === 'byIdxname') {
+      this.currentPage = 1;
+      this.initSort();
+      this.initOption();
+    }
+    // set params of paramMap
+    this.params.paramMap.idx_nm = this.searchIdxName;
+    // set params of pageModel
+    this.params.pageModel.currentPage = this.currentPage;
+    // set params of sortOrderModel
+    for (let sort of this.sorts){
+      if (sort.isActive) {
+        this.params.sortOrderModel.orderBy = sort.orderBy;
+        this.params.sortOrderModel.sortType = sort.sortType;
+      }
+    };
+    // set params of conditionMap
+    let contditions = {};
+    for (let opt of  [...this.options]) {
+      opt.selChResult = [];
+      if (opt.selResult.length) {
+        for (let item of opt.valueList){
+          if (opt.selResult.indexOf(item.cdeValue) !== -1 ) {
+            opt.selChResult.push(item.cdeValueDesc);
+          }
+        }
+        contditions[opt.parmName] = opt.selChResult;
+      }
+    };
+    this.params.conditionMap = Object.assign({}, contditions);
+  }
+
+  onSearch(idxName: string): void {
+    this.searchIdxName = idxName;
+    this.getIndex('byIdxname');
+  }
+
+  onSelectChanged(): void {
+    this.getIndex('byOption');
+  }
+
+  changeOrder(order): void {
+    if (order.isActive) {
+      order.sortType = order.sortType === 'asc' ? 'desc' : 'asc';
+    } else {
+      for (let sort of this.sorts) {
+        sort.isActive = false;
+      }
+      order.isActive = true;
+    }
+    this.getIndex('byOption');
   }
 
   onPageChanged(num: number): void {
     this.currentPage = +num;
     this.getIndex();
   }
-
-  // getPageNums(totalPage, displayNum = 7): void {
-  //   let initNums = [];
-  //   for ( let i = 1; i <= (totalPage > displayNum ? displayNum : totalPage); i++) {
-  //     initNums.push(i);
-  //   }
-  //   if ( totalPage < displayNum ) {
-  //     this.pageNums = initNums;
-  //     return;
-  //   }
-  //   if ( this.currentPage < 4 ) {
-  //     this.pageNums = initNums;
-  //   } else if ( totalPage - this.currentPage < 4 ) {
-  //     this.pageNums = initNums.map((i) => totalPage - i + 1).reverse();
-  //   } else {
-  //     this.pageNums = initNums.map((i) => this.currentPage + 4 - i ).reverse();
-  //   }
-  // }
 
 }

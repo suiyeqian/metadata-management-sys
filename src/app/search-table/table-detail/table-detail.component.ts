@@ -38,7 +38,6 @@ export class TableDetailComponent implements OnInit {
         .getItemsByJsonParams('tablesearch/table_detail', params)
         .then((res) => {
           this.tblDetail = res;
-          console.log(this.tblDetail);
         });
   }
 

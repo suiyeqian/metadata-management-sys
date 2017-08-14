@@ -2,46 +2,19 @@
 
 <my-page-title [pagetitle]="pagetitle"></my-page-title>
 
-<form (ngSubmit)="onSearch()">
+<form>
   <div class="search">
     <div class="form-group">
-      <input type="text" [(ngModel)]="searchModel.tableName" name="tableName" class="form-control search-input" placeholder="按中文表名、英文表名搜索" #tableName="ngModel">
+      <input type="text" class="form-control search-input" placeholder="按指标名称搜索" #indexName (keyup.enter)="onSearch(indexName.value)">
     </div>
-    <button type="submit" name="button" class="btn btn-blue btn-search">搜索</button>
+    <button type="submit" name="button" class="btn btn-blue btn-search" (click)="onSearch(indexName.value)">搜索</button>
   </div>
-  <div class="select-box">
-    <!-- <div class="result-desc">
-      表搜索 共{{tblResult.totalCount}}个
-    </div> -->
-    <div *ngFor = "let option of options" class="select-items">
-      <div class="select-key">
-        {{option.cdeTypeDesc}} :
-      </div>
-      <div class="select-value">
-        <ul class="select-list">
-          <li *ngFor = "let selOpt of option.valueList" class="selector" [class.selected]="option.selResult.indexOf(selOpt.cdeValue)!==-1">
-            <label>
-              <input type="checkbox" class="checkbox" [checked]="option.selResult.indexOf(selOpt.cdeValue)!==-1"  name="selOpt.cdeValue" [disabled]="option.selResult.length>1 && !option.selMore"   [ngClass]="{'show':option.selMore}" (click)="select(option,selOpt)">
-              {{selOpt.cdeValueDesc}}
-            </label>
-          </li>
-        </ul>
-        <div class="select-btn" [class.show] = "option.selMore">
-          <button type="button" name="button" class="btn btn-sm btn-ok" (click)="option.selMore = false">确定</button>
-          <button type="button" name="button" class="btn btn-sm btn-cancel" (click)="option.selMore = false">取消</button>
-        </div>
-      </div>
-      <div class="select-more">
-        <button type="button" name="button" class="btn btn-sm btn-white" [ngClass]="{'active':option.selMore,'hide':option.ifSingle}" (click)="option.selMore = !option.selMore">多选</button>
-      </div>
-    </div>
-  </div>
-
+  <my-select-box [options]="options"  (onSelectChanged)="onSelectChanged()" ></my-select-box>
 </form>
 <div class="result">
   <div class="res-top">
     <div class="sort">
-      <a href="javascript:;" *ngFor = "let sort of sorts" [class.active]="sort.isActive" >
+      <a href="javascript:;" *ngFor = "let sort of sorts" [class.active]="sort.isActive" (click)="changeOrder(sort)">
         {{sort.desc}} <span *ngIf="sort.sortType === 'asc'">&#8593;</span><span *ngIf="sort.sortType === 'desc'">&#8595;</span>
       </a>
     </div>
@@ -70,6 +43,7 @@
           </tr>
         </tbody>
       </table>
+      <img class="no-record"  *ngIf = "indexResult.datas&&indexResult.datas.length === 0" src="img/no_record.png" />
     </div>
     <div class="res-foot">
       <my-paginator [totalPage]="indexResult.totalPage" [currentPage]="currentPage" (onPageChanged)="onPageChanged($event)"></my-paginator>
