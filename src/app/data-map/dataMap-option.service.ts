@@ -7,6 +7,7 @@ export class datamapOptionService {
   getOption() {
     let option = {
     title: {},
+    tooltip: {},
     animationDurationUpdate: 1500,
     animationEasingUpdate: 'quinticInOut',
     series: [{
@@ -22,6 +23,10 @@ export class datamapOptionService {
       links: [],
       label: {
         normal: {
+          textStyle: {
+            color: '',
+            fontSize: 12
+          },
           show: true
         }
       },
@@ -42,7 +47,7 @@ export class datamapOptionService {
       focusNodeAdjacency: true,
       lineStyle: {
         normal: {
-          width: 2,
+          width: 1.2,
           curveness: 0.2,
           opacity: 0.7
         }

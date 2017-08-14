@@ -16,11 +16,12 @@ export class DataMapComponent implements OnInit {
   isChNm = false;
   tableName: string;
   searchResult = false;
+  bloodRelationModalData = {};
 
   relatedOption: any;
   bloodRelationMapOption: any;
 
-  private tableNameType = /^[\u4e00-\u9fa5]$/;
+  private tableNameType = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
   private searchTableUrl = 'datamap/searchTableInfo';
   private bubbleDataUrl = 'datamap/searchDataMap';
   private searchBloodRelationTableUrl = 'datamap/searchBloodRelationInfo';
@@ -32,15 +33,15 @@ export class DataMapComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isChNm = false;
+    // this.isChNm = false;
     this.getBubbleData();
-    this.bloodRelationMapOption = this.datamapOpt.getOption();
+    // this.bloodRelationMapOption = this.datamapOpt.getOption();
   }
 
   getBubbleData(): void {
     this.backendService
         .getAll(this.bubbleDataUrl)
-        .then((res) => this.bubbleOption(res))
+        .then((res) => this.bubbleOption(res));
   }
 
   bubbleOption(data): void {
@@ -53,6 +54,28 @@ export class DataMapComponent implements OnInit {
           let obj = {
             source: '',
             target: '',
+            lineStyle: {
+              normal: {
+                color: {
+                  type: 'linear',
+                  x: 0,
+                  y: 0,
+                  x2: 1,
+                  y2: 0,
+                  colorStops: [{
+                      offset: 0, color: '#28b4fc' // 0% 处的颜色
+                  }, {
+                      offset: 1, color: '#4a50fb' // 100% 处的颜色
+                  }],
+                  globalCoord: false // 缺省为 false
+                }
+              }
+            },
+            label: {
+              normal: {
+                color: '#222'
+              }
+            },
             value: 0
           };
           obj.source = data[i].dataAreaName;
@@ -69,7 +92,7 @@ export class DataMapComponent implements OnInit {
     let seriesData = data.map(function(node) {
       return {
         id: node.dataAreaName,
-        name: node.tableCnt + '\n' + node.dataAreaName,
+        name: node.tableCnt + '\n' + (node.dataAreaName).substr(0, 3) + '\n' + (node.dataAreaName).substr(3, 20),
         symbol: '',
         symbolSize: node.tableCnt,
         draggable: true,
@@ -82,15 +105,16 @@ export class DataMapComponent implements OnInit {
     });
     initOp.series[0].data = seriesData;
     initOp.series[0].links = links;
+    initOp.series[0].label.normal.textStyle.fontSize = 16;
     this.relatedOption = initOp;
     this.adjustBubble(this.relatedOption);
 // console.log(this.relatedOption);
   }
+
   
   adjustBubble(opt) {
-    
     opt.series[0].data.map((node: any) => {
-      node.symbolSize = ((value: any):number => {
+      node.symbolSize = ((value: any): number => {
         if (value < 50) {
           return 80;
         }else if (50 <= value && value < 100) {
@@ -336,7 +360,7 @@ export class DataMapComponent implements OnInit {
             };;
           default:
             break;
-        } 
+        }
       })(node.id)
     })
 
@@ -344,7 +368,6 @@ export class DataMapComponent implements OnInit {
       node['stringVal'] = this.order(node.source + node.target);
     })
 
-    // let res = this.unique(opt.series[0].links);
     opt.series[0].links = this.unique(opt.series[0].links);
 // console.log(res);
 console.log(opt);
@@ -352,24 +375,25 @@ console.log(opt);
   }
 
   unique(arr) {
-    var ret = [];
-    var len = arr.length;
-    var isRepeat;
-    for(var i=0; i<len; i++) {
+    let ret = [];
+    let len = arr.length;
+    let isRepeat;
+    for (let i = 0; i < len; i++) {
         isRepeat = false;
-        for(var j=i+1; j<len; j++) {
-            if(arr[i].stringVal === arr[j].stringVal){
+        for (let j = i + 1; j < len; j++) {
+            if (arr[i].stringVal === arr[j].stringVal) {
                 isRepeat = true;
                 break;
             }
         }
-        if(!isRepeat){
+        if (!isRepeat) {
             ret.push(arr[i]);
         }
     }
     return ret;
   }
 
+  // 中文字符排序
   order(words): string {
       return words.split('').sort(function(a, b){
           return a.localeCompare(b);
@@ -381,21 +405,21 @@ console.log(opt);
     this.backendService
         .getItemsByJsonParams(this.searchTableUrl, {tableName: name})
         .then((res) => {
-          res.length > 100 ? this.searchList = res.splice(0,100) : this.searchList = res;
+          // res.length > 100 ? this.searchList = res.splice(0, 100) : this.searchList = res;
+          this.searchList = res;
+          this.bloodRelationModalData = res;
 console.log(this.searchList);
         })
   }
 
   tableNameChange(name: string): void {
-console.log(name);
-    this.getTableList(name);
     this.tableName = name;
     if (this.tableNameType.test(name)) {
       this.isChNm = true;
     }else {
       this.isChNm = false;
     }
-console.log(this.isChNm);
+    this.getTableList(name);
   }
 
   onSearch(): void {
@@ -413,9 +437,9 @@ console.log(res);
     let links = [];
     seriesData[0] = {
       id: data.groupBlood.groupId,
-      name: data.groupBlood.groupName,
+      name: data.tableName,
       symbolSize: 100,
-      edgeSymbol: "arrow",
+      edgeSymbol: 'arrow',
       itemStyle: {
         normal: {
           color: {
@@ -638,7 +662,6 @@ console.log(res);
     initOp.series[0].data = seriesData;
     initOp.series[0].links = links;
     initOp.series[0]['edgeSymbol'] = ['circle', 'arrow'];
-    // initOp.series[0].label.normal.show = false;
     this.bloodRelationMapOption = initOp;
     this.searchResult = true;
 console.log(this.bloodRelationMapOption);
