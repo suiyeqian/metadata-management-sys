@@ -170,232 +170,312 @@ console.log(this.isSearch);
         }
       })(node.symbolSize);
 
-      node.itemStyle.normal.color = ((str: string): object => {
+      node.itemStyle.normal = ((str: string): object => {
          switch (str) {
           case '大数据稽核':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: 'rgba(252,184,70,0.9)' // 0% 处的颜色
-              }, {
-                  offset: 1, color: 'rgba(246,146,45,0.9)' // 100% 处的颜色
-              }],
-              globalCoord: false
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(252,184,70,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(246,146,45)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(246,146,45,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
             };
           case '在线运营分析':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: '#9478ca' // 0% 处的颜色
-              }, {
-                  offset: 1, color: '#6640b2' // 100% 处的颜色
-              }],
-              globalCoord: false
-            };;
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(148,120,202,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(102,64,178)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(102,64,178,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
+            };
           case '信贷基础数据':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: '#28b4fc' // 0% 处的颜色
-              }, {
-                  offset: 1, color: '#4a50fb' // 100% 处的颜色
-              }],
-              globalCoord: false
-            };;
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(40,180,252,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(74,80,251)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(74,80,251,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
+            };
           case '信贷风控应用':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: '#6aba6e' // 0% 处的颜色
-              }, {
-                  offset: 1, color: '#30a435' // 100% 处的颜色
-              }],
-              globalCoord: false
-            };;
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(106,186,110,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(16,95,24)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(16,95,24,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
+            };
           case '分期基础数据':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: '#28b4fc' // 0% 处的颜色
-              }, {
-                  offset: 1, color: '#4a50fb' // 100% 处的颜色
-              }],
-              globalCoord: false
-            };;
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(40,180,252,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(74,80,251)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(74,80,251,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
+            };
           case '分期风控应用':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: '#fbb745' // 0% 处的颜色
-              }, {
-                  offset: 1, color: '#f8922b' // 100% 处的颜色
-              }],
-              globalCoord: false
-            };;
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(251,183,69,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(248,146,43)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(248,146,43,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
+            };
           case '在线基础数据':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: '#28b4fc' // 0% 处的颜色
-              }, {
-                  offset: 1, color: '#4a50fb' // 100% 处的颜色
-              }],
-              globalCoord: false
-            };;
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(40,180,252,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(74,80,251)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(74,80,251,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
+            };
           case '小牛司南':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: '#15ddf4' // 0% 处的颜色
-              }, {
-                  offset: 1, color: '#1b8ebe' // 100% 处的颜色
-              }],
-              globalCoord: false
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(21,221,244,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(27,142,190)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(27,142,190,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
             };;
           case '数据质量平台':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: '#b50bfc' // 0% 处的颜色
-              }, {
-                  offset: 1, color: '#7b25ff' // 100% 处的颜色
-              }],
-              globalCoord: false
-            };;
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(181,11,252,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(123,37,255)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(123,37,255,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
+            };
           case '新财富基础数据':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: '#28b4fc' // 0% 处的颜色
-              }, {
-                  offset: 1, color: '#4a50fb' // 100% 处的颜色
-              }],
-              globalCoord: false
-            };;
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(40,180,252,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(74,80,251)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(74,80,251,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
+            };
           case '新财富运营分析':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: '#fcc945' // 0% 处的颜色
-              }, {
-                  offset: 1, color: '#f6a205' // 100% 处的颜色
-              }],
-              globalCoord: false
-            };;
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(252,201,69,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(246,162,5)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(246,162,5,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
+            };
           case '爬虫基础数据':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: '#28b4fc' // 0% 处的颜色
-              }, {
-                  offset: 1, color: '#4a50fb' // 100% 处的颜色
-              }],
-              globalCoord: false
-            };;
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(40,180,252,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(74,80,251)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(74,80,251,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
+            };
           case '赋格基础数据':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: '#28b4fc' // 0% 处的颜色
-              }, {
-                  offset: 1, color: '#4a50fb' // 100% 处的颜色
-              }],
-              globalCoord: false
-            };;
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(40,180,252,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(74,80,251)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(74,80,251,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
+            };
           case '钱罐子运营分析':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: '#f86052' // 0% 处的颜色
-              }, {
-                  offset: 1, color: '#f13033' // 100% 处的颜色
-              }],
-              globalCoord: false
-            };;
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(248,96,82,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(241,48,51)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(241,48,51,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
+            };
           case '黑名单':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: '#717070' // 0% 处的颜色
-              }, {
-                  offset: 1, color: '#0e0f0c' // 100% 处的颜色
-              }],
-              globalCoord: false
-            };;
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(113,112,112,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(14,15,12)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(14,15,12,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
+            };
           case '牛鼎丰基础平台数据':
             return {
-              type: 'linear',
-              x: 0,
-              y: 0,
-              x2: 0,
-              y2: 1,
-              colorStops: [{
-                  offset: 0, color: '#1cb1fe' // 0% 处的颜色
-              }, {
-                  offset: 1, color: '#474ef2' // 100% 处的颜色
-              }],
-              globalCoord: false
-            };;
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(40,180,252,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgb(74,80,251)' // 100% 处的颜色
+                }],
+                globalCoord: false
+              },
+              shadowColor: 'rgba(74,80,251,0.7)',
+              shadowBlur: 20,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
+            };
           default:
             break;
         }
