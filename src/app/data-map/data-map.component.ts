@@ -12,17 +12,18 @@ import { datamapOptionService } from './dataMap-option.service';
 export class DataMapComponent implements OnInit {
   pagetitle = '数据地图';
   searchModel= { };
-  searchList = [];
+  searchListData = [];
   isChNm = false;
   tableName: string;
   searchResult = false;
   bloodRelationModalData = {};
+  searchList = [];
 
   relatedOption: any;
   bloodRelationMapOption: any;
 
   private tableNameType = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
-  private searchTableUrl = 'datamap/searchTableInfo';
+  private searchTableListUrl = 'datamap/searchTableInfo';
   private bubbleDataUrl = 'datamap/searchDataMap';
   private searchBloodRelationTableUrl = 'datamap/searchBloodRelationInfo';
 
@@ -33,15 +34,36 @@ export class DataMapComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.isChNm = false;
+  console.log(sessionStorage.getItem('searchListData'));
     this.getBubbleData();
-    // this.bloodRelationMapOption = this.datamapOpt.getOption();
+    // this.searchListData.length || this.getTableList();
+    sessionStorage.getItem('searchListData') || this.getTableList();
   }
 
   getBubbleData(): void {
     this.backendService
         .getAll(this.bubbleDataUrl)
         .then((res) => this.bubbleOption(res));
+  }
+
+  getTableList(name: string): void {
+    this.backendService
+        .getItemsByJsonParams(this.searchTableListUrl,{tableName: name})
+        .then((res) => {
+          res.length > 10 ? this.searchList = res.splice(0, 10) : this.searchList = res;
+          // sessionStorage.setItem('searchListData',res);
+          this.bloodRelationModalData = res;
+        })
+  }
+
+  tableNameChange(name: string): void {
+    this.tableName = name;
+    if (this.tableNameType.test(name)) {
+      this.isChNm = true;
+    }else {
+      this.isChNm = false;
+    }
+    !name || this.getTableList(name);
   }
 
   bubbleOption(data): void {
@@ -88,7 +110,6 @@ export class DataMapComponent implements OnInit {
         }
       }
     }
-// console.log(links);
     let seriesData = data.map(function(node) {
       return {
         id: node.dataAreaName,
@@ -371,7 +392,6 @@ export class DataMapComponent implements OnInit {
     opt.series[0].links = this.unique(opt.series[0].links);
 // console.log(res);
 console.log(opt);
-    
   }
 
   unique(arr) {
@@ -379,16 +399,16 @@ console.log(opt);
     let len = arr.length;
     let isRepeat;
     for (let i = 0; i < len; i++) {
-        isRepeat = false;
-        for (let j = i + 1; j < len; j++) {
-            if (arr[i].stringVal === arr[j].stringVal) {
-                isRepeat = true;
-                break;
-            }
+      isRepeat = false;
+      for (let j = i + 1; j < len; j++) {
+        if (arr[i].stringVal === arr[j].stringVal) {
+          isRepeat = true;
+          break;
         }
-        if (!isRepeat) {
-            ret.push(arr[i]);
-        }
+      }
+      if (!isRepeat) {
+          ret.push(arr[i]);
+      }
     }
     return ret;
   }
@@ -400,27 +420,6 @@ console.log(opt);
       }).join('');
   }
 
-
-  getTableList(name: string): void {
-    this.backendService
-        .getItemsByJsonParams(this.searchTableUrl, {tableName: name})
-        .then((res) => {
-          // res.length > 100 ? this.searchList = res.splice(0, 100) : this.searchList = res;
-          this.searchList = res;
-          this.bloodRelationModalData = res;
-console.log(this.searchList);
-        })
-  }
-
-  tableNameChange(name: string): void {
-    this.tableName = name;
-    if (this.tableNameType.test(name)) {
-      this.isChNm = true;
-    }else {
-      this.isChNm = false;
-    }
-    this.getTableList(name);
-  }
 
   onSearch(): void {
     this.backendService
