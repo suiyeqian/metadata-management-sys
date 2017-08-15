@@ -6,9 +6,11 @@ main {
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   display: block;
-  width: 1200px;
+  width: 1300px;
+  padding: 0 50px;
   // margin: 80px 0px 10px 560px;
-  margin: 62px 360px 0px 360px;
+  // margin: 62px 360px 0px 360px;
+  margin: 62px auto 0px auto;
   overflow: hidden;
 }
 .main-container{

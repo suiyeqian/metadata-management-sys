@@ -8,7 +8,7 @@ import { SearchTableComponent } from './search-table/search-table.component';
 import { TableDetailComponent } from './search-table/table-detail/table-detail.component';
 import { SearchIndexComponent } from './search-index/search-index.component';
 
-const appRoutes: Routes = [
+const appRoutes: Routes = [ 
   { path: 'serviceView', component: OverviewComponent },
   { path: 'dataMap', component: DataMapComponent },
   { path: 'countView', component: CountViewComponent },
