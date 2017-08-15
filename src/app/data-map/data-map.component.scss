@@ -26,9 +26,31 @@
   height: 38px;
 }
 
-// .chart {
-//   position: relative;
-// }
+.form-group {
+  position: relative;
+}
+
+#list {
+  position: absolute;
+  z-index: 100;
+  left: 1px;
+  background-color: #fff;
+  border-radius: 5px;
+  width: 98%;
+  ul {
+    list-style: none;
+    text-align: left;
+    padding: 0 10px;
+    margin-bottom: 0;
+    li {
+      line-height: 32px;
+      color: #333;
+      font-weight: bold;
+      cursor: default;
+    }
+  }
+}
+
 .chart-box {
   height: 800px;
   position: relative;

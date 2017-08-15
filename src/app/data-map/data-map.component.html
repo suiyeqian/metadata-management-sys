@@ -5,7 +5,15 @@
 <form (ngSubmit)='onSearch()'>
   <div class="search">
     <div class="form-group">
-      <input type="text" list="list" [(ngModel)]="searchModel.tableName" autofocus="true" (ng-focus)="searchList($event)" name="tableName" class="form-control search-input" placeholder="按中文表名、英文表名搜索" #tableName="ngModel" (ngModelChange)='tableNameChange($event)'>
+      <input type="text" list="list" [(ngModel)]="searchModel.tableName" (blur)="hideSearchList($event)" autocomplete="off" (focus)="showSearchList($event)" name="tableName" class="form-control search-input" placeholder="按中文表名、英文表名搜索" #tableName="ngModel" (ngModelChange)='tableNameChange($event)'>
+      <div id="list" *ngIf="isFocus" (click)="chooseTable($event)">
+        <ul class="chList" *ngIf="!isChNm">
+          <li *ngFor="let li of searchList">{{ li.tblEnNm }}</li>
+        </ul>
+        <ul class="enList" *ngIf="isChNm">
+          <li *ngFor="let li of searchList">{{ li.tblChNm }}</li>
+        </ul>
+      </div>
     </div>
     <button type="submit" name="button" class="btn btn-blue btn-search">搜索</button>
   </div>
@@ -20,10 +28,10 @@
 </div>
 
 
-<datalist id="list" *ngIf="!isChNm">
+<!-- <datalist id="list" *ngIf="!isChNm">
   <option  *ngFor="let option of searchList" [value]="option.tblEnNm">
 </datalist>
 
 <datalist id="list" *ngIf="isChNm">
   <option *ngFor="let option of searchList" [value]="option.tblChNm">
-</datalist>
+</datalist> -->

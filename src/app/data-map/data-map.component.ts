@@ -19,6 +19,7 @@ export class DataMapComponent implements OnInit {
   bloodRelationModalData = {};
   searchList = [];
   searchTime = {};
+  isFocus = false;
 
   relatedOption: any;
   bloodRelationMapOption: any;
@@ -64,6 +65,26 @@ export class DataMapComponent implements OnInit {
           this.bloodRelationModalData = res;
 console.log(this.searchList);
         });
+  }
+
+  showSearchList($event) {
+console.log($event);
+    this.isFocus = true;
+  }
+
+  chooseTable($event) {
+console.log($event.target.innerHTML);
+    this.searchModel['tableName'] = $event.target.innerHTML;
+    this.isFocus = false;
+console.log(this.tableName);
+  }
+
+  hideSearchList() {
+    // this.isFocus = false;
+    let self = this;
+    setTimeout(function(){
+      self.isFocus = false;
+    },500)
   }
 
 
@@ -532,7 +553,7 @@ console.log(opt);
 
   onSearch(): void {
     this.backendService
-        .getItemsByJsonParams(this.searchBloodRelationTableUrl, {tableName: this.tableName})
+        .getItemsByJsonParams(this.searchBloodRelationTableUrl, {tableName: this.searchModel['tableName']})
         .then((res) => {
           res.groupBlood ? this.renderBloodRelationMap(res) : alert('无血缘关系');
 console.log(res);
