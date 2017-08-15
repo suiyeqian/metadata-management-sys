@@ -80,11 +80,10 @@ console.log(this.tableName);
   }
 
   hideSearchList() {
-    // this.isFocus = false;
     let self = this;
     setTimeout(function(){
-      self.isFocus = false;
-    },500)
+      // self.isFocus = false;
+    },300)
   }
 
 

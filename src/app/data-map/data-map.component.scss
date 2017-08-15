@@ -40,13 +40,17 @@
   ul {
     list-style: none;
     text-align: left;
-    padding: 0 10px;
     margin-bottom: 0;
+    padding-left: 0;
     li {
+      padding: 0 10px;
       line-height: 32px;
       color: #333;
       font-weight: bold;
       cursor: default;
+    }
+    li:hover {
+      background-color: #eee;
     }
   }
 }
