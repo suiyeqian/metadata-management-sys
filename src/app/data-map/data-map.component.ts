@@ -36,8 +36,7 @@ export class DataMapComponent implements OnInit {
   ngOnInit(): void {
   console.log(sessionStorage.getItem('searchListData'));
     this.getBubbleData();
-    // this.searchListData.length || this.getTableList();
-    sessionStorage.getItem('searchListData') || this.getTableList();
+    sessionStorage.getItem('searchListData') || this.getTableListData();
   }
 
   getBubbleData(): void {
@@ -46,12 +45,20 @@ export class DataMapComponent implements OnInit {
         .then((res) => this.bubbleOption(res));
   }
 
+  // 缓存搜索提示数据
+  getTableListData(): void {
+    this.backendService
+        .getItemsByJsonParams(this.searchTableListUrl, {})
+        .then((res) => {
+          sessionStorage.setItem('searchListData', res);
+        })
+  }
+
   getTableList(name: string): void {
     this.backendService
         .getItemsByJsonParams(this.searchTableListUrl,{tableName: name})
         .then((res) => {
-          res.length > 10 ? this.searchList = res.splice(0, 10) : this.searchList = res;
-          // sessionStorage.setItem('searchListData',res);
+          res.length > 20 ? this.searchList = res.splice(0, 20) : this.searchList = res;
           this.bloodRelationModalData = res;
         })
   }

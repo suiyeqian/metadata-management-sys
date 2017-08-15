@@ -59,36 +59,3 @@
     transform: rotateZ(360deg);
   }
 }
-
-.float-window {
-  position: relative;
-  bottom: 150px;
-}
-
-.red-window {
-  width: 43%;
-  float: left;
-  text-align: left;
-  line-height: 20px;
-  background: #f86052;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px;
-  p {
-    margin: 0;
-  }
-}
-
-.blue-window {
-  width: 30%;
-  float: right;
-  text-align: left;
-  line-height: 20px;
-  background-color: #1daefa;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px;
-  p {
-    margin: 0;
-  }
-}

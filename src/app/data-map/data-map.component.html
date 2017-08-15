@@ -17,24 +17,6 @@
     <div echarts *ngIf="!searchResult" [options]="relatedOption" class="chart-graph"></div>
     <div echarts *ngIf="searchResult" [options]="bloodRelationMapOption" class="chart-graph"></div>
   </div>
-  <!-- <div class="float-window" *ngIf="searchResult">
-    <div class="red-window row">
-      <p class="col-md-12">所属组名:{{bloodRelationModalData.groupName}}</p>
-      <p class="col-md-12">负责人：{{bloodRelationModalData.cUser}}</p>
-      <p class="col-md-12">创建时间：{{bloodRelationModalData.cDate}}</p>
-      <p class="col-md-12">组调度表达式：{{bloodRelationModalData.cron}}</p>
-      <p class="col-md-6">上游组数量：{{bloodRelationModalData.parentGroupTotal}}</p>
-      <p class="col-md-6">下游组数量：{{bloodRelationModalData.subGroupTotal}}</p>
-      <p class="col-md-6">直接上游组表数量：{{bloodRelationModalData.parentTableTotal}}</p>
-      <p class="col-md-6">直接下游组表数量：{{bloodRelationModalData.subTableTotal}}</p>
-    </div>
-    <div class="blue-window row">
-      <p class="col-md-12">所属组名：</p>
-      <p class="col-md-12">负责人：</p>
-      <p class="col-md-12">创建时间：</p>
-      <p class="col-md-12">组调度表达式：</p>
-    </div>
-  </div> -->
 </div>
 
 
