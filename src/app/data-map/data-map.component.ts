@@ -18,7 +18,7 @@ export class DataMapComponent implements OnInit {
   searchResult = false;
   bloodRelationModalData = {};
   searchList = [];
-  isSearch = true;
+  searchTime = {};
 
   relatedOption: any;
   bloodRelationMapOption: any;
@@ -52,7 +52,7 @@ export class DataMapComponent implements OnInit {
         .getItemsByJsonParams(this.searchTableListUrl, {})
         .then((res) => {
           sessionStorage.setItem('searchListData', res);
-        })
+        });
   }
 
   getTableList(name: string): void {
@@ -63,11 +63,24 @@ export class DataMapComponent implements OnInit {
           this.searchList = res;
           this.bloodRelationModalData = res;
 console.log(this.searchList);
-        })
+        });
+  }
+
+
+  delaySearch(msg, fn, wait) {
+    let self = this;
+    if (self.searchTime[msg]) {
+console.log(msg);
+        window.clearTimeout(self.searchTime[msg]);
+        delete self.searchTime[msg];
+    }
+    return self.searchTime[msg] = window.setTimeout(function() {
+        fn();
+        delete self.searchTime[msg];
+    }, wait);
   }
 
   tableNameChange(name: string): void {
-console.log(this.isSearch);
     this.tableName = name;
     if (this.tableNameType.test(name)) {
       this.isChNm = true;
@@ -75,12 +88,13 @@ console.log(this.isSearch);
       this.isChNm = false;
     }
     let self = this;
-    if (!this.isSearch ) return;
-    this.isSearch = false;
-    !name || this.getTableList(name);
-    setTimeout(function() {
-      self.isSearch = true;
-    }, 3000);
+    if (name) {
+      this.delaySearch('send', function() {
+        self.getTableList(name);
+      }, 500);
+    }else {
+      return;
+    }
   }
 
   bubbleOption(data): void {
@@ -132,12 +146,11 @@ console.log(this.isSearch);
         id: node.dataAreaName,
         name: node.tableCnt + '\n' + (node.dataAreaName).substr(0, 3) + '\n' + (node.dataAreaName).substr(3, 20),
         symbol: '',
+        value: node.tableCnt,
         symbolSize: node.tableCnt,
         draggable: true,
         itemStyle: {
-          normal: {
-            // color: node.color
-          }
+          normal: {}
         },
       }
     });
@@ -487,7 +500,6 @@ console.log(this.isSearch);
     })
 
     opt.series[0].links = this.unique(opt.series[0].links);
-// console.log(res);
 console.log(opt);
   }
 
@@ -536,6 +548,9 @@ console.log(res);
       name: data.tableName,
       symbolSize: 100,
       edgeSymbol: 'arrow',
+      layout: 'none',
+      x: 200,
+      y: 300,
       itemStyle: {
         normal: {
           color: {
