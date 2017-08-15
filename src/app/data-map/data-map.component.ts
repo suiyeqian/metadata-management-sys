@@ -18,6 +18,7 @@ export class DataMapComponent implements OnInit {
   searchResult = false;
   bloodRelationModalData = {};
   searchList = [];
+  isSearch = true;
 
   relatedOption: any;
   bloodRelationMapOption: any;
@@ -66,6 +67,7 @@ console.log(this.searchList);
   }
 
   tableNameChange(name: string): void {
+console.log(this.isSearch);
     this.tableName = name;
     if (this.tableNameType.test(name)) {
       this.isChNm = true;
@@ -73,10 +75,12 @@ console.log(this.searchList);
       this.isChNm = false;
     }
     let self = this;
-    // !name || this.getTableList(name);
-    !name || setTimeout(function() {
-      self.getTableList(name);
-    }, 300);
+    if (!this.isSearch ) return;
+    this.isSearch = false;
+    !name || this.getTableList(name);
+    setTimeout(function() {
+      self.isSearch = true;
+    }, 3000);
   }
 
   bubbleOption(data): void {
@@ -176,9 +180,9 @@ console.log(this.searchList);
               x2: 0,
               y2: 1,
               colorStops: [{
-                  offset: 0, color: '#fcb846' // 0% 处的颜色
+                  offset: 0, color: 'rgba(252,184,70,0.9)' // 0% 处的颜色
               }, {
-                  offset: 1, color: '#f6922d' // 100% 处的颜色
+                  offset: 1, color: 'rgba(246,146,45,0.9)' // 100% 处的颜色
               }],
               globalCoord: false
             };
@@ -581,18 +585,22 @@ console.log(res);
           itemStyle: {
             normal: {
               color: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                // y2: 1,
                 colorStops: [{
-                    offset: 0, color: '#1daefa' // 0% 处的颜色
+                    offset: 0, color: 'rgba(29,174,250,0.9)' // 0% 处的颜色
                 }, {
-                    offset: 1, color: '#494ff8' // 100% 处的颜色
+                    offset: 1, color: 'rgba(73,79,248,0.9)' // 100% 处的颜色
                 }],
                 globalCoord: false // 缺省为 false
-              }
+              },
+              shadowColor: 'rgba(0,71,177,0.33)',
+              shadowBlur: 9,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
             }
           },
           draggable: true,
