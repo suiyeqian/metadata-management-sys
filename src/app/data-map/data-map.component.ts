@@ -60,7 +60,6 @@ export class DataMapComponent implements OnInit {
     this.backendService
         .getItemsByJsonParams(this.searchTableListUrl,{tableName: name})
         .then((res) => {
-          // res.length > 20 ? this.searchList = res.splice(0, 20) : this.searchList = res;
           this.searchList = res;
           this.bloodRelationModalData = res;
 console.log(this.searchList);
@@ -83,7 +82,7 @@ console.log(this.tableName);
     let self = this;
     setTimeout(function(){
       self.isFocus = false;
-    },300)
+    }, 300);
   }
 
 
@@ -118,7 +117,6 @@ console.log(msg);
   }
 
   bubbleOption(data): void {
-// console.log(data);
     let initOp = this.datamapOpt.getOption();
     let links = [];
     for (let i = 0; i < data.length; i++) {
@@ -172,7 +170,7 @@ console.log(msg);
         itemStyle: {
           normal: {}
         },
-      }
+      };
     });
     initOp.series[0].data = seriesData;
     initOp.series[0].links = links;
@@ -182,7 +180,6 @@ console.log(msg);
 // console.log(this.relatedOption);
   }
 
-  
   adjustBubble(opt) {
     opt.series[0].data.map((node: any) => {
       node.symbolSize = ((value: any): number => {
@@ -356,7 +353,7 @@ console.log(msg);
               shadowBlur: 20,
               shadowOffsetX: 0,
               shadowOffsetY: 0
-            };;
+            };
           case '数据质量平台':
             return {
               color: {
@@ -512,12 +509,12 @@ console.log(msg);
           default:
             break;
         }
-      })(node.id)
-    })
+      })(node.id);
+    });
 
     opt.series[0].links.map((node: any) => {
       node['stringVal'] = this.order(node.source + node.target);
-    })
+    });
 
     opt.series[0].links = this.unique(opt.series[0].links);
 console.log(opt);
@@ -556,7 +553,7 @@ console.log(opt);
         .then((res) => {
           res.groupBlood ? this.renderBloodRelationMap(res) : alert('无血缘关系');
 console.log(res);
-        })
+        });
   }
 
   renderBloodRelationMap(data: any): void {
@@ -568,9 +565,6 @@ console.log(res);
       name: data.tableName,
       symbolSize: 100,
       edgeSymbol: 'arrow',
-      layout: 'none',
-      x: 200,
-      y: 300,
       itemStyle: {
         normal: {
           color: {
@@ -588,7 +582,7 @@ console.log(res);
           }
         }
       },
-      draggable: true
+      draggable: false
     };
     let arr1 = data.groupBlood.subGroupBloodDTO;
     let arr2 = data.groupBlood.parentGroupBloodDTO;
@@ -597,6 +591,8 @@ console.log(res);
         let element = {
           id: '',
           name: '',
+          x: (300 + Math.random() * (50 - 0) + i * 50),
+          y: (100 + Math.random() * (50 - 0) + i * 50),
           symbolSize: 100,
           itemStyle: {
             normal: {
@@ -616,7 +612,7 @@ console.log(res);
             }
           },
           draggable: true
-        }
+        };
         let link = {
           source: '',
           target: '',
@@ -631,8 +627,7 @@ console.log(res);
               show: false
             }
           }
-          // value: 100
-        }
+        };
         link.source = data.groupBlood.groupId;
         link.target = arr1[i].groupId;
         links.push(link);
@@ -646,6 +641,8 @@ console.log(res);
               id: '',
               name: '',
               symbolSize: 100,
+              x: (300 + Math.random() * 50 + (i + j) * 50),
+              y: (100 + Math.random() * 50 + (i + j) * 50),
               itemStyle: {
                 normal: {
                   color: {
@@ -664,7 +661,7 @@ console.log(res);
                 }
               },
               draggable: true
-            }
+            };
             let link = {
               source: '',
               target: '',
@@ -679,8 +676,7 @@ console.log(res);
                   show: false
                 }
               }
-              // value: 100
-            }
+            };
             link.source = data.groupBlood.groupId;
             link.target = arr1[i].subGroupBloodDTO[j].groupId;
             links.push(link);
@@ -691,7 +687,7 @@ console.log(res);
         }
       }
     }
-    if(arr2) {
+    if (arr2) {
       for (let i = 0; i < arr2.length; i++) {
         let element = {
           id: '',
@@ -704,7 +700,6 @@ console.log(res);
                 x: 0.5,
                 y: 0.5,
                 r: 0.5,
-                // y2: 1,
                 colorStops: [{
                     offset: 0, color: 'rgba(29,174,250,0.9)' // 0% 处的颜色
                 }, {
@@ -718,12 +713,13 @@ console.log(res);
               shadowOffsetY: 0
             }
           },
-          draggable: true,
-        }
+          draggable: false
+        };
         let link = {
           source: '',
           target: '',
           symbolSize: [5, 15],
+          value: 10,
           lineStyle: {
             normal: {
               color: '#1caffa'
@@ -734,8 +730,7 @@ console.log(res);
               show: false
             }
           }
-          // value: 100
-        }
+        };
         link.target = data.groupBlood.groupId;
         link.source = arr2[i].groupId;
         links.push(link);
@@ -749,6 +744,8 @@ console.log(res);
               id: '',
               name: '',
               symbolSize: 100,
+              x: (300 + Math.random() * 50 + (i + j) * 50),
+              y: (100 + Math.random() * 50 + (i + j) * 50),
               itemStyle: {
                 normal: {
                   color: {
@@ -767,7 +764,7 @@ console.log(res);
                 }
               },
               draggable: true
-            }
+            };
             let link = {
               source: '',
               target: '',
@@ -782,8 +779,7 @@ console.log(res);
                   show: false
                 }
               }
-              // value: 100
-            }
+            };
             link.target = data.groupBlood.groupId;
             link.source = arr2[i].parentGroupBloodDTO[j].groupId;
             links.push(link);

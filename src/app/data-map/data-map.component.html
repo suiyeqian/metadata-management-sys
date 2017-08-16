@@ -22,16 +22,10 @@
 <div class="col-md-12 chart">
   <div class="chart-box">
     <div class="bg"></div>
-    <div echarts *ngIf="!searchResult" [options]="relatedOption" class="chart-graph"></div>
-    <div echarts *ngIf="searchResult" [options]="bloodRelationMapOption" class="chart-graph"></div>
+    <div echarts *ngIf="!searchResult" [options]="relatedOption" class="chart-graph-bubble"></div>
+    <div echarts *ngIf="searchResult" [options]="bloodRelationMapOption" class="chart-graph-blood"></div>
+  </div>
+  <div class="blood-relation">
+
   </div>
 </div>
-
-
-<!-- <datalist id="list" *ngIf="!isChNm">
-  <option  *ngFor="let option of searchList" [value]="option.tblEnNm">
-</datalist>
-
-<datalist id="list" *ngIf="isChNm">
-  <option *ngFor="let option of searchList" [value]="option.tblChNm">
-</datalist> -->
