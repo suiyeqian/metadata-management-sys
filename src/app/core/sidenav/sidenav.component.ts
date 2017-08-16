@@ -26,6 +26,9 @@ export class SidenavComponent implements OnInit {
         .getItemsByJsonParams(this.menuUrl, {})
         .then((res) => {
           this.menus = res;
+          this.menus[0].icon = 'home';
+          this.menus[1].icon = 'find_in_page';
+          this.menus[2].icon = 'class';
           this.showMenu = this.menus[0].menuCode;
         });
   }

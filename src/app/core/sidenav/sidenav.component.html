@@ -2,9 +2,12 @@
   <ul class="nav flex-column">
     <li class="nav-section" *ngFor="let menu of menus" [class.expand]=" showMenu === menu.menuCode ">
       <a class="subtitle" (click)="addExpandClass(menu.menuCode);">
-        <i class="icon-nav" [ngClass]="'icon-'+menu.menuCode"></i>
+        <!-- <i class="icon-nav" [ngClass]="'icon-'+menu.menuCode"></i> -->
+        <i class="material-icons">{{menu.icon}}</i>
         <span>{{menu.menuName}}</span>
-        <i class="icon-nav icon-arrow" [class.icon-expand]="showMenu === menu.menuCode"></i>
+        <i class="material-icons" *ngIf="showMenu !== menu.menuCode">keyboard_arrow_right</i>
+        <i class="material-icons" *ngIf="showMenu === menu.menuCode">keyboard_arrow_down</i>
+        <!-- <i class="icon-nav icon-arrow" [class.icon-expand]="showMenu === menu.menuCode"></i> -->
       </a>
       <ul class="nav flex-column submenu">
         <li *ngFor="let submenu of menu.subMenuInfoList">

@@ -1,5 +1,5 @@
 header {
-  background-color: #000;
+  background-color: #34495e;
   padding: 16px 0;
   position: absolute;
   top: 0;
@@ -7,7 +7,7 @@ header {
   width: 100%;
   min-width: 1440px;
   height: 62px;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 6px rgba(52, 73, 94, 0.5);
   color: #fff;
   font-size: 14px;
   z-index:1000;
