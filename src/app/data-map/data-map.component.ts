@@ -82,7 +82,7 @@ console.log(this.tableName);
   hideSearchList() {
     let self = this;
     setTimeout(function(){
-      // self.isFocus = false;
+      self.isFocus = false;
     },300)
   }
 
