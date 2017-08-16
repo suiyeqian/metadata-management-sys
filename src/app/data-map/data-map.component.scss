@@ -26,16 +26,42 @@
   height: 38px;
 }
 
-// .chart {
-//   position: relative;
-// }
+.form-group {
+  position: relative;
+}
+
+#list {
+  position: absolute;
+  z-index: 100;
+  left: 1px;
+  background-color: #fff;
+  border-radius: 5px;
+  width: 98%;
+  ul {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 0;
+    padding-left: 0;
+    li {
+      padding: 0 10px;
+      line-height: 32px;
+      color: #333;
+      font-weight: bold;
+      cursor: default;
+    }
+    li:hover {
+      background-color: #eee;
+    }
+  }
+}
+
 .chart-box {
   height: 800px;
   position: relative;
 }
 
 .chart-graph {
-  height: 800px;
+  height: 900px;
 }
 
 .bg {
