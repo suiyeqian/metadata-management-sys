@@ -11,3 +11,4 @@ import '@angularclass/hmr';
 
 // Other vendors for example
 import 'bootstrap/dist/css/bootstrap.css';
+import 'material-design-icons/iconfont/material-icons.css';

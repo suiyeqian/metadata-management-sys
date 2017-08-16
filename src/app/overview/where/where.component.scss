@@ -1,7 +1,7 @@
 // where
 .where{
   padding-left: 5px;
-  margin: 15px -10px 16px -15px;
+  margin: 25px -10px 30px -15px;
 }
 .cmpy-box{
   width: 178px;
@@ -38,4 +38,52 @@
 .cmpy-box:nth-child(5) .cmpy-cicle{
   background-color: #00cd77;
   box-shadow: 3px 4px 4px rgba(0, 205, 119, .4);
+}
+
+
+.userNum-box{
+  border-radius: 10px;
+  width: 178px;
+  height: 163px;
+  background-color: #9aa2fa;
+  box-shadow: 2px 6px 3px rgba(154, 162, 250, 0.4);
+  color: #fff;
+  margin: auto;
+  position: relative;
+}
+.userNum-box:nth-child(2){
+  background-color: #d180f4;
+  box-shadow: 2px 6px 3px rgba(209, 128, 244, .4);
+}
+.userNum-box:nth-child(3){
+  background-color: #f36b7f;
+  box-shadow: 2px 6px 3px rgba(243, 107, 127, .4);
+}
+.userNum-box:nth-child(5){
+  background-color: #fdc992;
+  box-shadow: 2px 6px 3px rgba(253, 201, 146, .4);
+}
+.userNum-box:nth-child(4){
+  background-color: #5bcaff;
+  box-shadow: 2px 6px 3px rgba(91, 202, 255, .4);
+}
+.cnt-top{
+  display: block;
+  margin-top: 16px;
+  margin-bottom: -6px;
+}
+.cnt-top .material-icons{
+  font-size: 52px;
+}
+.cnt-num{
+  font-size: 24px;
+}
+.txt-sm {
+  font-size: 14px;
+}
+.cmp-name{
+  position: absolute;
+  font-size: 18px;
+  width: 100%;
+  bottom: 15px;
 }

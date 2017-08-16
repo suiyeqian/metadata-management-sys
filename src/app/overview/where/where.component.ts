@@ -10,6 +10,7 @@ import { BackendService } from '../../shared/backend.service';
 export class WhereComponent implements OnInit {
   companys = [];
   private companyUrl = 'servicesoverview/findUserCntByCompanyFlag';
+  cmpIcon = ['public', 'card_giftcard', 'loyalty', 'card_membership', 'extension'];
 
   constructor(
     private backendService: BackendService) {

@@ -1,6 +1,8 @@
 .sidebar{
-  background-color: #d7dae6;
+  background-color: #34495e;
+  color: #a8bccf;
   width: 168px;
+  z-index:1000;
   /*position: fixed;
   top: 63px;
   left: 360px;
@@ -13,18 +15,27 @@
 a{
   text-decoration: none;
 }
-.nav-section:not(:last-child){
+/*.nav-section:not(:last-child){
   border-bottom: 2px solid #c9c9c9;
-}
+}*/
 a.subtitle{
   line-height: 50px;
   display: block;
   cursor: pointer;
+  color: #a8bccf;
+}
+a.subtitle:hover{
+  color: #fff;
 }
 .subtitle span{
   margin: auto 10px auto 3px;
 }
-.icon-nav{
+.material-icons{
+  font-size: 18px;
+  vertical-align: middle;
+}
+
+/*.icon-nav{
   width: 20px;
   height: 14px;
   display: inline-block;
@@ -43,7 +54,7 @@ a.subtitle{
 }
 .icon-expand{
   background-position:6px -22px;
-}
+}*/
 .submenu{
   height: 0;
   display: none;
@@ -52,19 +63,22 @@ a.subtitle{
   height: auto !important;
   display: block;
 }
+.expand a.subtitle{
+  color: #fff;
+}
 .submenu li a{
   display: block;
   line-height: 46px;
-  color: #555;
+  color: #a8bccf;
   font-size: 16px;
 }
 .submenu li a.active{
-  color: #2878fc;
-  background-color: #eaf1f4;
-  border-left: 3px solid #2878fc;
+  color: #fff;
+  background-color: #293a4a;
+  /*border-left: 3px solid #2878fc;*/
 }
 .submenu li a:hover{
-  color: #2878fc;
-  background-color: #eaf1f4;
-  border-left: 3px solid #2878fc;
+  color: #fff;
+  background-color: #293a4a;
+  /*border-left: 3px solid #2878fc;*/
 }

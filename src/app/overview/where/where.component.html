@@ -1,8 +1,18 @@
-<div class="row where">
+<!-- <div class="row where">
   <div class="cmpy-box" *ngFor="let cmpy of companys">
     <div class="cmpy-cicle">
       <span class="cmpy-total">{{cmpy.cntTotal}}</span>人
     </div>
     {{cmpy.companyName}}
+  </div>
+</div> -->
+<div class="row where">
+  <div class="userNum-box" *ngFor="let cmpy of companys;let i = index;">
+    <div>
+      <span class="cnt-top"><i class="material-icons">{{cmpIcon[i]}}</i></span>
+      <span class="cnt-num">{{cmpy.cntTotal}}<span class="txt-sm"> 人</span></span>
+
+    </div>
+    <div class="cmp-name">小牛{{cmpy.companyName}}</div>
   </div>
 </div>
