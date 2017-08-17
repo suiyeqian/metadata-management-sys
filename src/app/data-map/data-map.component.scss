@@ -76,6 +76,7 @@
   position: absolute;
   top: 73px;
   left: 20px;
+  z-index: -1;
   animation: rotate-frame 60s infinite linear;
   zoom: 1.2;
 }
@@ -88,4 +89,10 @@
   100% {
     transform: rotateZ(360deg);
   }
+}
+
+.bubble-tips {
+  text-align: left;
+  margin-right: -128px;
+  float: right;
 }

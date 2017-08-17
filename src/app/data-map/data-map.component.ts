@@ -82,7 +82,7 @@ console.log(this.tableName);
     let self = this;
     setTimeout(function(){
       self.isFocus = false;
-    }, 300);
+    }, 200);
   }
 
 
@@ -175,6 +175,7 @@ console.log(msg);
     initOp.series[0].data = seriesData;
     initOp.series[0].links = links;
     initOp.series[0].label.normal.textStyle.fontSize = 16;
+    initOp.tooltip['show'] = false;
     this.relatedOption = initOp;
     this.adjustBubble(this.relatedOption);
 // console.log(this.relatedOption);
@@ -564,22 +565,32 @@ console.log(res);
       id: data.groupBlood.groupId,
       name: data.tableName,
       symbolSize: 100,
+      tooltip: {
+        formatter: function() {
+          return '<p style="text-align:left;margin-bottom:0;">所属组名：' + data.groupBlood.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + data.groupBlood.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + data.groupBlood.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + data.groupBlood.cron + '</p><p style="text-align:left;margin-bottom:0;">' + '上游组数量：' + data.parentGroupTotal + '&nbsp; 下游组数量：' + data.subGroupTotal + '</p><p style="text-align:left;margin-bottom:0;">' + '直接上游组表数量：' + data.parentTableTotal + '&nbsp; 直接下游组表数量：' + data.subTableTotal + '</p>';
+        }
+      },
       edgeSymbol: 'arrow',
+      // x: 300,
+      // y: 300,
       itemStyle: {
         normal: {
           color: {
-            type: 'linear',
-            x: 0,
-            y: 0,
-            x2: 0,
-            y2: 1,
+            type: 'radial',
+            x: 0.5,
+            y: 0.5,
+            r: 0.5,
             colorStops: [{
-                offset: 0, color: '#f86052' // 0% 处的颜色
+                offset: 0, color: 'rgba(248,96,82,0.9)' // 0% 处的颜色
             }, {
-                offset: 1, color: '#f23232' // 100% 处的颜色
+                offset: 1, color: 'rgba(242,50,50,0.9)' // 100% 处的颜色
             }],
             globalCoord: false // 缺省为 false
-          }
+          },
+          shadowColor: 'rgba(242,50,50,0.33)',
+          shadowBlur: 20,
+          shadowOffsetX: 0,
+          shadowOffsetY: 0
         }
       },
       draggable: false
@@ -591,107 +602,8 @@ console.log(res);
         let element = {
           id: '',
           name: '',
-          x: (300 + Math.random() * (50 - 0) + i * 50),
-          y: (100 + Math.random() * (50 - 0) + i * 50),
-          symbolSize: 100,
-          itemStyle: {
-            normal: {
-              color: {
-                type: 'linear',
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [{
-                    offset: 0, color: '#1daefa' // 0% 处的颜色
-                }, {
-                    offset: 1, color: '#494ff8' // 100% 处的颜色
-                }],
-                globalCoord: false // 缺省为 false
-              }
-            }
-          },
-          draggable: true
-        };
-        let link = {
-          source: '',
-          target: '',
-          symbolSize: [5, 15],
-          lineStyle: {
-            normal: {
-              color: '#1caffa'
-            }
-          },
-          label: {
-            normal: {
-              show: false
-            }
-          }
-        };
-        link.source = data.groupBlood.groupId;
-        link.target = arr1[i].groupId;
-        links.push(link);
-
-        element.id = arr1[i].groupId;
-        element.name = arr1[i].groupName;
-        seriesData.push(element);
-        if (arr1[i].subGroupBloodDTO) {
-          for (let j = 0; j < arr1[i].subGroupBloodDTO.length; j++) {
-            let element = {
-              id: '',
-              name: '',
-              symbolSize: 100,
-              x: (300 + Math.random() * 50 + (i + j) * 50),
-              y: (100 + Math.random() * 50 + (i + j) * 50),
-              itemStyle: {
-                normal: {
-                  color: {
-                    type: 'linear',
-                    x: 0,
-                    y: 0,
-                    x2: 0,
-                    y2: 1,
-                    colorStops: [{
-                        offset: 0, color: '#1daefa' // 0% 处的颜色
-                    }, {
-                        offset: 1, color: '#494ff8' // 100% 处的颜色
-                    }],
-                    globalCoord: false // 缺省为 false
-                  }
-                }
-              },
-              draggable: true
-            };
-            let link = {
-              source: '',
-              target: '',
-              symbolSize: [5, 15],
-              lineStyle: {
-                normal: {
-                  color: '#1caffa'
-                }
-              },
-              label: {
-                normal: {
-                  show: false
-                }
-              }
-            };
-            link.source = data.groupBlood.groupId;
-            link.target = arr1[i].subGroupBloodDTO[j].groupId;
-            links.push(link);
-            element.id = arr1[i].subGroupBloodDTO[j].groupId;
-            element.name = arr1[i].subGroupBloodDTO[j].groupName;
-            seriesData.push(element);
-          }
-        }
-      }
-    }
-    if (arr2) {
-      for (let i = 0; i < arr2.length; i++) {
-        let element = {
-          id: '',
-          name: '',
+          // x: (300 + (Math.random() * (20 - 0) + i * 20)),
+          // y: (100 + (Math.random() * (20 - 0) + i * 20)),
           symbolSize: 100,
           itemStyle: {
             normal: {
@@ -712,6 +624,129 @@ console.log(res);
               shadowOffsetX: 0,
               shadowOffsetY: 0
             }
+          },
+          tooltip: {
+            formatter: {}
+          },
+          draggable: false
+        };
+        let link = {
+          source: '',
+          target: '',
+          symbolSize: [5, 15],
+          lineStyle: {
+            normal: {
+              color: '#1caffa'
+            }
+          },
+          label: {
+            normal: {
+              show: false
+            }
+          }
+        };
+        link.source = data.groupBlood.groupId;
+        link.target = arr1[i].groupId;
+        links.push(link);
+
+        element.tooltip.formatter = ((node: any): any => {
+          return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>';
+        })(arr1[i]);
+        element.id = arr1[i].groupId;
+        element.name = arr1[i].groupName;
+        seriesData.push(element);
+        if (arr1[i].subGroupBloodDTO) {
+          for (let j = 0; j < arr1[i].subGroupBloodDTO.length; j++) {
+            let element = {
+              id: '',
+              name: '',
+              symbolSize: 100,
+              // x: (300 + (Math.random() * 20 + (i + j) * 20)),
+              // y: (100 + (Math.random() * 20 + (i + j) * 20)),
+              itemStyle: {
+                normal: {
+                  color: {
+                    type: 'radial',
+                    x: 0.5,
+                    y: 0.5,
+                    r: 0.5,
+                    colorStops: [{
+                        offset: 0, color: 'rgba(29,174,250,0.9)' // 0% 处的颜色
+                    }, {
+                        offset: 1, color: 'rgba(73,79,248,0.9)' // 100% 处的颜色
+                    }],
+                    globalCoord: false // 缺省为 false
+                  },
+                  shadowColor: 'rgba(0,71,177,0.33)',
+                  shadowBlur: 9,
+                  shadowOffsetX: 0,
+                  shadowOffsetY: 0
+                }
+              },
+              tooltip: {
+                formatter: {}
+              },
+              draggable: false
+            };
+            let link = {
+              source: '',
+              target: '',
+              symbolSize: [5, 15],
+              lineStyle: {
+                normal: {
+                  color: '#1caffa'
+                }
+              },
+              label: {
+                normal: {
+                  show: false
+                }
+              }
+            };
+            link.source = arr1[i].groupId;
+            link.target = arr1[i].subGroupBloodDTO[j].groupId;
+            links.push(link);
+
+            element.tooltip.formatter = ((node: any): any => {
+              return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>';
+            })(arr1[i].subGroupBloodDTO[j]);
+            element.id = arr1[i].subGroupBloodDTO[j].groupId;
+            element.name = arr1[i].subGroupBloodDTO[j].groupName;
+            seriesData.push(element);
+          }
+        }
+      }
+    }
+    if (arr2) {
+      for (let i = 0; i < arr2.length; i++) {
+        let element = {
+          id: '',
+          name: '',
+          symbolSize: 100,
+          // x: (300 - (Math.random() * (20 - 0) + i * 20)),
+          // y: (100 + (Math.random() * (20 - 0) + i * 20)),
+          itemStyle: {
+            normal: {
+              color: {
+                type: 'radial',
+                x: 0.5,
+                y: 0.5,
+                r: 0.5,
+                colorStops: [{
+                    offset: 0, color: 'rgba(29,174,250,0.9)' // 0% 处的颜色
+                }, {
+                    offset: 1, color: 'rgba(73,79,248,0.9)' // 100% 处的颜色
+                }],
+                globalCoord: false // 缺省为 false
+              },
+              shadowColor: 'rgba(0,71,177,0.33)',
+              shadowBlur: 9,
+              shadowOffsetX: 0,
+              shadowOffsetY: 0
+            }
+          },
+          tooltip: {
+            formatter: {}
           },
           draggable: false
         };
@@ -735,6 +770,9 @@ console.log(res);
         link.source = arr2[i].groupId;
         links.push(link);
 
+        element.tooltip.formatter = ((node: any): any => {
+          return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>';
+        })(arr2[i]);
         element.id = arr2[i].groupId;
         element.name = arr2[i].groupName;
         seriesData.push(element);
@@ -744,26 +782,32 @@ console.log(res);
               id: '',
               name: '',
               symbolSize: 100,
-              x: (300 + Math.random() * 50 + (i + j) * 50),
-              y: (100 + Math.random() * 50 + (i + j) * 50),
+              // x: (300 - (Math.random() * 20 + (i + j) * 20)),
+              // y: (100 + (Math.random() * 20 + (i + j) * 20)),
               itemStyle: {
                 normal: {
                   color: {
-                    type: 'linear',
-                    x: 0,
-                    y: 0,
-                    x2: 0,
-                    y2: 1,
+                    type: 'radial',
+                    x: 0.5,
+                    y: 0.5,
+                    z: 0.5,
                     colorStops: [{
-                        offset: 0, color: '#1daefa' // 0% 处的颜色
+                        offset: 0, color: 'rgba(29,174,250,0.9)' // 0% 处的颜色
                     }, {
-                        offset: 1, color: '#494ff8' // 100% 处的颜色
+                        offset: 1, color: 'rgba(73,79,248,0.9)' // 100% 处的颜色
                     }],
                     globalCoord: false // 缺省为 false
-                  }
+                  },
+                  shadowColor: 'rgba(0,71,177,0.33)',
+                  shadowBlur: 9,
+                  shadowOffsetX: 0,
+                  shadowOffsetY: 0
                 }
               },
-              draggable: true
+              tooltip: {
+                formatter: {}
+              },
+              draggable: false
             };
             let link = {
               source: '',
@@ -780,9 +824,13 @@ console.log(res);
                 }
               }
             };
-            link.target = data.groupBlood.groupId;
+            link.target = arr2[i].groupId;
             link.source = arr2[i].parentGroupBloodDTO[j].groupId;
             links.push(link);
+
+            element.tooltip.formatter = ((node: any): any => {
+              return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>';
+            })(arr2[i].parentGroupBloodDTO[j]);
             element.id = arr2[i].parentGroupBloodDTO[j].groupId;
             element.name = arr2[i].parentGroupBloodDTO[j].groupName;
             seriesData.push(element);
@@ -790,12 +838,31 @@ console.log(res);
         }
       }
     }
+    seriesData = this.unique2(seriesData);
     initOp.series[0].data = seriesData;
     initOp.series[0].links = links;
     initOp.series[0]['edgeSymbol'] = ['circle', 'arrow'];
     this.bloodRelationMapOption = initOp;
     this.searchResult = true;
+console.log(seriesData);
 console.log(this.bloodRelationMapOption);
+  }
+
+  adjustBloodRelationOp() {
+    
+  }
+
+  unique2(arr) {
+    var ret = [];
+    var len = arr.length;
+    var tmp = {};
+    for(var i=0; i<len; i++){
+        if(!tmp[arr[i].id]){
+            tmp[arr[i].id] = 1;
+            ret.push(arr[i]);
+        }
+    }
+    return ret;
   }
 
   /* getItem(arr: Array): Array {
