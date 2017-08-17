@@ -86,7 +86,7 @@ tbody{
 td {
   overflow: hidden;
   text-overflow:ellipsis;
-  // white-space:nowrap;
+  white-space:normal;
   vertical-align: middle;
   max-width: 300px;
 }

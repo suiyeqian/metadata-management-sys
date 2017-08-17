@@ -33,7 +33,7 @@ export class CountViewComponent implements OnInit {
   }
 
   goTo(tbl): void {
-    this.router.navigate(['/tableDetail', tbl.id]);
+    this.router.navigate(['pages/tableDetail', tbl.id]);
   }
 
   getTableDist(): void {

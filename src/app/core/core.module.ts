@@ -7,6 +7,8 @@ import { HeaderComponent } from './header/header.component';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
 
+import { UserService } from './user.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -20,7 +22,7 @@ import { throwIfAlreadyLoaded } from './module-import-guard';
     SidenavComponent,
     HeaderComponent
   ],
-  providers: [ ]
+  providers: [ UserService ]
 })
 export class CoreModule {
   constructor( @Optional() @SkipSelf() parentModule: CoreModule) {

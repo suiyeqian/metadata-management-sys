@@ -94,6 +94,7 @@ td {
   white-space:nowrap;
   vertical-align: middle;
   max-width: 270px;
+  min-width: 90px;
   cursor: default;
 }
 td.tblEnNms, td.tblChNm{
@@ -102,6 +103,11 @@ td.tblEnNms, td.tblChNm{
 }
 img.no-record{
   margin-top: 100px;
+}
+.table .btn{
+  line-height: 14px;
+  width: 70px;
+  padding: 0.5rem;
 }
 .btn-collect{
   color:#a8a8a8;

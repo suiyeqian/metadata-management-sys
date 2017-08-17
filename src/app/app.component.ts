@@ -4,8 +4,12 @@ import '../style/app.scss';
 
 @Component({
   selector: 'my-app',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  template: `<router-outlet></router-outlet>`,
+  styles: [`
+    :host {
+      display: block;
+    }
+  `]
 })
 export class AppComponent {
   user = { name: '测试账号', id: 'test'};

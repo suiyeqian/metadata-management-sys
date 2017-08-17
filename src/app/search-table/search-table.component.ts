@@ -188,7 +188,7 @@ export class SearchTableComponent implements OnInit {
   }
 
   goToDetail(tbl): void {
-    this.router.navigate(['/tableDetail', tbl.id]);
+    this.router.navigate(['pages/tableDetail', tbl.id]);
   }
 
   onPageChanged(num: number): void {
