@@ -10,16 +10,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import { InMemoryDataService }  from './shared/in-memory-data.service';
 
 import { AppComponent } from './app.component';
-// import { DataMapComponent } from './data-map/data-map.component';
 
 /* Feature Modules */
-import { CoreModule } from './core/core.module';
-import { CountViewModule } from './count-view/count-view.module';
-import { OverviewModule } from './overview/overview.module';
-import { SearchTableModule } from './search-table/search-table.module';
-import { TableDetailModule } from './search-table/table-detail/table-detail.module';
-import { SearchIndexModule } from './search-index/search-index.module';
-import { DataMapModule } from './data-map/data-map.module';
+import { PagesModule } from './pages/pages.module';
 
 /* Routing Module */
 import { AppRoutingModule } from './app-routing.module';
@@ -33,16 +26,9 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
     BrowserModule,
     FormsModule,
     HttpModule,
-    CountViewModule,
-    CoreModule,
-    // InMemoryWebApiModule.forRoot(InMemoryDataService),
     NgbModule.forRoot(),
-    OverviewModule,
-    SearchTableModule,
-    TableDetailModule,
-    SearchIndexModule,
     AppRoutingModule,
-    DataMapModule
+    PagesModule
   ],
   declarations: [
     AppComponent
