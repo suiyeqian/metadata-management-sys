@@ -162,7 +162,7 @@ console.log(msg);
     let seriesData = data.map(function(node) {
       return {
         id: node.dataAreaName,
-        name: node.tableCnt + '\n' + (node.dataAreaName).substr(0, 3) + '\n' + (node.dataAreaName).substr(3, 20),
+        name: node.tableCnt + '\n' + (node.dataAreaName).substr(0, 3) + '\n' + (node.dataAreaName).substr(3, 100),
         symbol: '',
         value: node.tableCnt,
         symbolSize: node.tableCnt,
@@ -563,7 +563,7 @@ console.log(res);
     let links = [];
     seriesData[0] = {
       id: data.groupBlood.groupId,
-      name: data.tableName,
+      name: data.tableName.substr(0,10) + '\n' + data.tableName.substr(10,100),
       symbolSize: 100,
       tooltip: {
         formatter: function() {
@@ -653,7 +653,7 @@ console.log(res);
           return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>';
         })(arr1[i]);
         element.id = arr1[i].groupId;
-        element.name = arr1[i].groupName;
+        element.name = arr1[i].groupName.substr(0, 10) + '\n' + arr1[i].groupName.substr(10, 100);
         seriesData.push(element);
         if (arr1[i].subGroupBloodDTO) {
           for (let j = 0; j < arr1[i].subGroupBloodDTO.length; j++) {
@@ -711,7 +711,7 @@ console.log(res);
               return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>';
             })(arr1[i].subGroupBloodDTO[j]);
             element.id = arr1[i].subGroupBloodDTO[j].groupId;
-            element.name = arr1[i].subGroupBloodDTO[j].groupName;
+            element.name = arr1[i].subGroupBloodDTO[j].groupName.substr(0, 10) + '\n' + arr1[i].subGroupBloodDTO[j].groupName.substr(10, 100);
             seriesData.push(element);
           }
         }
@@ -774,7 +774,7 @@ console.log(res);
           return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>';
         })(arr2[i]);
         element.id = arr2[i].groupId;
-        element.name = arr2[i].groupName;
+        element.name = arr2[i].groupName.substr(0, 10) + '\n' + arr2[i].groupName.substr(10, 100);
         seriesData.push(element);
         if (arr2[i].parentGroupBloodDTO) {
           for (let j = 0; j < arr2[i].parentGroupBloodDTO.length; j++) {
@@ -832,7 +832,7 @@ console.log(res);
               return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>';
             })(arr2[i].parentGroupBloodDTO[j]);
             element.id = arr2[i].parentGroupBloodDTO[j].groupId;
-            element.name = arr2[i].parentGroupBloodDTO[j].groupName;
+            element.name = arr2[i].parentGroupBloodDTO[j].groupName.substr(0, 10) + '\n' + arr2[i].parentGroupBloodDTO[j].groupName.substr(10, 100);
             seriesData.push(element);
           }
         }
@@ -842,6 +842,7 @@ console.log(res);
     initOp.series[0].data = seriesData;
     initOp.series[0].links = links;
     initOp.series[0]['edgeSymbol'] = ['circle', 'arrow'];
+    initOp.series[0].label.normal.textStyle.fontSize = 14;
     this.bloodRelationMapOption = initOp;
     this.searchResult = true;
 console.log(seriesData);
