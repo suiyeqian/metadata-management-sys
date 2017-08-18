@@ -8,11 +8,13 @@ import { CountViewComponent } from '../count-view/count-view.component';
 import { SearchTableComponent } from '../search-table/search-table.component';
 import { TableDetailComponent } from '../search-table/table-detail/table-detail.component';
 import { SearchIndexComponent } from '../search-index/search-index.component';
+import { UserService } from '../core/user.service';
 
 const pagesRoutes: Routes = [
   {
     path: 'pages',
     component: PagesComponent,
+    canActivate: [ UserService ],
     children: [
       { path: '', redirectTo: 'serviceView', pathMatch: 'full' },
       { path: 'serviceView', component: OverviewComponent },

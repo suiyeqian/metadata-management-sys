@@ -20,16 +20,18 @@ export class TableDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.router.params.subscribe((params: Params) => {
       this.paramMap = {
         paramMap: {
           tableId: +params.id,
-          userId: JSON.parse(sessionStorage.user).id,
-          userName: JSON.parse(sessionStorage.user).name,
+          userId: JSON.parse(localStorage.user).id,
+          userName: JSON.parse(localStorage.user).username,
           recordType: 'table'
         }
       };
-        this.getTblDtail(this.paramMap);
+      console.log(this.paramMap);
+      this.getTblDtail(this.paramMap);
     });
   }
 
@@ -43,8 +45,8 @@ export class TableDetailComponent implements OnInit {
 
   collectTbl(tbl): void {
     let params = {
-      userId: JSON.parse(sessionStorage.user).id,
-      userName: JSON.parse(sessionStorage.user).name,
+      userId: JSON.parse(localStorage.user).id,
+      userName: JSON.parse(localStorage.user).name,
       collectType: 'table',
       collectValue: tbl.id
     };
@@ -60,7 +62,7 @@ export class TableDetailComponent implements OnInit {
 
   cancelCollect(tbl): void {
     let params = {
-      userId: JSON.parse(sessionStorage.user).id,
+      userId: JSON.parse(localStorage.user).id,
       id: tbl.collModel.id
     };
     this.backendService

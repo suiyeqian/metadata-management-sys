@@ -94,13 +94,13 @@ export class CountViewComponent implements OnInit {
 
   getTopRecord(): void {
     this.backendService
-        .getItemsByJsonParams('record/findTopBrowseRecord', {userId: JSON.parse(sessionStorage.user).id})
+        .getItemsByJsonParams('record/findTopBrowseRecord', {userId: JSON.parse(localStorage.user).id})
         .then((res) => this.topRecords = res);
   }
 
   getTopCollections(): void {
     this.backendService
-        .getItemsByJsonParams('collection/findTopCollection', {userId: JSON.parse(sessionStorage.user).id})
+        .getItemsByJsonParams('collection/findTopCollection', {userId: JSON.parse(localStorage.user).id})
         .then((res) => this.topCollections = res);
   }
 

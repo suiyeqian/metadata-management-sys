@@ -12,9 +12,7 @@ import '../style/app.scss';
   `]
 })
 export class AppComponent {
-  user = { name: '测试账号', id: 'test'};
 
   constructor() {
-    sessionStorage.user = JSON.stringify(this.user);
   }
 }

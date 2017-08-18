@@ -2,9 +2,6 @@
   margin-right: 0;
   margin-top: 15px;
 }
-h5{
-  font-weight: normal;
-}
 .info-box{
   width: 320px;
   height: 107px;
@@ -19,7 +16,8 @@ h5{
   border-bottom: solid 1px #d3dadf;
 }
 .info-desc h5{
-  font-size: 22px;
+  font-weight: normal;
+  font-size: 18px;
   line-height: 68px;
   margin-bottom: 0;
 }
@@ -119,4 +117,46 @@ h5{
 }
 .usrCnt:nth-child(9) .icon-box{
   background-position: 0 -62px;
+}
+
+
+.container{
+  height: 400px;
+  background: #fff;
+  border-radius: 7px;
+  position: relative;
+  margin-bottom: 24px;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.15);
+}
+.legend-color {
+  width: 30px;
+  height: 30px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.25);
+  position: relative;
+  top: 27px;
+  border-radius: 15px;
+  left: -45px;
+}
+.channels-info-item{
+  padding-left: 45px;
+}
+.channels-info-item p {
+    margin-bottom: 9px;
+    font-size: 18px;
+    opacity: 0.9;
+    margin-top: 0;
+    text-align: left;
+    line-height: 100%;
+}
+.channels-info-item .channel-number {
+    display: inline-block;
+    float: right;
+}
+.channel-progress {
+    height: 4px;
+    border-radius: 0;
+    width: 100%;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,0.15);
+    box-shadow: none;
 }

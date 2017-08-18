@@ -29,7 +29,7 @@ export class SearchTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.params.paramMap.userId = JSON.parse(sessionStorage.user).id;
+    this.params.paramMap.userId = JSON.parse(localStorage.user).id;
     this.params.pageModel.pageSize = 10;
     this.initSort();
     this.getMenucodes();
@@ -71,8 +71,8 @@ export class SearchTableComponent implements OnInit {
 
   collectTbl(tbl): void {
     let params = {
-      userId: JSON.parse(sessionStorage.user).id,
-      userName: JSON.parse(sessionStorage.user).name,
+      userId: JSON.parse(localStorage.user).id,
+      userName: JSON.parse(localStorage.user).username,
       collectType: 'table',
       collectValue: tbl.id
     };
@@ -88,7 +88,7 @@ export class SearchTableComponent implements OnInit {
 
   cancelCollect(tbl): void {
     let params = {
-      userId: JSON.parse(sessionStorage.user).id,
+      userId: JSON.parse(localStorage.user).id,
       id: tbl.collModel.id
     };
     this.backendService

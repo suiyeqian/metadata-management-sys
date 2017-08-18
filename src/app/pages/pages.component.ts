@@ -1,19 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { UserService } from '../core/user.service';
+import { BackendService } from '../shared/backend.service';
 
 @Component({
   selector: 'my-pages',
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.scss'],
 })
-export class PagesComponent {
-  user = { name: '测试账号', id: 'test'};
+export class PagesComponent implements OnInit {
+  user = Object.assign({});
 
   constructor(
-    private userService: UserService
-  ) {
-    sessionStorage.user = JSON.stringify(this.user);
-    console.log(this.userService.canActivate());
+    private bdService: BackendService
+  ) { }
+
+  ngOnInit() {
+    this.getUser();
+  }
+
+  getUser(): void {
+     this.bdService
+         .getItemsByJsonParams('user/find_user_by_ticket', {})
+         .then((res) => {
+           this.user = res;
+           localStorage.setItem('user', JSON.stringify(res));
+         });
   }
 }
