@@ -10,7 +10,10 @@ export class EchartOptionService {
     case 'line':
     option = {
       tooltip: {
-          trigger: 'axis'
+          trigger: 'axis',
+          textStyle: {
+            align: 'left'
+          }
       },
       legend: {
         data: []
@@ -40,6 +43,9 @@ export class EchartOptionService {
             lineStyle: {
               type: 'dashed'
             }
+          },
+          axisLabel : {
+            formatter: '{value} 个'
           }
       },
       series: []
@@ -80,7 +86,7 @@ export class EchartOptionService {
                 label: {
                     normal: {
                         show: true,
-                        position: 'top'
+                        position: 'top',
                     }
                 },
                 data: [],

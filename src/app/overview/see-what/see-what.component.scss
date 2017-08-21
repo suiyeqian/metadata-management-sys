@@ -122,6 +122,7 @@
 
 .container{
   height: 400px;
+  padding: 30px 30px 30px 15px;
   background: #fff;
   border-radius: 7px;
   position: relative;
@@ -137,8 +138,42 @@
   border-radius: 15px;
   left: -45px;
 }
+.pie-chart-box{
+  margin-top: 16px;
+  margin-right: -7px;
+}
+.pie-chart-graph{
+  height: 300px;
+}
 .channels-info-item{
   padding-left: 45px;
+}
+.legend-color{
+  background-color: #fbb367;
+}
+.channels-info-item:nth-child(2) .legend-color{
+  background-color: #fb8070;
+}
+.channels-info-item:nth-child(3) .legend-color{
+  background-color: #2ec7c9;
+}
+.channels-info-item:nth-child(4) .legend-color{
+  background-color: #b6a2de;
+}
+.channels-info-item:nth-child(5) .legend-color{
+  background-color: #5ab1ef;
+}
+.channels-info-item:nth-child(6) .legend-color{
+  background-color: #99cccc;
+}
+.channels-info-item:nth-child(7) .legend-color{
+  background-color: #fc9;
+}
+.channels-info-item:nth-child(8) .legend-color{
+  background-color: #fbccec;
+}
+.channels-info-item:nth-child(9) .legend-color{
+  background-color: #ffed6f;
 }
 .channels-info-item p {
     margin-bottom: 9px;
@@ -147,6 +182,13 @@
     margin-top: 0;
     text-align: left;
     line-height: 100%;
+}
+.channels-info-item p a{
+  text-decoration: none;
+  color: inherit;
+}
+.channels-info-item p a:hover{
+  color: #31b0d5; 
 }
 .channels-info-item .channel-number {
     display: inline-block;
@@ -160,3 +202,11 @@
     background-color: rgba(0,0,0,0.15);
     box-shadow: none;
 }
+.progress .channel-progress div.progress-bar {
+    height: 1rem;
+    color: #fff;
+    background-color: #9aa2fa;
+}
+// .channel-progress .progress-bar{
+//   background-color: #9aa2fa;
+// }

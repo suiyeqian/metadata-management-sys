@@ -50,7 +50,12 @@ export class BackendService {
   }
 
   private handleError(error: any): Promise<any> {
-    console.log(error);
+    if (error.json().message === '登录已过期！请重新登录!') {
+      localStorage.clear();
+      // window.location.href = 'http://10.17.2.26:8188/bdportal/resources/mdms/login.html';
+      // 耀毅
+      window.location.href = 'http://10.14.1.155:8082/bdportal/resources/mdms/login.html';
+    }
     return Promise.reject(error.message || error);
   }
 }

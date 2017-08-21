@@ -1,9 +1,14 @@
 .page-title{
   position: relative;
   width: 100%;
+  margin-top: 25px;
+  margin-bottom: 20px;
 }
 .page-title h3{
   font-size: 22px;
+  font-family: '黑体';
+  font-weight: bold;
+  color: #34495e;
 }
 h3:before {
 	content: "";

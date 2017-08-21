@@ -70,6 +70,7 @@ export class SearchTableComponent implements OnInit {
   }
 
   collectTbl(tbl): void {
+    console.log(tbl);
     let params = {
       userId: JSON.parse(localStorage.user).id,
       userName: JSON.parse(localStorage.user).username,
