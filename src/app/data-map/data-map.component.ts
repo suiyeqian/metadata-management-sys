@@ -11,7 +11,9 @@ import { datamapOptionService } from './dataMap-option.service';
 
 export class DataMapComponent implements OnInit {
   pagetitle = '数据地图';
-  searchModel= { };
+  searchModel= {
+    tableName: ''
+  };
   searchListData = [];
   isChNm = false;
   tableName: string;
@@ -23,6 +25,7 @@ export class DataMapComponent implements OnInit {
 
   relatedOption: any;
   bloodRelationMapOption: any;
+  msg: any;
 
   private tableNameType = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
   private searchTableListUrl = 'datamap/searchTableInfo';
@@ -36,9 +39,11 @@ export class DataMapComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  // console.log(sessionStorage.getItem('searchListData'));
     this.getBubbleData();
-    sessionStorage.getItem('searchListData') || this.getTableListData();
+  }
+
+  authority() {
+    // localStorage.setItem('')
   }
 
   getBubbleData(): void {
@@ -48,13 +53,13 @@ export class DataMapComponent implements OnInit {
   }
 
   // 缓存搜索提示数据
-  getTableListData(): void {
+  /* getTableListData(): void {
     this.backendService
         .getItemsByJsonParams(this.searchTableListUrl, {})
         .then((res) => {
           sessionStorage.setItem('searchListData', res);
         });
-  }
+  } */
 
   getTableList(name: string): void {
     this.backendService
@@ -62,23 +67,21 @@ export class DataMapComponent implements OnInit {
         .then((res) => {
           this.searchList = res;
           this.bloodRelationModalData = res;
-console.log(this.searchList);
+// console.log(this.searchList);
         });
   }
 
-  showSearchList($event) {
-console.log($event);
+  showSearchList(): void {
     this.isFocus = true;
   }
 
-  chooseTable($event) {
-console.log($event.target.innerHTML);
-    this.searchModel['tableName'] = $event.target.innerHTML;
+  chooseTable($event): void {
+    this.searchModel.tableName = $event.target.innerHTML;
     this.isFocus = false;
-console.log(this.tableName);
+// console.log(this.tableName);
   }
 
-  hideSearchList() {
+  hideSearchList(): void {
     let self = this;
     setTimeout(function(){
       self.isFocus = false;
@@ -86,10 +89,10 @@ console.log(this.tableName);
   }
 
 
-  delaySearch(msg, fn, wait) {
+  delaySearch(msg: string, fn: any, wait: number): any {
     let self = this;
     if (self.searchTime[msg]) {
-console.log(msg);
+// console.log(msg);
         window.clearTimeout(self.searchTime[msg]);
         delete self.searchTime[msg];
     }
@@ -116,7 +119,7 @@ console.log(msg);
     }
   }
 
-  bubbleOption(data): void {
+  bubbleOption(data: any): void {
     let initOp = this.datamapOpt.getOption();
     let links = [];
     for (let i = 0; i < data.length; i++) {
@@ -181,7 +184,7 @@ console.log(msg);
 // console.log(this.relatedOption);
   }
 
-  adjustBubble(opt) {
+  adjustBubble(opt: any): void {
     opt.series[0].data.map((node: any) => {
       node.symbolSize = ((value: any): number => {
         if (value < 50) {
@@ -518,10 +521,10 @@ console.log(msg);
     });
 
     opt.series[0].links = this.unique(opt.series[0].links);
-console.log(opt);
+// console.log(opt);
   }
 
-  unique(arr) {
+  unique(arr: Array<any>): Array<any> {
     let ret = [];
     let len = arr.length;
     let isRepeat;
@@ -541,38 +544,50 @@ console.log(opt);
   }
 
   // 中文字符排序
-  order(words): string {
+  order(words: string): string {
       return words.split('').sort(function(a, b){
-          return a.localeCompare(b);
+        return a.localeCompare(b);
       }).join('');
   }
 
 
   onSearch(): void {
-    this.backendService
-        .getItemsByJsonParams(this.searchBloodRelationTableUrl, {tableName: this.searchModel['tableName']})
+    if (this.searchModel.tableName.trim()) {
+      this.backendService
+        .getItemsByJsonParams(this.searchBloodRelationTableUrl, {tableName: this.searchModel.tableName.trim()})
         .then((res) => {
-          res.groupBlood ? this.renderBloodRelationMap(res) : alert('无血缘关系');
-console.log(res);
+          // res.groupBlood ? this.renderBloodRelationMap(res) : alert('无血缘关系');
+          res.groupBlood ? this.renderBloodRelationMap(res) : this.msg = {title: '提示', context: '无血缘关系'};
         });
+    }
   }
 
   renderBloodRelationMap(data: any): void {
     let initOp = this.datamapOpt.getOption();
     let seriesData = [];
     let links = [];
+
+    // initOp.series[0].layout = 'none';
+    // delete initOp.series[0].force;
     seriesData[0] = {
       id: data.groupBlood.groupId,
       name: data.tableName.substr(0,10) + '\n' + data.tableName.substr(10,100),
       symbolSize: 100,
       tooltip: {
         formatter: function() {
-          return '<p style="text-align:left;margin-bottom:0;">所属组名：' + data.groupBlood.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + data.groupBlood.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + data.groupBlood.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + data.groupBlood.cron + '</p><p style="text-align:left;margin-bottom:0;">' + '上游组数量：' + data.parentGroupTotal + '&nbsp; 下游组数量：' + data.subGroupTotal + '</p><p style="text-align:left;margin-bottom:0;">' + '直接上游组表数量：' + data.parentTableTotal + '&nbsp; 直接下游组表数量：' + data.subTableTotal + '</p>';
-        }
+          /* return '<p style="text-align:left;margin-bottom:0;">所属组名：' + data.groupBlood.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + data.groupBlood.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + data.groupBlood.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + data.groupBlood.cron + '</p><p style="text-align:left;margin-bottom:0;">' + '上游组数量：' + data.parentGroupTotal + '&nbsp; 下游组数量：' + data.subGroupTotal + '</p><p style="text-align:left;margin-bottom:0;">' + '直接上游组表数量：' + data.parentTableTotal + '&nbsp; 直接下游组表数量：' + data.subTableTotal + '</p>'; */
+          return `所属组名：${data.groupBlood.groupName}<br>
+                  负责人：${data.groupBlood.cUser}<br>
+                  创建时间：${data.groupBlood.cDate}<br>
+                  组调度表达式：${data.groupBlood.cron}<br>
+                  上游组数量：${data.parentGroupTotal} &nbsp; 下游组数量：${data.subGroupTotal}<br>
+                  直接上游组表数量：${data.parentTableTotal} &nbsp; 直接下游组表数量：${data.subTableTotal}`;
+        },
+        extraCssText: 'text-align: left;'
       },
       edgeSymbol: 'arrow',
-      // x: 300,
-      // y: 300,
+      x: 300,
+      y: 300,
       itemStyle: {
         normal: {
           color: {
@@ -602,8 +617,8 @@ console.log(res);
         let element = {
           id: '',
           name: '',
-          // x: (300 + (Math.random() * (20 - 0) + i * 20)),
-          // y: (100 + (Math.random() * (20 - 0) + i * 20)),
+          x: (300 + (Math.random() * (20 - 0) + i * 20)),
+          y: (100 + (Math.random() * (20 - 0) + i * 20)),
           symbolSize: 100,
           itemStyle: {
             normal: {
@@ -626,7 +641,8 @@ console.log(res);
             }
           },
           tooltip: {
-            formatter: {}
+            formatter: {},
+            extraCssText: ''
           },
           draggable: false
         };
@@ -647,11 +663,17 @@ console.log(res);
         };
         link.source = data.groupBlood.groupId;
         link.target = arr1[i].groupId;
+        link['value'] = 100;
         links.push(link);
 
         element.tooltip.formatter = ((node: any): any => {
-          return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>';
+          /* return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>'; */
+          return `所属组名：${node.groupName}<br>
+                  负责人：${node.cUser}<br>
+                  创建时间：${node.cDate}<br>
+                  组调度表达式：${node.cron}`;
         })(arr1[i]);
+        element.tooltip.extraCssText = 'text-align: left;';
         element.id = arr1[i].groupId;
         element.name = arr1[i].groupName.substr(0, 10) + '\n' + arr1[i].groupName.substr(10, 100);
         seriesData.push(element);
@@ -661,8 +683,8 @@ console.log(res);
               id: '',
               name: '',
               symbolSize: 100,
-              // x: (300 + (Math.random() * 20 + (i + j) * 20)),
-              // y: (100 + (Math.random() * 20 + (i + j) * 20)),
+              x: (300 + (Math.random() * 20 + (i + j) * 20)),
+              y: (100 + (Math.random() * 20 + (i + j) * 20)),
               itemStyle: {
                 normal: {
                   color: {
@@ -684,7 +706,8 @@ console.log(res);
                 }
               },
               tooltip: {
-                formatter: {}
+                formatter: {},
+                extraCssText: ''
               },
               draggable: false
             };
@@ -705,11 +728,17 @@ console.log(res);
             };
             link.source = arr1[i].groupId;
             link.target = arr1[i].subGroupBloodDTO[j].groupId;
+            link['value'] = 100;
             links.push(link);
 
             element.tooltip.formatter = ((node: any): any => {
-              return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>';
+              /* return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>'; */
+              return `所属组名：${node.groupName}<br>
+                      负责人：${node.cUser}<br>
+                      创建时间：${node.cDate}<br>
+                      组调度表达式：${node.cron}`;
             })(arr1[i].subGroupBloodDTO[j]);
+            element.tooltip.extraCssText = 'text-align: left;';
             element.id = arr1[i].subGroupBloodDTO[j].groupId;
             element.name = arr1[i].subGroupBloodDTO[j].groupName.substr(0, 10) + '\n' + arr1[i].subGroupBloodDTO[j].groupName.substr(10, 100);
             seriesData.push(element);
@@ -723,8 +752,8 @@ console.log(res);
           id: '',
           name: '',
           symbolSize: 100,
-          // x: (300 - (Math.random() * (20 - 0) + i * 20)),
-          // y: (100 + (Math.random() * (20 - 0) + i * 20)),
+          x: (300 - (Math.random() * (20 - 0) + i * 20)),
+          y: (100 + (Math.random() * (20 - 0) + i * 20)),
           itemStyle: {
             normal: {
               color: {
@@ -746,7 +775,8 @@ console.log(res);
             }
           },
           tooltip: {
-            formatter: {}
+            formatter: {},
+            extraCssText: ''
           },
           draggable: false
         };
@@ -754,7 +784,6 @@ console.log(res);
           source: '',
           target: '',
           symbolSize: [5, 15],
-          value: 10,
           lineStyle: {
             normal: {
               color: '#1caffa'
@@ -768,11 +797,17 @@ console.log(res);
         };
         link.target = data.groupBlood.groupId;
         link.source = arr2[i].groupId;
+        link['value'] = 100;
         links.push(link);
 
         element.tooltip.formatter = ((node: any): any => {
-          return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>';
+          /* return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>'; */
+          return `所属组名：${node.groupName}<br>
+                  负责人：${node.cUser}<br>
+                  创建时间：${node.cDate}<br>
+                  组调度表达式：${node.cron}`;
         })(arr2[i]);
+        element.tooltip.extraCssText = 'text-align: left;';
         element.id = arr2[i].groupId;
         element.name = arr2[i].groupName.substr(0, 10) + '\n' + arr2[i].groupName.substr(10, 100);
         seriesData.push(element);
@@ -782,8 +817,8 @@ console.log(res);
               id: '',
               name: '',
               symbolSize: 100,
-              // x: (300 - (Math.random() * 20 + (i + j) * 20)),
-              // y: (100 + (Math.random() * 20 + (i + j) * 20)),
+              x: (300 - (Math.random() * 20 + (i + j) * 20)),
+              y: (100 + (Math.random() * 20 + (i + j) * 20)),
               itemStyle: {
                 normal: {
                   color: {
@@ -805,7 +840,8 @@ console.log(res);
                 }
               },
               tooltip: {
-                formatter: {}
+                formatter: {},
+                extraCssText: ''
               },
               draggable: false
             };
@@ -826,11 +862,17 @@ console.log(res);
             };
             link.target = arr2[i].groupId;
             link.source = arr2[i].parentGroupBloodDTO[j].groupId;
+            link['value'] = 100;
             links.push(link);
 
             element.tooltip.formatter = ((node: any): any => {
-              return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>';
+              /* return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>'; */
+              return `所属组名：${node.groupName}<br>
+                      负责人：${node.cUser}<br>
+                      创建时间：${node.cDate}<br>
+                      组调度表达式：${node.cron}`;
             })(arr2[i].parentGroupBloodDTO[j]);
+            element.tooltip.extraCssText = 'text-align: left;';
             element.id = arr2[i].parentGroupBloodDTO[j].groupId;
             element.name = arr2[i].parentGroupBloodDTO[j].groupName.substr(0, 10) + '\n' + arr2[i].parentGroupBloodDTO[j].groupName.substr(10, 100);
             seriesData.push(element);
@@ -843,22 +885,20 @@ console.log(res);
     initOp.series[0].links = links;
     initOp.series[0]['edgeSymbol'] = ['circle', 'arrow'];
     initOp.series[0].label.normal.textStyle.fontSize = 14;
+    initOp.series[0].force.edgeLength = 50;
     this.bloodRelationMapOption = initOp;
     this.searchResult = true;
-console.log(seriesData);
-console.log(this.bloodRelationMapOption);
+// console.log(seriesData);
+// console.log(this.bloodRelationMapOption);
   }
 
-  adjustBloodRelationOp() {
-    
-  }
 
-  unique2(arr) {
-    var ret = [];
-    var len = arr.length;
-    var tmp = {};
-    for(var i=0; i<len; i++){
-        if(!tmp[arr[i].id]){
+  unique2(arr: Array<any>): Array<any> {
+    let ret = [];
+    let len = arr.length;
+    let tmp = {};
+    for (let i = 0; i < len; i++) {
+        if (!tmp[arr[i].id]) {
             tmp[arr[i].id] = 1;
             ret.push(arr[i]);
         }
