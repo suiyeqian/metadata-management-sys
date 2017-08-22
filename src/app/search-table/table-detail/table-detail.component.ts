@@ -39,14 +39,16 @@ export class TableDetailComponent implements OnInit {
     this.backendService
         .getItemsByJsonParams('tablesearch/table_detail', params)
         .then((res) => {
+          res.isPartitionTbl = res.isPartitionTbl === 'N' ? '否' : '是';
           this.tblDetail = res;
         });
   }
 
   collectTbl(tbl): void {
+
     let params = {
       userId: JSON.parse(localStorage.user).id,
-      userName: JSON.parse(localStorage.user).name,
+      userName: JSON.parse(localStorage.user).username,
       collectType: 'table',
       collectValue: tbl.id
     };

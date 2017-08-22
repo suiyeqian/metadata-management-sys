@@ -7,7 +7,8 @@ import { HeaderComponent } from './header/header.component';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
 
-import { UserService } from './user.service';
+import { UserService } from './services/user.service';
+import { SpinnerService } from './services/spinner.service';
 
 @NgModule({
   imports: [
@@ -22,7 +23,10 @@ import { UserService } from './user.service';
     SidenavComponent,
     HeaderComponent
   ],
-  providers: [ UserService ]
+  providers: [
+    UserService,
+    SpinnerService
+  ]
 })
 export class CoreModule {
   constructor( @Optional() @SkipSelf() parentModule: CoreModule) {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { BackendService } from '../shared/backend.service';
+import { SpinnerService } from '../core/services/spinner.service';
 
 @Component({
   selector: 'my-pages',
@@ -11,7 +12,8 @@ export class PagesComponent implements OnInit {
   user = Object.assign({});
 
   constructor(
-    private bdService: BackendService
+    private bdService: BackendService,
+    private spinner: SpinnerService,
   ) { }
 
   ngOnInit() {
@@ -24,6 +26,7 @@ export class PagesComponent implements OnInit {
          .then((res) => {
            this.user = res;
            localStorage.setItem('user', JSON.stringify(res));
+           this.spinner.hide();
          });
   }
 }

@@ -3,10 +3,6 @@
   color: #a8bccf;
   width: 168px;
   z-index:1000;
-  /*position: fixed;
-  top: 63px;
-  left: 360px;
-  bottom: 0;*/
   float: left;
   margin-bottom:-3000px; padding-bottom:3000px;
   color: #000;
@@ -15,9 +11,6 @@
 a{
   text-decoration: none;
 }
-/*.nav-section:not(:last-child){
-  border-bottom: 2px solid #c9c9c9;
-}*/
 a.subtitle{
   line-height: 50px;
   display: block;
@@ -34,27 +27,6 @@ a.subtitle:hover{
   font-size: 18px;
   vertical-align: middle;
 }
-
-/*.icon-nav{
-  width: 20px;
-  height: 14px;
-  display: inline-block;
-  background-image: url(/img/sidebar-icon.png);
-  background-repeat: no-repeat;
-  background-position:4px 0;
-}
-.icon-dataDict{
-  background-position:-23px -1px;
-}
-.icon-indexSystem{
-  background-position:-50px 0;
-}
-.icon-arrow{
-  background-position:-22px -22px;
-}
-.icon-expand{
-  background-position:6px -22px;
-}*/
 .submenu{
   height: 0;
   display: none;
@@ -75,10 +47,8 @@ a.subtitle:hover{
 .submenu li a.active{
   color: #fff;
   background-color: #293a4a;
-  /*border-left: 3px solid #2878fc;*/
 }
 .submenu li a:hover{
   color: #fff;
   background-color: #293a4a;
-  /*border-left: 3px solid #2878fc;*/
 }

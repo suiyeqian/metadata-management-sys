@@ -60,7 +60,6 @@ export class SearchTableComponent implements OnInit {
 
   getTables(type?: string): void {
     this.setParams(type);
-    console.log(this.params);
     this.backendService
         .getItemsByJsonParams(this.searchUrl, this.params)
         .then((res) => {
@@ -70,7 +69,6 @@ export class SearchTableComponent implements OnInit {
   }
 
   collectTbl(tbl): void {
-    console.log(tbl);
     let params = {
       userId: JSON.parse(localStorage.user).id,
       userName: JSON.parse(localStorage.user).username,
