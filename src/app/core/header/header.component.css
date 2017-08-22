@@ -13,8 +13,6 @@ header {
   z-index:1000;
 }
 .header {
-  /*text-align: center;
-  display: block;*/
   width: 1200px;
   margin: 0 auto;
 }

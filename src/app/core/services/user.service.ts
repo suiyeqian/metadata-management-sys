@@ -28,19 +28,18 @@ export class UserService implements CanActivate {
       if (r) {
         this.headers.set('X-Requested-Ticket', r[2]);
         return this.getTicket().then(res => {
-          console.log(res)
-                  if (res.success) {
-                    localStorage.setItem('mdms_ticket', res.data.ticket);
-                    this.router.navigate(['/pages/serviceView']);
-                    return true;
-                  } else {
-                    if (res.code === 1004 || res.code === 1005) {
-                        localStorage.clear();
-                        window.location.href = this.loginUrl;
-                    }
-                    return false;
-                  }
-               });
+            if (res.success) {
+              localStorage.setItem('mdms_ticket', res.data.ticket);
+              this.router.navigate(['/pages/serviceView']);
+              return true;
+            } else {
+              if (res.code === 1004 || res.code === 1005) {
+                  localStorage.clear();
+                  window.location.href = this.loginUrl;
+              }
+              return false;
+            }
+         });
       } else {
         if (localStorage.getItem('mdms_ticket')) {
           return true;

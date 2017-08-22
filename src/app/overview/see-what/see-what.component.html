@@ -1,4 +1,4 @@
-<div class="row see-what">
+<!-- <div class="row see-what">
   <div class="col-md-4 usrCnt" *ngFor="let usrCnt of usrCnts">
     <div class="info-box">
       <div class="info-desc">
@@ -6,37 +6,33 @@
         <div class="detail">
           <div class="desc-wrap">
             <span class="desc text-left">{{usrCnt.appDesc}}</span>
-            <!-- <span class="desc">为管理层提供宏观业务指标的趋势分析，包括业绩概览、销售分析、产品分析、客户分析四大栏目</span> -->
           </div>
-          <!-- <a [href]="">立即使用</a> -->
           <a [href]="usrCnt.appUrl" class="info-link" target="_blank">立即使用</a>
-          <!-- <button type="button" name="button" class="btn btn-sm">立即使用</button> -->
         </div>
 
       </div>
-      <!-- <span class="info-cnt">金服 | PC端 | <span class="count">{{usrCnt.cntTotal}}</span>人开通</span> -->
       <span class="info-cnt">{{usrCnt.companyName}} | {{usrCnt.resource}} | <span class="count">{{usrCnt.cntTotal}}</span>人开通</span>
     </div>
   </div>
-</div>
+</div> -->
 
-<!-- <div class="container">
+<div class="container">
   <div class="row">
-    <div class="col-md-4">
-
+    <div class="col-md-4 pie-chart-box">
+      <div class="chart-wrap">
+        <div echarts [options]="pieOption" class="pie-chart-graph"></div>
+      </div>
     </div>
     <div class="col-md-8">
       <div class="channels-info row">
-        <div class=" col-md-6" *ngFor="let usrCnt of usrCnts">
-          <div class="channels-info-item"  >
-            <div class="legend-color" style="background-color: rgb(255, 255, 255);"></div>
-            <p>{{usrCnt.appNm}}<span class="channel-number">{{usrCnt.cntTotal}}</span></p>
-            <div class="progress progress-sm">
-              <ngb-progressbar class="channel-progress" [value]="usrCnt.cntTotal*100/260"></ngb-progressbar>
-            </div>
+        <div class="col-md-6 channels-info-item" *ngFor="let usrCnt of usrCnts">
+          <div class="legend-color"></div>
+          <p><a [href]="usrCnt.appUrl" target="_blank">{{usrCnt.appNm}}</a><span class="channel-number">{{usrCnt.cntTotal}}</span></p>
+          <div class="progress progress-sm">
+            <ngb-progressbar class="channel-progress" type="info" [animated]="true" [striped]="true" [value]="usrCnt.cntTotal>140?usrCnt.cntTotal*100/240:usrCnt.cntTotal*100/25"></ngb-progressbar>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div> -->
+</div>

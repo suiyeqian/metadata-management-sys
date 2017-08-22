@@ -51,7 +51,6 @@ a.active{
 .tbl-list{
   background-color: #fff;
   margin-top: 10px;
-  // border: 1px solid #e5e5e5;
   border-radius: 4px;
   box-shadow: 1px 2px 4px rgba(0,0,0,0.15);
 }
@@ -62,7 +61,6 @@ a.active{
   margin-bottom:0;
 }
 thead {
-  // background-color: #f8f8f8;
   background-color: #fff;
   color: #000;
 }
@@ -73,7 +71,6 @@ th {
   background-color: #e5f7fe;
 }
 .table-hover tbody tr:hover {
-  // background-color: #e5f7fe;
   background-color: rgba(0, 171, 255, 0.7);
   color: #fff;
 }
@@ -81,7 +78,7 @@ th {
   cursor: pointer;
 }
 tbody{
-  font-size: 16px;
+  font-size: 14px;
 }
 td {
   overflow: hidden;
@@ -97,6 +94,5 @@ img.no-record{
 .res-foot{
   height: 70px;
   background-color: #fff;
-  // border: 1px solid #e5e5e5;
   border-top: 0;
 }

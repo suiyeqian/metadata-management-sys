@@ -5,7 +5,6 @@ import { CountViewComponent } from './count-view.component';
 import { AngularEchartsModule } from 'ngx-echarts';
 
 import { SharedModule } from '../shared/shared.module';
-// import { CountViewRoutingModule } from './count-view-routing.module';
 
 import { EchartOptionService } from './echart-option.service';
 
@@ -13,7 +12,6 @@ import { EchartOptionService } from './echart-option.service';
   imports: [
     AngularEchartsModule,
     SharedModule,
-    // CountViewRoutingModule
   ],
   declarations: [
     CountViewComponent

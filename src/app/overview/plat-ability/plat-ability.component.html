@@ -1,4 +1,115 @@
-<div class="row service">
+<div class="row">
+  <div class="col-md-4">
+    <div class="card storage">
+      <div class="card-header">
+        <h3 class="card-title">存储能力</h3>
+      </div>
+      <div class="card-body">
+        <div class="ability-icon">
+          <i class="material-icons">cloud</i>
+        </div>
+        <div class="ability-desc">
+          <div class="ability-item row">
+            <div class="col-8 text-left item-name">
+              <div class="circle"></div>
+              总接入表数
+            </div>
+            <div class="col-4 text-right item-val">
+              {{platAbility.tableCount}}个
+            </div>
+          </div>
+          <div class="ability-item row">
+            <div class="col-8 text-left item-name">
+              <div class="circle"></div>
+              HDFS总容量
+            </div>
+            <div class="col-4 text-right item-val">
+              {{platAbility.hdfsCapacityTotal}}
+            </div>
+          </div>
+          <div class="ability-item row">
+            <div class="col-8 text-left item-name">
+              <div class="circle"></div>
+              总占用存储
+            </div>
+            <div class="col-4 text-right item-val">
+              {{platAbility.hdfsCapacityUsed}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">计算能力</h3>
+      </div>
+      <div class="card-body">
+        <div class="ability-icon count-ability">
+          <i class="material-icons">dvr</i>
+        </div>
+        <div class="ability-desc">
+          <div class="ability-item row text-left">
+            <div class="col-6">
+              <span class="item-name">总Vcore</span>
+              <span class="item-val">{{platAbility.totalVirtualCore}}Vcore</span>
+            </div>
+            <div class="col-6">
+              <span class="item-name">总Memory</span>
+              <span class="item-val">{{platAbility.totalMb}}</span>
+            </div>
+          </div>
+          <div class="ability-item row text-left">
+            <div class="col-6">
+              <span class="item-name">总Map数</span>
+              <span class="item-val">{{platAbility.todayMapTotalCount/10000 | number:'1.0-0'}}万个</span>
+            </div>
+            <div class="col-6">
+              <span class="item-name">总Reduces数</span>
+              <span class="item-val">{{platAbility.todayReduceTotalCount/10000 | number:'1.0-0'}}万个</span>
+            </div>
+          </div>
+          <div class="ability-item row text-left">
+            <div class="col-6">
+              <span class="item-name">总Application数</span>
+              <span class="item-val">{{platAbility.todayAppTotal}}个</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">作业能力</h3>
+      </div>
+      <div class="card-body">
+        <div class="ability-icon work-ability">
+          <i class="material-icons">event_available</i>
+        </div>
+        <div class="ability-desc">
+          <div class="ability-item">
+            <!-- <div class="circle"></div> -->
+            <span class="item-name">日批处理任务数</span>
+            <span class="item-val">{{platAbility.jobTotal}}个</span>
+          </div>
+          <div class="ability-item">
+            <span class="item-name">日批处理8点前完成率</span>
+            <span class="item-val">{{platAbility.complete}}</span>
+          </div>
+          <div class="ability-item">
+            <span class="item-name">超30分钟总作业数</span>
+            <span class="item-val">{{platAbility.over30MinutesJob}}个</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="row service">
   <div class="service-box store">
     <div class="icon icon-circle">
       <i class="icon icon-store"></i>
@@ -44,4 +155,4 @@
     <span class="number">{{platAbility.over30MinutesJob}}个</span>
     <span class="service-desc">超30分钟总作业数</span>
   </div>
-</div>
+</div> -->

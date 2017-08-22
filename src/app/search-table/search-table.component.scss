@@ -56,7 +56,6 @@ a.active, a:hover{
 .tbl-list{
   background-color: #fff;
   margin-top: 10px;
-  // border: 1px solid #e5e5e5;
   border-radius: 4px;
   box-shadow: 1px 2px 4px rgba(0,0,0,0.15);
 }
@@ -67,7 +66,6 @@ a.active, a:hover{
   margin-bottom:0;
 }
 thead {
-  // background-color: #f8f8f8;
   background-color: #fff;
   color: #000;
 }
@@ -78,7 +76,6 @@ th {
   background-color: #e5f7fe;
 }
 .table-hover tbody tr:hover {
-  // background-color: #e5f7fe;
   background-color: rgba(0, 171, 255, 0.7);
   color: #fff;
 }
@@ -86,7 +83,7 @@ th {
   cursor: pointer;
 }
 tbody{
-  font-size: 16px;
+  font-size: 14px;
 }
 td {
   overflow: hidden;
@@ -105,9 +102,10 @@ img.no-record{
   margin-top: 100px;
 }
 .table .btn{
-  line-height: 14px;
-  width: 70px;
-  padding: 0.5rem;
+  line-height: 10px;
+  width: 60px;
+  padding: 0.5rem 3px;
+  font-size: 14px;
 }
 .btn-collect{
   color:#a8a8a8;
@@ -115,8 +113,6 @@ img.no-record{
   border: 1px solid #d3d2d2;
 }
 .btn-collect:hover {
-  // color: #2896fc;
-  // border-color: #2896fc;
   background-color: #00abff;
   color: #fff;
   border-color: #0093e7;
@@ -129,6 +125,5 @@ img.no-record{
 .res-foot{
   height: 70px;
   background-color: #fff;
-  // border: 1px solid #e5e5e5;
   border-top: 0;
 }

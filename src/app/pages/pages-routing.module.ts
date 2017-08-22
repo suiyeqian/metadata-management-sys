@@ -8,7 +8,7 @@ import { CountViewComponent } from '../count-view/count-view.component';
 import { SearchTableComponent } from '../search-table/search-table.component';
 import { TableDetailComponent } from '../search-table/table-detail/table-detail.component';
 import { SearchIndexComponent } from '../search-index/search-index.component';
-import { UserService } from '../core/user.service';
+import { UserService } from '../core/services/user.service';
 
 const pagesRoutes: Routes = [
   {

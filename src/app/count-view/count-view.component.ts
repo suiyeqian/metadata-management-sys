@@ -66,6 +66,7 @@ export class CountViewComponent implements OnInit {
             });
           }
           initOpt.xAxis.data = [...res.dataLvlList];
+          initOpt.yAxis.axisLabel.formatter = '{value} GB';
           this.SpaceDistOption2 = initOpt;
         });
 
@@ -77,6 +78,7 @@ export class CountViewComponent implements OnInit {
             initOpt.xAxis[0].data.push(item.name);
             initOpt.series[0].data.push(item.size);
           }
+          initOpt.series[0].label.normal.formatter = '{c} GB';
           this.cpyStoragebarOpt = initOpt;
         });
 
@@ -88,6 +90,8 @@ export class CountViewComponent implements OnInit {
             initOpt.xAxis[0].data.push(item.name);
             initOpt.series[0].data.push(item.size);
           }
+          initOpt.tooltip.formatter = '{b}：{c} MB';
+          initOpt.series[0].label.normal.formatter = '{c} MB';
           this.tblStoragebarOpt = initOpt;
         });
   }

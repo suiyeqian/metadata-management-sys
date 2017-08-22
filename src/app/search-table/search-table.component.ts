@@ -60,7 +60,6 @@ export class SearchTableComponent implements OnInit {
 
   getTables(type?: string): void {
     this.setParams(type);
-    console.log(this.params);
     this.backendService
         .getItemsByJsonParams(this.searchUrl, this.params)
         .then((res) => {

@@ -1,0 +1,52 @@
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1003;
+  background: #000;
+
+}
+.splash {
+  box-sizing: border-box;
+  position: fixed;
+  width: 40px;
+  left: 50%;
+  margin-left: -20px;
+  top: 50%;
+  margin-top: -50px;
+  animation: splash-rotate 4s linear infinite;
+}
+.blade {
+  height: 5px;
+  background-color: #0277bd;
+  margin-bottom: 1px;
+  animation: splash-windcatcherSpin 4s linear infinite, splash-windcatcherBg 2s linear infinite;
+}
+.blade:nth-child(1) { animation-delay: 0s; }
+.blade:nth-child(2) { animation-delay: 0.25s; }
+.blade:nth-child(3) { animation-delay: 0.5s; }
+.blade:nth-child(4) { animation-delay: 0.75s; }
+.blade:nth-child(5) { animation-delay: 1s; }
+.blade:nth-child(6) { animation-delay: 1.25s; }
+.blade:nth-child(7) { animation-delay: 1.5s; }
+.blade:nth-child(8) { animation-delay: 1.75s; }
+
+@keyframes splash-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes splash-windcatcherSpin {
+  from { transform: rotateY(0deg) rotateX(-20deg); }
+  to { transform: rotateY(360deg) rotateX(-20deg); }
+}
+
+@keyframes splash-windcatcherBg {
+  0% { background-color: #0277bd; }
+  50% { background-color: #01579b; }
+  51% { background-color: #40c4ff; }
+  70% { background-color: #039be5; }
+  100% { background-color: #0277bd; }
+}
