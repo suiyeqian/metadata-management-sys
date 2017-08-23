@@ -8,12 +8,15 @@
   padding: 13px 0;
   background-color: #f8f8f8;
   border-bottom: 2px solid #e5e5e5;
+  font-weight: 800;
+  font-family: '黑体';
 }
 .content{
   padding: 22px 24px 22px;
 }
 h5{
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: bold;
 }
 .content i{
   display: inline-block;
@@ -47,7 +50,7 @@ h5{
 }
 label{
   float: left;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 38px;
   width: 25%;
 }
