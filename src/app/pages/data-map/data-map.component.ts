@@ -42,9 +42,6 @@ export class DataMapComponent implements OnInit {
     this.getBubbleData();
   }
 
-  authority() {
-    // localStorage.setItem('')
-  }
 
   getBubbleData(): void {
     this.backendService
@@ -82,23 +79,26 @@ export class DataMapComponent implements OnInit {
   }
 
   hideSearchList(): void {
-    let self = this;
+    /* let self = this;
     setTimeout(function(){
       self.isFocus = false;
-    }, 200);
+    }, 200); */
+    setTimeout(() => {
+      this.isFocus = false;
+    })
   }
 
 
   delaySearch(msg: string, fn: any, wait: number): any {
-    let self = this;
-    if (self.searchTime[msg]) {
+    // let self = this;
+    if (this.searchTime[msg]) {
 // console.log(msg);
-        window.clearTimeout(self.searchTime[msg]);
-        delete self.searchTime[msg];
+        window.clearTimeout(this.searchTime[msg]);
+        delete this.searchTime[msg];
     }
-    return self.searchTime[msg] = window.setTimeout(function() {
+    return this.searchTime[msg] = window.setTimeout(() => {
         fn();
-        delete self.searchTime[msg];
+        delete this.searchTime[msg];
     }, wait);
   }
 
@@ -109,10 +109,10 @@ export class DataMapComponent implements OnInit {
     }else {
       this.isChNm = false;
     }
-    let self = this;
+    // let self = this;
     if (name) {
-      this.delaySearch('send', function() {
-        self.getTableList(name);
+      this.delaySearch('send', () => {
+        this.getTableList(name);
       }, 500);
     }else {
       return;
