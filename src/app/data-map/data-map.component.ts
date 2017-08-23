@@ -558,6 +558,7 @@ export class DataMapComponent implements OnInit {
         .then((res) => {
           // res.groupBlood ? this.renderBloodRelationMap(res) : alert('无血缘关系');
           res.groupBlood ? this.renderBloodRelationMap(res) : this.msg = {title: '提示', context: '无血缘关系'};
+console.log(this.msg);
         });
     }
   }

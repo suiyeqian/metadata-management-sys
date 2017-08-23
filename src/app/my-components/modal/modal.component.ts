@@ -1,4 +1,4 @@
-import { Component, Input, EventEmitter, Output, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'my-modal',
@@ -8,12 +8,15 @@ import { Component, Input, EventEmitter, Output, OnChanges } from '@angular/core
 
 export class ModalComponent implements OnChanges {
   @Input() msg: any;
-
+  
+  
+  
   constructor() {
-
+    
   }
-
+  
   ngOnChanges() {
+    console.log(this.msg);
 
   }
 }

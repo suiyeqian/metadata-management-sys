@@ -1,13 +1,13 @@
-<section class="modal" *ngIf="msg">
+<section class="Cmodal" *ngIf="msg">
   <div class="modal-header">
-    <a class="close" (click)="msg = false">clear</a>
-    <h3>{{msg.title}}</h3>
+    <h5>{{msg.title}}</h5>
+    <a class="close material-icons" (click)="msg = false">clear</a>
   </div>
   <div class="modal-body">
     <p>{{msg.context}}</p>
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn btn-success" (click)="msg = false">确定</a>
+    <a href="#" class="btn btn-blue" (click)="msg = false">确定</a>
     <!-- <a href="#" class="btn" data-dismiss="modal">取消</a> -->
   </div>
 </section>
