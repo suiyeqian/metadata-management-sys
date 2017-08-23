@@ -145,3 +145,5 @@
     <button class="btn btn-collected" *ngIf="tblDetail.collModel.isCollection == 0" (click)="cancelCollect(tblDetail)">已收藏</button>
   </div>
 </div>
+
+<ngb-alert *ngIf="alertShow" (close)="alertShow = false" class="alert-center" [type]="alertType"><strong>{{alertMsg}}</strong></ngb-alert>

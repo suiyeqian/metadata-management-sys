@@ -11,7 +11,7 @@ import { SearchParams } from '../../shared/data-model';
 })
 export class SearchTableComponent implements OnInit {
   pagetitle = '表搜索';
-  parentPath = '数据字典';
+  // parentPath = '数据字典';
   searchTblName: string;
   options = [];
   advancedOps = [];
@@ -22,6 +22,10 @@ export class SearchTableComponent implements OnInit {
   pageState = { isCollected: false, btnName: '收藏的表' };
   params = new SearchParams();
   resultDesc: string;
+  alertShow = false;
+  alertMsg: string;
+  alertType = 'success';
+  private timeId;
 
   constructor(
     private router: Router,
@@ -68,7 +72,12 @@ export class SearchTableComponent implements OnInit {
         });
   }
 
+// 收藏&取消收藏
   collectTbl(tbl): void {
+    this.alertShow = false;
+    if (this.timeId) {
+      clearTimeout(this.timeId);
+    }
     let params = {
       userId: JSON.parse(localStorage.user).id,
       userName: JSON.parse(localStorage.user).username,
@@ -79,13 +88,22 @@ export class SearchTableComponent implements OnInit {
         .getItemsByJsonParams('collection/addCollection', params)
         .then((res) => {
           if (res === 1) {
-            console.log('成功');
+            this.alertMsg = '收藏成功!';
+            this.alertType = 'success';
             this.getTables();
+          } else {
+            this.alertMsg = '收藏失败，请稍后重试!';
+            this.alertType = 'danger';
           }
+          this.alertShow = true;
+          this.timeId = setTimeout(() => this.alertShow = false, 1500);
         });
   }
-
   cancelCollect(tbl): void {
+    this.alertShow = false;
+    if (this.timeId) {
+      clearTimeout(this.timeId);
+    }
     let params = {
       userId: JSON.parse(localStorage.user).id,
       id: tbl.collModel.id
@@ -94,9 +112,15 @@ export class SearchTableComponent implements OnInit {
         .getItemsByJsonParams('collection/cancleCollection ', params)
         .then((res) => {
           if (res === 1) {
-            console.log('成功');
+            this.alertMsg = '取消收藏成功!';
+            this.alertType = 'warning';
             this.getTables();
+          } else {
+            this.alertMsg = '取消收藏失败，请稍后重试!';
+            this.alertType = 'danger';
           }
+          this.alertShow = true;
+          this.timeId = setTimeout(() => this.alertShow = false, 1500);
         });
   }
 

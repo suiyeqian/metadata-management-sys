@@ -22,9 +22,9 @@
   position: relative;
   line-height: 30px;
   display: flex;
-}
-.select-items:not(:last-child){
-  border-bottom: 1px dashed #dedede;
+  &:not(:last-child){
+    border-bottom: 1px dashed #dedede;
+  }
 }
 .select-items::after{
   content: ' ';
@@ -111,11 +111,12 @@ li.selector label {
 .select-list.list-nokey{
   margin: auto;
 }
-.optCard .select-items{
-  border-width: 0;
-}
+
 .optCard{
   display: none;
+}
+.optCard .select-items{
+  border-width: 0;
 }
 .optCard.show{
   position: absolute;
