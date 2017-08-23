@@ -13,6 +13,10 @@ export class TableDetailComponent implements OnInit {
   parentPath = '数据字典';
   tblDetail = {};
   paramMap = {};
+  alertShow = false;
+  alertMsg: string;
+  alertType = 'success';
+  private timeId;
 
   constructor(
     private router: ActivatedRoute,
@@ -30,7 +34,7 @@ export class TableDetailComponent implements OnInit {
           recordType: 'table'
         }
       };
-      console.log(this.paramMap);
+      // console.log(this.paramMap);
       this.getTblDtail(this.paramMap);
     });
   }
@@ -45,7 +49,10 @@ export class TableDetailComponent implements OnInit {
   }
 
   collectTbl(tbl): void {
-
+    this.alertShow = false;
+    if (this.timeId) {
+      clearTimeout(this.timeId);
+    }
     let params = {
       userId: JSON.parse(localStorage.user).id,
       userName: JSON.parse(localStorage.user).username,
@@ -56,13 +63,23 @@ export class TableDetailComponent implements OnInit {
         .getItemsByJsonParams('collection/addCollection', params)
         .then((res) => {
           if (res === 1) {
-            console.log('成功');
+            this.alertMsg = '收藏成功!';
+            this.alertType = 'success';
             this.getTblDtail(this.paramMap);
+          } else {
+            this.alertMsg = '收藏失败，请稍后重试!';
+            this.alertType = 'danger';
           }
+          this.alertShow = true;
+          this.timeId = setTimeout(() => this.alertShow = false, 1500);
         });
   }
 
   cancelCollect(tbl): void {
+    this.alertShow = false;
+    if (this.timeId) {
+      clearTimeout(this.timeId);
+    }
     let params = {
       userId: JSON.parse(localStorage.user).id,
       id: tbl.collModel.id
@@ -71,9 +88,15 @@ export class TableDetailComponent implements OnInit {
         .getItemsByJsonParams('collection/cancleCollection ', params)
         .then((res) => {
           if (res === 1) {
-            console.log('成功');
+            this.alertMsg = '取消收藏成功!';
+            this.alertType = 'warning';
             this.getTblDtail(this.paramMap);
+          } else {
+            this.alertMsg = '取消收藏失败，请稍后重试!';
+            this.alertType = 'danger';
           }
+          this.alertShow = true;
+          this.timeId = setTimeout(() => this.alertShow = false, 1500);
         });
   }
 

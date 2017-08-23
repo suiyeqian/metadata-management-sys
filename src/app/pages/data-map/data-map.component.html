@@ -2,7 +2,7 @@
 
 <my-page-title [pagetitle]="pagetitle"></my-page-title>
 
-<my-modal [msg]="msg"></my-modal>
+<ngb-alert *ngIf="showAlert" (close)="showAlert = false" class="alert-hint" type="danger">该表暂无血缘关系，请重新搜索!</ngb-alert>
 
 <form (ngSubmit)='onSearch()'>
   <div class="search">

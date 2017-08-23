@@ -25,7 +25,7 @@ export class DataMapComponent implements OnInit {
 
   relatedOption: any;
   bloodRelationMapOption: any;
-  msg: any;
+  showAlert = false;
 
   private tableNameType = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
   private searchTableListUrl = 'datamap/searchTableInfo';
@@ -73,6 +73,7 @@ export class DataMapComponent implements OnInit {
 
   showSearchList(): void {
     this.isFocus = true;
+    this.showAlert = false;
   }
 
   chooseTable($event): void {
@@ -556,8 +557,7 @@ export class DataMapComponent implements OnInit {
       this.backendService
         .getItemsByJsonParams(this.searchBloodRelationTableUrl, {tableName: this.searchModel.tableName.trim()})
         .then((res) => {
-          res.groupBlood ? this.renderBloodRelationMap(res) : this.msg = {title: '提示', context: '该表无血缘关系'};
-console.log(this.msg);
+          res.groupBlood ? this.renderBloodRelationMap(res) : this.showAlert = true;
         });
     }
   }

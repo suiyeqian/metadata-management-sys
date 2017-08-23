@@ -10,7 +10,7 @@ import { SearchParams } from '../../shared/data-model';
 })
 export class SearchIndexComponent implements OnInit {
   pagetitle = '指标搜索';
-  parentPath = '指标体系';
+  // parentPath = '指标体系';
   searchIdxName: string;
   options = [];
   indexResult = {};

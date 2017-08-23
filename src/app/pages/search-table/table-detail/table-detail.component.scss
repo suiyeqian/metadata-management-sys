@@ -118,3 +118,11 @@ td {
   color: red;
   border-color: red;
 }
+
+.alert-center{
+  position: fixed;
+  top:50%;
+  margin-top: -24px;
+  right: 41%;
+  z-index: 1000;
+}

@@ -55,3 +55,5 @@
     </div>
   </div>
 </div>
+
+<ngb-alert *ngIf="alertShow" (close)="alertShow = false" class="alert-center" [type]="alertType"><strong>{{alertMsg}}</strong></ngb-alert>

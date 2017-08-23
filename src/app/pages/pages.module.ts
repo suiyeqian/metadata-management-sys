@@ -26,9 +26,6 @@ import { PagesRoutingModule } from './pages-routing.module';
   declarations: [
     PagesComponent
   ],
-  // exports: [
-  //   PagesComponent
-  // ],
   providers: [ ]
 })
 export class PagesModule { }
