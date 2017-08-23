@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BackendService } from '../shared/backend.service';
+import { BackendService } from '../core/services/backend.service';
 import { SpinnerService } from '../core/services/spinner.service';
 
 @Component({

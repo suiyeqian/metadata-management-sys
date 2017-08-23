@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { BackendService } from '../shared/backend.service';
+import { BackendService } from '../../core/services/backend.service';
 import { EchartOptionService } from './echart-option.service';
 
 @Component({

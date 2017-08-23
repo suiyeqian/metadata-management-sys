@@ -7,6 +7,7 @@ import { HeaderComponent } from './header/header.component';
 
 import { throwIfAlreadyLoaded } from './module-import-guard';
 
+import { BackendService } from './services/backend.service';
 import { UserService } from './services/user.service';
 import { SpinnerService } from './services/spinner.service';
 
@@ -25,6 +26,7 @@ import { SpinnerService } from './services/spinner.service';
   ],
   providers: [
     UserService,
+    BackendService,
     SpinnerService
   ]
 })

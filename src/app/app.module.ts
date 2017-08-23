@@ -5,10 +5,6 @@ import { FormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-// Imports for loading & configuring the in-memory web api
-// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-// import { InMemoryDataService }  from './shared/in-memory-data.service';
-
 import { AppComponent } from './app.component';
 
 /* Feature Modules */
@@ -16,8 +12,6 @@ import { PagesModule } from './pages/pages.module';
 
 /* Routing Module */
 import { AppRoutingModule } from './app-routing.module';
-
-import { BackendService } from './shared/backend.service';
 
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
@@ -33,7 +27,7 @@ import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
   declarations: [
     AppComponent
   ],
-  providers: [ BackendService ],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

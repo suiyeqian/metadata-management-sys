@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, Router, CanActivateChild } from '@angular/router';
 import { Http, Headers, RequestOptions } from '@angular/http';
 
 @Injectable()
-export class UserService implements CanActivate {
+export class UserService implements CanActivate, CanActivateChild {
   // private baseUrl = 'http://10.17.2.26:8190/' + 'mdms/';
   // private loginUrl = 'http://10.17.2.26:8188/bdportal'+'/resources/mdms/login.html';
   // 耀毅
@@ -23,6 +23,8 @@ export class UserService implements CanActivate {
   }
 
   canActivate() {
+    //  localStorage.setItem('mdms_ticket', 'cd586fa007554166814402a7fea99b64');
+    //  return true;
       let reg = new RegExp('(^|&)ticket=([^&]*)(&|$)');
       let r = window.location.search.substr(1).match(reg);
       if (r) {
@@ -48,6 +50,10 @@ export class UserService implements CanActivate {
           window.location.href = this.loginUrl;
         }
       }
+  }
+
+  canActivateChild() {
+    return this.canActivate();
   }
 
   getTicket(): Promise<any> {

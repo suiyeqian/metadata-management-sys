@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
-import { BackendService } from '../../shared/backend.service';
+import { BackendService } from '../../../core/services/backend.service';
 
 @Component({
   selector: 'my-search-table',

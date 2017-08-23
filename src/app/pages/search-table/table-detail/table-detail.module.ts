@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { TableDetailComponent } from './table-detail.component';
 
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../../../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -11,9 +11,7 @@ import { SharedModule } from '../../shared/shared.module';
   declarations: [
     TableDetailComponent
   ],
-  exports: [
-    TableDetailComponent
-  ],
+  exports: [ ],
   providers: [ ]
 })
 export class TableDetailModule { }

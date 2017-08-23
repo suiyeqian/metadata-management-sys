@@ -48,26 +48,29 @@
   width: 178px;
   height: 163px;
   background-color: #9aa2fa;
-  box-shadow: 2px 6px 3px rgba(154, 162, 250, 0.4);
+  box-shadow: 0px 4px 3px 1px rgba(154, 162, 250, 0.4);
   color: #fff;
   margin: auto;
   position: relative;
   &:nth-child(2){
     background-color: #d180f4;
-    box-shadow: 2px 6px 3px rgba(209, 128, 244, .4);
+    box-shadow: 0px 4px 3px 1px rgba(209, 128, 244, .4);
   }
   &:nth-child(3){
     background-color: #f36b7f;
-    box-shadow: 2px 6px 3px rgba(243, 107, 127, .4);
+    box-shadow: 0px 4px 3px 1px rgba(243, 107, 127, .4);
   }
   &:nth-child(4){
     background-color: #5bcaff;
-    box-shadow: 2px 6px 3px rgba(91, 202, 255, .4);
+    box-shadow: 0px 4px 3px 1px rgba(91, 202, 255, .4);
   }
   &:nth-child(5){
     background-color: #fdc992;
-    box-shadow: 2px 6px 3px rgba(253, 201, 146, .4);
+    box-shadow: 0px 4px 3px 1px rgba(253, 201, 146, .4);
   }
+}
+.userNum-box:hover{
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px;
 }
 .cnt-top{
   display: block;

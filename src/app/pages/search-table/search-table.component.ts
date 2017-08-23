@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BackendService } from '../shared/backend.service';
-import { SearchParams } from '../shared/data-model';
+import { BackendService } from '../../core/services/backend.service';
+import { SearchParams } from '../../shared/data-model';
 
 @Component({
   selector: 'my-search-table',

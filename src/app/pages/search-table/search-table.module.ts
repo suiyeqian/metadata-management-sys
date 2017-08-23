@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 
 import { SearchTableComponent } from './search-table.component';
 
-import { SelectBoxModule } from '../my-components/select-box/select-box.module';
-import { PaginatorModule } from '../my-components/paginator/paginator.module';
+import { SelectBoxModule } from '../../my-components/select-box/select-box.module';
+import { PaginatorModule } from '../../my-components/paginator/paginator.module';
 
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -16,9 +16,7 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     SearchTableComponent,
   ],
-  exports: [
-    SearchTableComponent
-  ],
+  exports: [ ],
   providers: [ ]
 })
 export class SearchTableModule { }

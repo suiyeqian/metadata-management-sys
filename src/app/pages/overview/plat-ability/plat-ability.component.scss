@@ -21,7 +21,7 @@
   text-align: left;
 }
 .ability-icon{
-  margin: 12px auto 22px;
+  margin: 15px auto 12px;
 }
 .ability-icon.count-ability{
   margin: 15px auto 12px;
@@ -30,19 +30,17 @@
   margin: 15px auto 12px;
 }
 .ability-icon i{
-  font-size: 108px;
+  font-size: 100px;
   color: #ff5a8f;
 }
 .ability-icon.count-ability i{
-  font-size: 100px;
   color: #5bcaff;
 }
 .ability-icon.work-ability i{
-  font-size: 100px;
   color: #7fe9e1;
 }
 .ability-desc{
-  padding: 0 36px 10px;
+  padding: 0 33px 10px;
 }
 .storage .ability-item{
   padding: 6px 0px;
@@ -57,13 +55,21 @@
   display: block;
 }
 .circle{
-  width: 12px;
-  height: 12px;
-  float: left;
+  width: 10px;
+  height: 10px;
+  display: inline-block;
   background-color: #ff5a8f;
   border-radius: 50%;
   margin-right: 8px;
-  margin-top: 4px;
+  margin-top: 2px;
+}
+.counting .circle{
+  background-color: #5bcaff;
+  margin-right: 10px;
+}
+.job .circle{
+  background-color: #7fe9e1;
+  margin-right: 10px;
 }
 .item-name{
   color: grey;
@@ -71,6 +77,9 @@
 }
 .item-val{
   font-size: 18px;
+}
+.counting .item-val{
+  padding-left: 23px;
 }
 
 // .service{

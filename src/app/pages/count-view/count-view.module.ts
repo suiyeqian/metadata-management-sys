@@ -4,7 +4,7 @@ import { CountViewComponent } from './count-view.component';
 
 import { AngularEchartsModule } from 'ngx-echarts';
 
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 
 import { EchartOptionService } from './echart-option.service';
 
@@ -16,9 +16,7 @@ import { EchartOptionService } from './echart-option.service';
   declarations: [
     CountViewComponent
   ],
-  exports: [
-    CountViewComponent
-  ],
+  exports: [ ],
   providers: [ EchartOptionService ]
 })
 export class CountViewModule { }

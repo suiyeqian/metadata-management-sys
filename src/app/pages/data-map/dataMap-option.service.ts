@@ -1,7 +1,7 @@
 import { Injectable }    from '@angular/core';
 
 @Injectable()
-export class datamapOptionService {
+export class DatamapOptionService {
   constructor() {}
 
   getOption() {
@@ -53,7 +53,7 @@ export class datamapOptionService {
         }
       }
     }]
-  }
+  };
 
   return option;
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { BackendService } from '../shared/backend.service';
-import { datamapOptionService } from './dataMap-option.service';
+import { BackendService } from '../../core/services/backend.service';
+import { DatamapOptionService } from './dataMap-option.service';
 
 @Component({
   selector: 'my-data-map',
@@ -32,10 +32,10 @@ export class DataMapComponent implements OnInit {
   private bubbleDataUrl = 'datamap/searchDataMap';
   private searchBloodRelationTableUrl = 'datamap/searchBloodRelationInfo';
 
-  
+
   constructor(
     private backendService: BackendService,
-    private datamapOpt: datamapOptionService) {
+    private datamapOpt: DatamapOptionService) {
   }
 
   ngOnInit(): void {
@@ -924,7 +924,7 @@ console.log(this.msg);
       obj.id = arr[i].groupId;
       obj.name = arr[i].groupName;
       if (arr[i].sub) {
-        
+
       }
       resArr.push(obj);
       if (arr[i].subGroupBloodDTO) {

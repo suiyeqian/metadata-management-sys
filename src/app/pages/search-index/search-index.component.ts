@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BackendService } from '../shared/backend.service';
-import { SearchParams } from '../shared/data-model';
+import { BackendService } from '../../core/services/backend.service';
+import { SearchParams } from '../../shared/data-model';
 
 @Component({
   selector: 'my-search-index',

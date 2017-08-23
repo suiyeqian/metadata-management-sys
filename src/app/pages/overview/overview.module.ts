@@ -5,7 +5,7 @@ import { SeeWhatComponent } from './see-what/see-what.component';
 import { WhereComponent } from './where/where.component';
 import { PlatAbilityComponent } from './plat-ability/plat-ability.component';
 
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 
 import { AngularEchartsModule } from 'ngx-echarts';
 
@@ -20,12 +20,7 @@ import { AngularEchartsModule } from 'ngx-echarts';
     WhereComponent,
     PlatAbilityComponent
   ],
-  exports: [
-    OverviewComponent,
-    SeeWhatComponent,
-    WhereComponent,
-    PlatAbilityComponent
-  ],
+  exports: [ ],
   providers: [ ]
 })
 export class OverviewModule { }
