@@ -10,7 +10,6 @@ import { AngularEchartsModule } from 'ngx-echarts';
 import { datamapOptionService } from './dataMap-option.service';
 
 
-
 @NgModule({
   imports: [
     SharedModule,
