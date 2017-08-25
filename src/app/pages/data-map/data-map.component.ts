@@ -48,6 +48,7 @@ export class DataMapComponent implements OnInit {
   authority() {
     // localStorage.setItem('')
   }
+  
 
   getBubbleData(): void {
     this.backendService
