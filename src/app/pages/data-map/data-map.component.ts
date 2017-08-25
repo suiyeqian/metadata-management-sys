@@ -80,10 +80,6 @@ export class DataMapComponent implements OnInit {
   }
 
   hideSearchList(): void {
-    /* let self = this;
-    setTimeout(function(){
-      self.isFocus = false;
-    }, 200); */
     setTimeout(() => {
       this.isFocus = false;
     })
@@ -91,7 +87,6 @@ export class DataMapComponent implements OnInit {
 
 
   delaySearch(msg: string, fn: any, wait: number): any {
-    // let self = this;
     if (this.searchTime[msg]) {
 // console.log(msg);
         window.clearTimeout(this.searchTime[msg]);
@@ -575,7 +570,6 @@ export class DataMapComponent implements OnInit {
       symbolSize: 100,
       tooltip: {
         formatter: function() {
-          /* return '<p style="text-align:left;margin-bottom:0;">所属组名：' + data.groupBlood.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + data.groupBlood.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + data.groupBlood.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + data.groupBlood.cron + '</p><p style="text-align:left;margin-bottom:0;">' + '上游组数量：' + data.parentGroupTotal + '&nbsp; 下游组数量：' + data.subGroupTotal + '</p><p style="text-align:left;margin-bottom:0;">' + '直接上游组表数量：' + data.parentTableTotal + '&nbsp; 直接下游组表数量：' + data.subTableTotal + '</p>'; */
           return `所属组名：${data.groupBlood.groupName}<br>
                   负责人：${data.groupBlood.cUser}<br>
                   创建时间：${data.groupBlood.cDate}<br>
@@ -667,7 +661,6 @@ export class DataMapComponent implements OnInit {
         links.push(link);
 
         element.tooltip.formatter = ((node: any): any => {
-          /* return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>'; */
           return `所属组名：${node.groupName}<br>
                   负责人：${node.cUser}<br>
                   创建时间：${node.cDate}<br>
@@ -732,7 +725,6 @@ export class DataMapComponent implements OnInit {
             links.push(link);
 
             element.tooltip.formatter = ((node: any): any => {
-              /* return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>'; */
               return `所属组名：${node.groupName}<br>
                       负责人：${node.cUser}<br>
                       创建时间：${node.cDate}<br>
@@ -801,7 +793,6 @@ export class DataMapComponent implements OnInit {
         links.push(link);
 
         element.tooltip.formatter = ((node: any): any => {
-          /* return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>'; */
           return `所属组名：${node.groupName}<br>
                   负责人：${node.cUser}<br>
                   创建时间：${node.cDate}<br>
@@ -866,7 +857,6 @@ export class DataMapComponent implements OnInit {
             links.push(link);
 
             element.tooltip.formatter = ((node: any): any => {
-              /* return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>'; */
               return `所属组名：${node.groupName}<br>
                       负责人：${node.cUser}<br>
                       创建时间：${node.cDate}<br>
@@ -888,8 +878,6 @@ export class DataMapComponent implements OnInit {
     initOp.series[0].force.edgeLength = 50;
     this.bloodRelationMapOption = initOp;
     this.searchResult = true;
-// console.log(seriesData);
-// console.log(this.bloodRelationMapOption);
   }
 
 
