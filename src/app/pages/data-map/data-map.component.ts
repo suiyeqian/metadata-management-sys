@@ -19,7 +19,6 @@ export class DataMapComponent implements OnInit {
   searchListData = [];
   isChNm = false;
   tableName: string;
-  // searchResult = false;
   bloodRelationModalData = {};
   searchList = [];
   searchTime = {};
@@ -44,14 +43,6 @@ export class DataMapComponent implements OnInit {
   ngOnInit(): void {
     this.getBubbleData();
   }
-
-<<<<<<< HEAD
-=======
-  authority() {
-    // localStorage.setItem('')
-  }
-  
->>>>>>> 11d01f13ac4d1fd5f23f1c4a064953038124a0a3
 
   getBubbleData(): void {
     this.backendService
@@ -890,11 +881,6 @@ export class DataMapComponent implements OnInit {
     initOp.series[0].label.normal.textStyle.fontSize = 14;
     initOp.series[0].force.edgeLength = 50;
     this.bloodRelationMapOption = initOp;
-<<<<<<< HEAD
-    this.searchResult = true;
-=======
-    // this.searchResult = true;
->>>>>>> 11d01f13ac4d1fd5f23f1c4a064953038124a0a3
   }
 
 
