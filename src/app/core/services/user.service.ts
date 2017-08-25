@@ -19,6 +19,8 @@ export class UserService implements CanActivate, CanActivateChild {
     private router: Router) { }
 
   canActivate() {
+    // localStorage.setItem('mdms_ticket', '9dacbc106e174a719cc9f7a441b374fb');
+    // return true;
     let reg = new RegExp('(^|&)ticket=([^&]*)(&|$)');
     let r = window.location.search.substr(1).match(reg);
     if (r) {

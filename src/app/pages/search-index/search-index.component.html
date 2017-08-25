@@ -24,21 +24,21 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th class="text-left">指标名</th>
-            <th class="text-left">指标编号</th>
-            <th class="text-left">应用领域</th>
-            <th class="text-left">模块</th>
-            <th class="text-left">负责人</th>
-            <th class="text-left">指标定义</th>
+            <th class="text-center">序号</th>
+            <th class="text-left">业务线</th>
+            <th class="text-left">指标大类</th>
+            <th class="text-left">指标小类</th>
+            <th class="text-left">指标名称</th>
+            <th class="text-left">定义</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor = "let idx of indexResult.datas" class="text-left">
+          <tr *ngFor = "let idx of indexResult.datas;let i = index;" class="text-left">
+            <td class="text-center tblNo">{{i + 1 + (currentPage-1)*10}}</td>
+            <td>{{idx.companyName}}</td>
+            <td>{{idx.indexClass}}</td>
+            <td>{{idx.indexSubClass}}</td>
             <td>{{idx.idxNm}}</td>
-            <td>{{idx.idxId}}</td>
-            <td>{{idx.appSub}}</td>
-            <td>{{idx.appMod}}</td>
-            <td>{{idx.idxOwner}}</td>
             <td>{{idx.idxDef}}</td>
           </tr>
         </tbody>
