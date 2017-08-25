@@ -9,47 +9,41 @@ export class UserService implements CanActivate, CanActivateChild {
   // 耀毅
   private baseUrl = 'http://10.14.1.155:8188/' + 'mdms/';
   private loginUrl = 'http://10.14.1.155:8082/bdportal' + '/resources/mdms/login.html';
-  onceticket: string;
-  user = Object.assign({});
   private headers = new Headers({
     'Content-Type': 'application/json',
     'X-Requested-SystemCode' : 'neo_mdms'});
   private options = new RequestOptions({ headers: this.headers});
 
   constructor(
-      private http: Http,
-      private router: Router
-  ) {
-  }
+    private http: Http,
+    private router: Router) { }
 
   canActivate() {
-    //  localStorage.setItem('mdms_ticket', 'cd586fa007554166814402a7fea99b64');
-    //  return true;
-      let reg = new RegExp('(^|&)ticket=([^&]*)(&|$)');
-      let r = window.location.search.substr(1).match(reg);
-      if (r) {
-        this.headers.set('X-Requested-Ticket', r[2]);
-        return this.getTicket().then(res => {
-            if (res.success) {
-              localStorage.setItem('mdms_ticket', res.data.ticket);
-              this.router.navigate(['/pages/serviceView']);
-              return true;
-            } else {
-              if (res.code === 1004 || res.code === 1005) {
-                  localStorage.clear();
-                  window.location.href = this.loginUrl;
-              }
-              return false;
+    let reg = new RegExp('(^|&)ticket=([^&]*)(&|$)');
+    let r = window.location.search.substr(1).match(reg);
+    if (r) {
+      this.headers.set('X-Requested-Ticket', r[2]);
+      return this.getTicket().then(res => {
+          if (res.success) {
+            localStorage.setItem('mdms_ticket', res.data.ticket);
+            this.router.navigate(['/pages/serviceView']);
+            return true;
+          } else {
+            if (res.code === 1004 || res.code === 1005) {
+                localStorage.clear();
+                window.location.href = this.loginUrl;
             }
-         });
+            return false;
+          }
+       });
+    } else {
+      if (localStorage.getItem('mdms_ticket')) {
+        return true;
       } else {
-        if (localStorage.getItem('mdms_ticket')) {
-          return true;
-        } else {
-          localStorage.clear();
-          window.location.href = this.loginUrl;
-        }
+        localStorage.clear();
+        window.location.href = this.loginUrl;
       }
+    }
   }
 
   canActivateChild() {

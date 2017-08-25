@@ -7,7 +7,7 @@
 <form (ngSubmit)='onSearch()'>
   <div class="search">
     <div class="form-group">
-      <input type="text" list="list" [(ngModel)]="searchModel.tableName" autofocus (blur)="hideSearchList($event)" autocomplete="off" (focus)="showSearchList($event)" name="tableName" class="form-control search-input" placeholder="按中文表名、英文表名搜索" #tableName="ngModel"
+      <input type="text" list="list" [(ngModel)]="searchModel.tableName" autofocus (blur)="hideSearchList($event)" autocomplete="off" (focus)="showSearchList($event)" name="tableName" class="form-control search-input" placeholder="按中文表名、英文表名搜索血缘关系" #tableName="ngModel"
         (ngModelChange)='tableNameChange($event)'>
       <div id="list" *ngIf="isFocus" (click)="chooseTable($event)">
         <ul class="chList" *ngIf="!isChNm">
@@ -19,19 +19,57 @@
       </div>
     </div>
     <button type="submit" name="button" class="btn btn-blue btn-search">搜索</button>
+    <i class="material-icons icon-help" (click)="openModal(content)">help_outline</i>
   </div>
 </form>
 
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">帮助描述</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <article>
+      <h6>1、数据地图</h6>
+      <p>
+        <strong>定义：</strong>用于展现小牛集团数据全貌，提供宏观的数据架构图，帮助用户从宏观层面了解小牛数据资产信息;
+      </p>
+      <p><strong>划分依据：</strong>数据全貌按基础数据、应用领域、平台工具集三大类划分为不同的球点数据域;</p>
+      <ul>
+        <li>a.基础数据指数据仓库中ODS(镜像层)和DWD(明细层)两层的数据，细分为在线基础数据、普惠基础数据等</li>
+        <li>b.应用领域数据指数据仓库中DMB(主题集市层)和DMA(应用集市)两层的数据，细分为在线运营分析、信贷风控应用等</li>
+        <li>c.平台工具集数据指大数据平台相关工具对应的数据，如数据质量平台、元数据平台等</li>
+      </ul>
+      <p><strong>使用说明：</strong></p>
+      <ul>
+        <li>a.球点越大，代表该域包含的表数量越多，内置的数子为包含的表数量;</li>
+        <li>b.球点之间的连线，代表球点间存在数据引用关系，引用的表个数在连线之上;</li>
+      </ul>
+      <h6 class="margin-top-10">2、数据血缘</h6>
+      <p>
+        <strong>定义：</strong>在大数据平台整个数据生产链路中，数据是流动的，存在彼此依赖的血缘关系；通过血缘，用户能迅速了解分析对象对应的上下游数据信息，快速识别元数据的价值和元数据变更可能造成的影响
+      </p>
+      <p> <strong>划分依据：</strong>通过表对象，分别向上游和下游追溯两层数据血缘，显示该表对象对应的上下游依赖组</p>
+      <p><strong>使用说明：</strong>输入表中文名或英文名，点击搜索进行血缘关系查询</p>
+    </article>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-blue btn-sm" (click)="c()">关闭</button>
+  </div>
+</ng-template>
 <div class="col-md-12 chart">
   <div class="chart-box">
     <div class="bg"></div>
     <div echarts *ngIf="!searchResult" [options]="relatedOption" class="chart-graph-bubble"></div>
     <div echarts *ngIf="searchResult" [options]="bloodRelationMapOption" class="chart-graph-blood"></div>
   </div>
-  <pre class="bubble-tips" *ngIf="!searchResult">
+  <!-- <pre class="bubble-tips" *ngIf="!searchResult">
       注意：
       1、按基础数据及业务应用域的规则，将数据仓库中的数据划分为不同的球点域;
       2、球点越大，代表该域包含的表数量越多，内置的数字为包含的表数量;
       3、球点之间的连线，代表存在数据引用关系，引用的表个数在连线之上;
-  </pre>
+  </pre> -->
 </div>

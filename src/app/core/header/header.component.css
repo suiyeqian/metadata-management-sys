@@ -5,7 +5,7 @@ header {
   top: 0;
   left: 0;
   width: 100%;
-  min-width: 1440px;
+  min-width: 1360px;
   height: 62px;
   box-shadow: 2px 2px 6px rgba(52, 73, 94, 0.5);
   color: #fff;
@@ -23,7 +23,7 @@ header {
   line-height: 29px;
 }
 .wel{
-  margin-right: 56px
+  margin-right: 26px
 }
 .header a{
   text-decoration: none;

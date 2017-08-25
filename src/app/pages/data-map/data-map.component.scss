@@ -24,6 +24,40 @@
 
 .btn-search {
   height: 38px;
+  margin-right: 5px;
+}
+.icon-help {
+  cursor: pointer;
+  margin-top: 6px;
+  color: #34495e;
+}
+.icon-help:hover{
+  color: #2795fc;
+}
+.help-modal {
+  font-size: 12px;
+  .modal-header, .modal-footer{
+    padding: 10px 15px;
+  }
+  .modal-title {
+    font-size: 20px;
+    font-weight: 600;
+  }
+  h6 {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .margin-top-10{
+    margin-top: 10px;
+  }
+  p {
+    text-indent: 2em;
+    margin-bottom: 5px;
+  }
+  ul {
+    margin-bottom: 5px;
+    padding-left: 5em;
+  }
 }
 
 .form-group {
