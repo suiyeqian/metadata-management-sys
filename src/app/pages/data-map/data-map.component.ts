@@ -2,6 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { BackendService } from '../../core/services/backend.service';
 import { DatamapOptionService } from './dataMap-option.service';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'my-data-map',
   templateUrl: './data-map.component.html',
@@ -17,7 +19,7 @@ export class DataMapComponent implements OnInit {
   searchListData = [];
   isChNm = false;
   tableName: string;
-  searchResult = false;
+  // searchResult = false;
   bloodRelationModalData = {};
   searchList = [];
   searchTime = {};
@@ -35,7 +37,8 @@ export class DataMapComponent implements OnInit {
 
   constructor(
     private backendService: BackendService,
-    private datamapOpt: DatamapOptionService) {
+    private datamapOpt: DatamapOptionService,
+    private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -52,6 +55,9 @@ export class DataMapComponent implements OnInit {
         .then((res) => this.bubbleOption(res));
   }
 
+  openModal(content): void {
+    this.modalService.open(content, { windowClass: 'help-modal', size:'lg' });
+  }
   // 缓存搜索提示数据
   /* getTableListData(): void {
     this.backendService
@@ -887,9 +893,7 @@ export class DataMapComponent implements OnInit {
     initOp.series[0].label.normal.textStyle.fontSize = 14;
     initOp.series[0].force.edgeLength = 50;
     this.bloodRelationMapOption = initOp;
-    this.searchResult = true;
-// console.log(seriesData);
-// console.log(this.bloodRelationMapOption);
+    // this.searchResult = true;
   }
 
 
