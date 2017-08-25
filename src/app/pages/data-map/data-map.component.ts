@@ -45,10 +45,13 @@ export class DataMapComponent implements OnInit {
     this.getBubbleData();
   }
 
+<<<<<<< HEAD
+=======
   authority() {
     // localStorage.setItem('')
   }
   
+>>>>>>> 11d01f13ac4d1fd5f23f1c4a064953038124a0a3
 
   getBubbleData(): void {
     this.backendService
@@ -90,23 +93,21 @@ export class DataMapComponent implements OnInit {
   }
 
   hideSearchList(): void {
-    let self = this;
-    setTimeout(function(){
-      self.isFocus = false;
-    }, 200);
+    setTimeout(() => {
+      this.isFocus = false;
+    })
   }
 
 
   delaySearch(msg: string, fn: any, wait: number): any {
-    let self = this;
-    if (self.searchTime[msg]) {
+    if (this.searchTime[msg]) {
 // console.log(msg);
-        window.clearTimeout(self.searchTime[msg]);
-        delete self.searchTime[msg];
+        window.clearTimeout(this.searchTime[msg]);
+        delete this.searchTime[msg];
     }
-    return self.searchTime[msg] = window.setTimeout(function() {
+    return this.searchTime[msg] = window.setTimeout(() => {
         fn();
-        delete self.searchTime[msg];
+        delete this.searchTime[msg];
     }, wait);
   }
 
@@ -117,10 +118,10 @@ export class DataMapComponent implements OnInit {
     }else {
       this.isChNm = false;
     }
-    let self = this;
+    // let self = this;
     if (name) {
-      this.delaySearch('send', function() {
-        self.getTableList(name);
+      this.delaySearch('send', () => {
+        this.getTableList(name);
       }, 500);
     }else {
       return;
@@ -582,7 +583,6 @@ export class DataMapComponent implements OnInit {
       symbolSize: 100,
       tooltip: {
         formatter: function() {
-          /* return '<p style="text-align:left;margin-bottom:0;">所属组名：' + data.groupBlood.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + data.groupBlood.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + data.groupBlood.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + data.groupBlood.cron + '</p><p style="text-align:left;margin-bottom:0;">' + '上游组数量：' + data.parentGroupTotal + '&nbsp; 下游组数量：' + data.subGroupTotal + '</p><p style="text-align:left;margin-bottom:0;">' + '直接上游组表数量：' + data.parentTableTotal + '&nbsp; 直接下游组表数量：' + data.subTableTotal + '</p>'; */
           return `所属组名：${data.groupBlood.groupName}<br>
                   负责人：${data.groupBlood.cUser}<br>
                   创建时间：${data.groupBlood.cDate}<br>
@@ -674,7 +674,6 @@ export class DataMapComponent implements OnInit {
         links.push(link);
 
         element.tooltip.formatter = ((node: any): any => {
-          /* return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>'; */
           return `所属组名：${node.groupName}<br>
                   负责人：${node.cUser}<br>
                   创建时间：${node.cDate}<br>
@@ -739,7 +738,6 @@ export class DataMapComponent implements OnInit {
             links.push(link);
 
             element.tooltip.formatter = ((node: any): any => {
-              /* return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>'; */
               return `所属组名：${node.groupName}<br>
                       负责人：${node.cUser}<br>
                       创建时间：${node.cDate}<br>
@@ -808,7 +806,6 @@ export class DataMapComponent implements OnInit {
         links.push(link);
 
         element.tooltip.formatter = ((node: any): any => {
-          /* return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>'; */
           return `所属组名：${node.groupName}<br>
                   负责人：${node.cUser}<br>
                   创建时间：${node.cDate}<br>
@@ -873,7 +870,6 @@ export class DataMapComponent implements OnInit {
             links.push(link);
 
             element.tooltip.formatter = ((node: any): any => {
-              /* return '<p style="text-align:left;margin-bottom:0;">所属组名：' + node.groupName + '</p><p style="text-align:left;margin-bottom:0;">' + '负责人：' + node.cUser + '</p><p style="text-align:left;margin-bottom:0;">' + '创建时间：' + node.cDate + '</p><p style="text-align:left;margin-bottom:0;">' + '组调度表达式：' + node.cron + '</p>'; */
               return `所属组名：${node.groupName}<br>
                       负责人：${node.cUser}<br>
                       创建时间：${node.cDate}<br>
@@ -894,7 +890,11 @@ export class DataMapComponent implements OnInit {
     initOp.series[0].label.normal.textStyle.fontSize = 14;
     initOp.series[0].force.edgeLength = 50;
     this.bloodRelationMapOption = initOp;
+<<<<<<< HEAD
+    this.searchResult = true;
+=======
     // this.searchResult = true;
+>>>>>>> 11d01f13ac4d1fd5f23f1c4a064953038124a0a3
   }
 
 
