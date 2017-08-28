@@ -19,7 +19,7 @@ export class DataMapComponent implements OnInit {
   searchListData = [];
   isChNm = false;
   tableName: string;
-  // searchResult = false;
+  searchResult = false;
   bloodRelationModalData = {};
   searchList = [];
   searchTime = {};
@@ -44,14 +44,6 @@ export class DataMapComponent implements OnInit {
   ngOnInit(): void {
     this.getBubbleData();
   }
-
-<<<<<<< HEAD
-=======
-  authority() {
-    // localStorage.setItem('')
-  }
-  
->>>>>>> 11d01f13ac4d1fd5f23f1c4a064953038124a0a3
 
   getBubbleData(): void {
     this.backendService
@@ -95,7 +87,7 @@ export class DataMapComponent implements OnInit {
   hideSearchList(): void {
     setTimeout(() => {
       this.isFocus = false;
-    })
+    }, 200);
   }
 
 
@@ -174,7 +166,8 @@ export class DataMapComponent implements OnInit {
     let seriesData = data.map(function(node) {
       return {
         id: node.dataAreaName,
-        name: node.tableCnt + '\n' + (node.dataAreaName).substr(0, 3) + '\n' + (node.dataAreaName).substr(3, 100),
+        // name: node.tableCnt + '\n' + (node.dataAreaName).substr(0, 3) + '\n' + (node.dataAreaName).substr(3, 100),
+        name: node.tableCnt + '\n' + node.dataAreaName.substring(0, 3) + '\n' + node.dataAreaName.substring(3),
         symbol: '',
         value: node.tableCnt,
         symbolSize: node.tableCnt,
@@ -186,12 +179,13 @@ export class DataMapComponent implements OnInit {
     });
     initOp.series[0].data = seriesData;
     initOp.series[0].links = links;
-    initOp.series[0].label.normal.textStyle.fontSize = 16;
+    initOp.series[0].label.normal.textStyle.fontSize = 16; 
     initOp.tooltip['show'] = false;
     this.relatedOption = initOp;
     this.adjustBubble(this.relatedOption);
 // console.log(this.relatedOption);
   }
+  
 
   adjustBubble(opt: any): void {
     opt.series[0].data.map((node: any) => {
@@ -890,11 +884,7 @@ export class DataMapComponent implements OnInit {
     initOp.series[0].label.normal.textStyle.fontSize = 14;
     initOp.series[0].force.edgeLength = 50;
     this.bloodRelationMapOption = initOp;
-<<<<<<< HEAD
     this.searchResult = true;
-=======
-    // this.searchResult = true;
->>>>>>> 11d01f13ac4d1fd5f23f1c4a064953038124a0a3
   }
 
 
