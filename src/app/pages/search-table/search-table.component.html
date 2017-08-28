@@ -26,6 +26,7 @@
       <table class="table table-hover">
         <thead>
           <tr>
+            <th class="text-center">序号</th>
             <th class="text-left">英文表名</th>
             <th class="text-left">中文表名</th>
             <th class="text-left">数据层级</th>
@@ -35,7 +36,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor = "let tbl of tblResult.datas" class="text-left">
+          <tr *ngFor = "let tbl of tblResult.datas;let i = index;" class="text-left">
+            <td class="text-center tblNo">{{i + 1 + (currentPage-1)*10}}</td>
             <td class="tblEnNms" (click)="goToDetail(tbl)">{{tbl.tblEnNm}}</td>
             <td class="tblChNm" (click)="goToDetail(tbl)">{{tbl.tblChNm}}</td>
             <td class="dataLvl">{{tbl.dataLvl}}</td>

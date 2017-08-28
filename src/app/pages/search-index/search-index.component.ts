@@ -58,7 +58,7 @@ export class SearchIndexComponent implements OnInit {
   initSort(): void {
     this.sorts = [
       {orderBy: 'idx_nm', desc: '指标名', sortType: 'asc', isActive: true},
-      {orderBy: 'idx_owner', desc: '负责人', sortType: 'asc', isActive: false}
+      // {orderBy: 'idx_owner', desc: '负责人', sortType: 'asc', isActive: false}
     ];
   }
 

@@ -66,10 +66,4 @@
     <div echarts *ngIf="!searchResult" [options]="relatedOption" class="chart-graph-bubble"></div>
     <div echarts *ngIf="searchResult" [options]="bloodRelationMapOption" class="chart-graph-blood"></div>
   </div>
-  <!-- <pre class="bubble-tips" *ngIf="!searchResult">
-      注意：
-      1、按基础数据及业务应用域的规则，将数据仓库中的数据划分为不同的球点域;
-      2、球点越大，代表该域包含的表数量越多，内置的数字为包含的表数量;
-      3、球点之间的连线，代表存在数据引用关系，引用的表个数在连线之上;
-  </pre> -->
 </div>
