@@ -21,6 +21,7 @@ export class DataMapComponent implements OnInit {
   tableName: string;
   bloodRelationModalData = {};
   searchList = [];
+  searchResult = false;
   searchTime = {};
   isFocus = false;
 
@@ -883,6 +884,7 @@ export class DataMapComponent implements OnInit {
     initOp.series[0].label.normal.textStyle.fontSize = 14;
     initOp.series[0].force.edgeLength = 50;
     this.bloodRelationMapOption = initOp;
+    this.searchResult = true;
   }
 
 
