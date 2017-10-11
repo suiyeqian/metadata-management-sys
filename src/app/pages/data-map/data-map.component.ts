@@ -650,6 +650,7 @@ export class DataMapComponent implements OnInit {
         let link = {
           source: '',
           target: '',
+          tip: 1,
           symbolSize: [5, 15],
           lineStyle: {
             normal: {
@@ -714,6 +715,7 @@ export class DataMapComponent implements OnInit {
             let link = {
               source: '',
               target: '',
+              tip: 1,
               symbolSize: [5, 15],
               lineStyle: {
                 normal: {
@@ -782,6 +784,7 @@ export class DataMapComponent implements OnInit {
         let link = {
           source: '',
           target: '',
+          tip: 1,
           symbolSize: [5, 15],
           lineStyle: {
             normal: {
@@ -846,6 +849,7 @@ export class DataMapComponent implements OnInit {
             let link = {
               source: '',
               target: '',
+              tip: 1,
               symbolSize: [5, 15],
               lineStyle: {
                 normal: {
@@ -883,6 +887,11 @@ export class DataMapComponent implements OnInit {
     initOp.series[0]['edgeSymbol'] = ['circle', 'arrow'];
     initOp.series[0].label.normal.textStyle.fontSize = 14;
     initOp.series[0].force.edgeLength = 50;
+    initOp.tooltip['formatter'] = function(params: any) {
+      if (params.data.tip) {
+        return '';
+      }
+    };
     this.bloodRelationMapOption = initOp;
     this.searchResult = true;
   }
