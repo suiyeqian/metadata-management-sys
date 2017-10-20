@@ -14,7 +14,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class DataMapComponent implements OnInit {
   pagetitle = '数据地图';
   searchModel= {
-    tableName: ''
+    tableName: '',
+    dbName: ''
   };
   searchListData = [];
   isChNm = false;
@@ -25,9 +26,90 @@ export class DataMapComponent implements OnInit {
   searchTime = {};
   isFocus = false;
 
+  dbReg = /\((.+?)\)/;
+
   relatedOption: any;
   bloodRelationMapOption: any;
   showAlert = false;
+
+  mockData = {
+    "code": 0,
+    "success": true,
+    "msg": "成功",
+    "data": {
+      "tableName": "dwd_evt_zx_cust_rfnd_smr",
+      "dbNm": "dwd_data",
+      "dbOwnerName": null,
+      "createTime": "2017-5-09 02:10:10",
+      "dataUpdateTime": "2017-7-31 03:07:19",
+      "physicsStore": 1,
+      "jobInfo": null,
+      "subTableBloodDTO": [{
+          "tableName": "dma_opr_zx_widetable",
+          "dbNm": "dma_opr_data_od",
+          "dbOwnerName": null,
+          "createTime": "2017-5-10 03:13:11",
+          "dataUpdateTime": "2017-7-31 03:07:19",
+          "physicsStore": 7,
+          "jobInfo": {
+            "jobName": "job_dma_opr_zx_widetable",
+            "createBy": "liaojinbo",
+            "createTime": "2016-12-26 06:05:49",
+            "updateTime": "2016-12-26 06:06:03"
+          },
+          "subTableBloodDTO": null,
+          "parentTableBloodDTO": null
+        },
+        {
+          "tableName": "rpt_operation_daily_report",
+          "dbNm": "dma_zxopr_data",
+          "dbOwnerName": null,
+          "createTime": "2017-7-17 04:16:45",
+          "dataUpdateTime": "2017-7-31 03:07:19",
+          "physicsStore": 6,
+          "jobInfo": {
+            "jobName": "job_dma_opr_zx_Rpt_Operation_Daily_Report",
+            "createBy": "liaojinbo",
+            "createTime": "2017-5-23 05:28:18",
+            "updateTime": "2017-7-20 03:02:55"
+          },
+          "subTableBloodDTO": [{
+            "tableName": "rpt_operation_daily_report2",
+            "dbNm": "dma_zxopr_data",
+            "dbOwnerName": null,
+            "createTime": "2017-7-17 04:16:45",
+            "dataUpdateTime": "2017-7-31 03:07:19",
+            "physicsStore": 6,
+            "jobInfo": {
+              "jobName": "job_dma_opr_zx_Rpt_Operation_Daily_Report",
+              "createBy": "liaojinbo",
+              "createTime": "2017-5-23 05:28:18",
+              "updateTime": "2017-7-20 03:02:55"
+            },
+            "subTableBloodDTO": null,
+            "parentTableBloodDTO": null
+          }],
+          "parentTableBloodDTO": null
+        }
+      ],
+      "parentTableBloodDTO": [{
+        "tableName": "dwd_evt_zx_cust_trm_rfnd_dtl",
+        "dbNm": "dwd_data",
+        "dbOwnerName": null,
+        "createTime": "2017-5-09 01:52:55",
+        "dataUpdateTime": "2017-7-31 03:07:19",
+        "physicsStore": 10,
+        "jobInfo": {
+          "jobName": "job_dwd_evt_zx_cust_rfnd_smr",
+          "createBy": "liaojinbo",
+          "createTime": "2017-5-02 06:30:26",
+          "updateTime": "2017-6-29 06:10:33"
+        },
+        "subTableBloodDTO": null,
+        "parentTableBloodDTO": null
+      }]
+    }
+  }
 
   private tableNameType = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
   private searchTableListUrl = 'datamap/searchTableInfo';
@@ -54,22 +136,12 @@ export class DataMapComponent implements OnInit {
   openModal(content): void {
     this.modalService.open(content, { windowClass: 'help-modal', size:'lg' });
   }
-  // 缓存搜索提示数据
-  /* getTableListData(): void {
-    this.backendService
-        .getItemsByJsonParams(this.searchTableListUrl, {})
-        .then((res) => {
-          sessionStorage.setItem('searchListData', res);
-        });
-  } */
-
   getTableList(name: string): void {
     this.backendService
         .getItemsByJsonParams(this.searchTableListUrl,{tableName: name})
         .then((res) => {
           this.searchList = res;
           this.bloodRelationModalData = res;
-// console.log(this.searchList);
         });
   }
 
@@ -79,9 +151,13 @@ export class DataMapComponent implements OnInit {
   }
 
   chooseTable($event): void {
-    this.searchModel.tableName = $event.target.innerHTML;
+    var str = $event.target.innerHTML;
+    var dbName = str.match(this.dbReg)[0];
+    var tableName = str.substring(str.indexOf(')') + 1);
+    this.searchModel.tableName = tableName;
+    this.searchModel.dbName = dbName;
     this.isFocus = false;
-// console.log(this.tableName);
+// console.log(this.searchModel);
   }
 
   hideSearchList(): void {
@@ -104,13 +180,13 @@ export class DataMapComponent implements OnInit {
   }
 
   tableNameChange(name: string): void {
+// console.log(this.searchModel);
     this.tableName = name;
     if (this.tableNameType.test(name)) {
       this.isChNm = true;
     }else {
       this.isChNm = false;
     }
-    // let self = this;
     if (name) {
       this.delaySearch('send', () => {
         this.getTableList(name);
@@ -166,7 +242,6 @@ export class DataMapComponent implements OnInit {
     let seriesData = data.map(function(node) {
       return {
         id: node.dataAreaName,
-        // name: node.tableCnt + '\n' + (node.dataAreaName).substr(0, 3) + '\n' + (node.dataAreaName).substr(3, 100),
         name: node.tableCnt + '\n' + node.dataAreaName.substring(0, 3) + '\n' + node.dataAreaName.substring(3),
         symbol: '',
         value: node.tableCnt,
@@ -557,9 +632,10 @@ export class DataMapComponent implements OnInit {
   onSearch(): void {
     if (this.searchModel.tableName.trim()) {
       this.backendService
-        .getItemsByJsonParams(this.searchBloodRelationTableUrl, {tableName: this.searchModel.tableName.trim()})
+        .getItemsByJsonParams(this.searchBloodRelationTableUrl, {tableName: this.searchModel.tableName.trim(),dbName: this.searchModel.dbName.match(this.dbReg)[1]})
         .then((res) => {
-          res.groupBlood ? this.renderBloodRelationMap(res) : this.showAlert = true;
+          // res.groupBlood ? this.renderBloodRelationMap(res) : this.showAlert = true;
+          res.groupBlood ? this.renderBloodRelationMap(this.mockData.data) : this.showAlert = true;
         });
     }
   }
@@ -569,23 +645,14 @@ export class DataMapComponent implements OnInit {
     let seriesData = [];
     let links = [];
 
-    // initOp.series[0].layout = 'none';
-    // delete initOp.series[0].force;
     seriesData[0] = {
-      id: data.groupBlood.groupId,
-      name: data.tableName.substr(0,10) + '\n' + data.tableName.substr(10,100),
+      name: data.tableName,
       symbolSize: 100,
-      tooltip: {
-        formatter: function() {
-          return `所属组名：${data.groupBlood.groupName}<br>
-                  负责人：${data.groupBlood.cUser}<br>
-                  创建时间：${data.groupBlood.cDate}<br>
-                  组调度表达式：${data.groupBlood.cron}<br>
-                  上游组数量：${data.parentGroupTotal} &nbsp; 下游组数量：${data.subGroupTotal}<br>
-                  直接上游组表数量：${data.parentTableTotal} &nbsp; 直接下游组表数量：${data.subTableTotal}`;
-        },
-        extraCssText: 'text-align: left;'
-      },
+      tips: `库名表名：${data.tableName}<br><p style="margin-left:5em;margin-bottom:0;">${data.dbNm}</p>
+             创建时间：${data.createTime}<br>
+             最后修改时间：${data.dataUpdateTime}<br>
+             负责人：${data.dbOwnerName}<br>
+             表空间大小：${data.physicsStore}`,
       edgeSymbol: 'arrow',
       x: 300,
       y: 300,
@@ -611,13 +678,13 @@ export class DataMapComponent implements OnInit {
       },
       draggable: false
     };
-    let arr1 = data.groupBlood.subGroupBloodDTO;
-    let arr2 = data.groupBlood.parentGroupBloodDTO;
+    let arr1 = data.subTableBloodDTO;
+    let arr2 = data.parentTableBloodDTO;
     if (arr1) {
       for (let i = 0; i < arr1.length; i++) {
         let element = {
-          id: '',
           name: '',
+          tips: '',
           x: (300 + (Math.random() * (20 - 0) + i * 20)),
           y: (100 + (Math.random() * (20 - 0) + i * 20)),
           symbolSize: 100,
@@ -641,16 +708,12 @@ export class DataMapComponent implements OnInit {
               shadowOffsetY: 0
             }
           },
-          tooltip: {
-            formatter: {},
-            extraCssText: ''
-          },
           draggable: false
         };
         let link = {
           source: '',
           target: '',
-          tip: 1,
+          tip: '',
           symbolSize: [5, 15],
           lineStyle: {
             normal: {
@@ -663,26 +726,29 @@ export class DataMapComponent implements OnInit {
             }
           }
         };
-        link.source = data.groupBlood.groupId;
-        link.target = arr1[i].groupId;
+        link.source = data.tableName;
+        link.target = arr1[i].tableName;
+        link.tip = `job_name:${arr1[i].jobInfo.jobName}<br>
+                    job创建时间:${arr1[i].jobInfo.createTime}<br>
+                    job负责人:${arr1[i].jobInfo.createBy}<br>
+                    最后运行时间:${arr1[i].jobInfo.updateTime}`;
         link['value'] = 100;
         links.push(link);
 
-        element.tooltip.formatter = ((node: any): any => {
-          return `所属组名：${node.groupName}<br>
-                  负责人：${node.cUser}<br>
-                  创建时间：${node.cDate}<br>
-                  组调度表达式：${node.cron}`;
-        })(arr1[i]);
-        element.tooltip.extraCssText = 'text-align: left;';
-        element.id = arr1[i].groupId;
-        element.name = arr1[i].groupName.substr(0, 10) + '\n' + arr1[i].groupName.substr(10, 100);
+        element.tips = `库名表名：${arr1[i].tableName}<br><p style="margin-left:5em;margin-bottom:0;">${arr1[i].dbNm}</p>
+                        创建时间：${arr1[i].createTime}<br>
+                        最后修改时间：${arr1[i].dataUpdateTime}<br>
+                        负责人：${arr1[i].dbOwnerName}<br>
+                        表空间大小：${arr1[i].physicsStore}`;
+        element.name = arr1[i].tableName;
         seriesData.push(element);
-        if (arr1[i].subGroupBloodDTO) {
-          for (let j = 0; j < arr1[i].subGroupBloodDTO.length; j++) {
+console.log(seriesData);
+
+        if (arr1[i].subTableBloodDTO) {
+          for (let j = 0; j < arr1[i].subTableBloodDTO.length; j++) {
             let element = {
-              id: '',
               name: '',
+              tips: '',
               symbolSize: 100,
               x: (300 + (Math.random() * 20 + (i + j) * 20)),
               y: (100 + (Math.random() * 20 + (i + j) * 20)),
@@ -706,16 +772,12 @@ export class DataMapComponent implements OnInit {
                   shadowOffsetY: 0
                 }
               },
-              tooltip: {
-                formatter: {},
-                extraCssText: ''
-              },
               draggable: false
             };
             let link = {
               source: '',
               target: '',
-              tip: 1,
+              tip: '',
               symbolSize: [5, 15],
               lineStyle: {
                 normal: {
@@ -728,20 +790,21 @@ export class DataMapComponent implements OnInit {
                 }
               }
             };
-            link.source = arr1[i].groupId;
-            link.target = arr1[i].subGroupBloodDTO[j].groupId;
+            link.source = arr1[i].tableName;
+            link.target = arr1[i].subTableBloodDTO[j].tableName;
+            link.tip = `job_name:${arr1[i].subTableBloodDTO[j].jobInfo.jobName}<br>
+                        job创建时间:${arr1[i].subTableBloodDTO[j].jobInfo.createTime}<br>
+                        job负责人:${arr1[i].subTableBloodDTO[j].jobInfo.createBy}<br>
+                        最后运行时间:${arr1[i].subTableBloodDTO[j].jobInfo.updateTime}`;
             link['value'] = 100;
             links.push(link);
 
-            element.tooltip.formatter = ((node: any): any => {
-              return `所属组名：${node.groupName}<br>
-                      负责人：${node.cUser}<br>
-                      创建时间：${node.cDate}<br>
-                      组调度表达式：${node.cron}`;
-            })(arr1[i].subGroupBloodDTO[j]);
-            element.tooltip.extraCssText = 'text-align: left;';
-            element.id = arr1[i].subGroupBloodDTO[j].groupId;
-            element.name = arr1[i].subGroupBloodDTO[j].groupName.substr(0, 10) + '\n' + arr1[i].subGroupBloodDTO[j].groupName.substr(10, 100);
+            element.tips = `库名表名：${arr1[i].subTableBloodDTO[j].tableName}<br><p style="margin-left:5em;margin-bottom:0;">${arr1[i].subTableBloodDTO[j].dbNm}</p>
+                          创建时间：${arr1[i].subTableBloodDTO[j].createTime}<br>
+                          最后修改时间：${arr1[i].subTableBloodDTO[j].dataUpdateTime}<br>
+                          负责人：${arr1[i].subTableBloodDTO[j].dbOwnerName}<br>
+                          表空间大小：${arr1[i].subTableBloodDTO[j].physicsStore}`;
+            element.name = arr1[i].subTableBloodDTO[j].tableName;
             seriesData.push(element);
           }
         }
@@ -750,8 +813,8 @@ export class DataMapComponent implements OnInit {
     if (arr2) {
       for (let i = 0; i < arr2.length; i++) {
         let element = {
-          id: '',
           name: '',
+          tips: '',
           symbolSize: 100,
           x: (300 - (Math.random() * (20 - 0) + i * 20)),
           y: (100 + (Math.random() * (20 - 0) + i * 20)),
@@ -775,16 +838,12 @@ export class DataMapComponent implements OnInit {
               shadowOffsetY: 0
             }
           },
-          tooltip: {
-            formatter: {},
-            extraCssText: ''
-          },
           draggable: false
         };
         let link = {
           source: '',
           target: '',
-          tip: 1,
+          tip: '',
           symbolSize: [5, 15],
           lineStyle: {
             normal: {
@@ -797,26 +856,29 @@ export class DataMapComponent implements OnInit {
             }
           }
         };
-        link.target = data.groupBlood.groupId;
-        link.source = arr2[i].groupId;
+        link.target = data.tableName;
+        link.source = arr2[i].tableName;
+        link.tip = `job_name:${arr2[i].jobInfo.jobName}<br>
+                    job创建时间:${arr2[i].jobInfo.createTime}<br>
+                    job负责人:${arr2[i].jobInfo.createBy}<br>
+                    最后运行时间:${arr2[i].jobInfo.updateTime}`;
         link['value'] = 100;
         links.push(link);
 
-        element.tooltip.formatter = ((node: any): any => {
-          return `所属组名：${node.groupName}<br>
-                  负责人：${node.cUser}<br>
-                  创建时间：${node.cDate}<br>
-                  组调度表达式：${node.cron}`;
-        })(arr2[i]);
-        element.tooltip.extraCssText = 'text-align: left;';
-        element.id = arr2[i].groupId;
-        element.name = arr2[i].groupName.substr(0, 10) + '\n' + arr2[i].groupName.substr(10, 100);
+        element.tips = `库名表名：${arr2[i].tableName}<br><p style="margin-left:5em;margin-bottom:0;">${arr2[i].dbNm}</p>
+                        创建时间：${arr2[i].createTime}<br>
+                        最后修改时间：${arr2[i].dataUpdateTime}<br>
+                        负责人：${arr2[i].dbOwnerName}<br>
+                        表空间大小：${arr2[i].physicsStore}`;
+        element.name = arr2[i].tableName;
         seriesData.push(element);
-        if (arr2[i].parentGroupBloodDTO) {
-          for (let j = 0; j < arr2[i].parentGroupBloodDTO.length; j++) {
+// console.log(seriesData);
+        if (arr2[i].parentTableBloodDTO) {
+          for (let j = 0; j < arr2[i].parentTableBloodDTO.length; j++) {
             let element = {
-              id: '',
+              id: 'pers' + i + j,
               name: '',
+              tips: '',
               symbolSize: 100,
               x: (300 - (Math.random() * 20 + (i + j) * 20)),
               y: (100 + (Math.random() * 20 + (i + j) * 20)),
@@ -840,16 +902,12 @@ export class DataMapComponent implements OnInit {
                   shadowOffsetY: 0
                 }
               },
-              tooltip: {
-                formatter: {},
-                extraCssText: ''
-              },
               draggable: false
             };
             let link = {
               source: '',
               target: '',
-              tip: 1,
+              tip: '',
               symbolSize: [5, 15],
               lineStyle: {
                 normal: {
@@ -862,20 +920,21 @@ export class DataMapComponent implements OnInit {
                 }
               }
             };
-            link.target = arr2[i].groupId;
-            link.source = arr2[i].parentGroupBloodDTO[j].groupId;
+            link.target = arr2[i].tableName;
+            link.source = arr2[i].parentTableBloodDTO[j].tableName;
+            link.tip = `job_name:${arr2[i].parentTableBloodDTO[j].jobInfo.jobName}<br>
+                        job创建时间:${arr2[i].parentTableBloodDTO[j].jobInfo.createTime}<br>
+                        job负责人:${arr2[i].parentTableBloodDTO[j].jobInfo.createBy}<br>
+                        最后运行时间:${arr2[i].parentTableBloodDTO[j].jobInfo.updateTime}`;
             link['value'] = 100;
             links.push(link);
 
-            element.tooltip.formatter = ((node: any): any => {
-              return `所属组名：${node.groupName}<br>
-                      负责人：${node.cUser}<br>
-                      创建时间：${node.cDate}<br>
-                      组调度表达式：${node.cron}`;
-            })(arr2[i].parentGroupBloodDTO[j]);
-            element.tooltip.extraCssText = 'text-align: left;';
-            element.id = arr2[i].parentGroupBloodDTO[j].groupId;
-            element.name = arr2[i].parentGroupBloodDTO[j].groupName.substr(0, 10) + '\n' + arr2[i].parentGroupBloodDTO[j].groupName.substr(10, 100);
+            element.tips = `库名表名：${arr2[i].parentTableBloodDTO[j].tableName}<br><p style="margin-left:5em;margin-bottom:0;">${arr2[i].parentTableBloodDTO[j].dbNm}</p>
+                            创建时间：${arr2[i].parentTableBloodDTO[j].createTime}<br>
+                            最后修改时间：${arr2[i].parentTableBloodDTO[j].dataUpdateTime}<br>
+                            负责人：${arr2[i].parentTableBloodDTO[j].dbOwnerName}<br>
+                            表空间大小：${arr2[i].parentTableBloodDTO[j].physicsStore}`;
+            element.name = arr2[i].parentTableBloodDTO[j].tableName;
             seriesData.push(element);
           }
         }
@@ -887,11 +946,14 @@ export class DataMapComponent implements OnInit {
     initOp.series[0]['edgeSymbol'] = ['circle', 'arrow'];
     initOp.series[0].label.normal.textStyle.fontSize = 14;
     initOp.series[0].force.edgeLength = 50;
-    initOp.tooltip['formatter'] = function(params: any) {
+    initOp.tooltip.formatter = (params: any): any => {
       if (params.data.tip) {
-        return '';
+        return params.data.tip;
+      }else {
+        return params.data.tips;
       }
     };
+// console.log(initOp);
     this.bloodRelationMapOption = initOp;
     this.searchResult = true;
   }
@@ -902,43 +964,11 @@ export class DataMapComponent implements OnInit {
     let len = arr.length;
     let tmp = {};
     for (let i = 0; i < len; i++) {
-        if (!tmp[arr[i].id]) {
-            tmp[arr[i].id] = 1;
+        if (!tmp[arr[i].name]) {
+            tmp[arr[i].name] = 1;
             ret.push(arr[i]);
         }
     }
     return ret;
   }
-
-  /* getItem(arr: Array): Array {
-    let resArr = [];
-    let links = [];
-    for (let i = 0; i < arr.length; i++) {
-      let obj = {
-        id: '',
-        name: '',
-        symbolSize: 100,
-        draggable: true
-      }
-      let link = {
-        source: '',
-        target: '',
-        value: 100
-      }
-      obj.id = arr[i].groupId;
-      obj.name = arr[i].groupName;
-      if (arr[i].sub) {
-
-      }
-      resArr.push(obj);
-      if (arr[i].subGroupBloodDTO) {
-        resArr = resArr.concat(this.getItem(arr[i].subGroupBloodDTO))
-      }else if(arr[i].parentGroupBloodDTO) {
-        resArr = resArr.concat(this.getItem(arr[i].parentGroupBloodDTO));
-    }
-console.log(resArr);
-      return resArr;
-    }
-  } */
-
 }

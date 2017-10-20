@@ -7,14 +7,14 @@
 <form (ngSubmit)='onSearch()'>
   <div class="search">
     <div class="form-group">
-      <input type="text" list="list" [(ngModel)]="searchModel.tableName" autofocus (blur)="hideSearchList($event)" autocomplete="off" (focus)="showSearchList($event)" name="tableName" class="form-control search-input" placeholder="按中文表名、英文表名搜索血缘关系" #tableName="ngModel"
-        (ngModelChange)='tableNameChange($event)'>
+      <input type="text" list="list" [(ngModel)]="searchModel.dbName + searchModel.tableName" autofocus (blur)="hideSearchList($event)" autocomplete="off" (focus)="showSearchList($event)" name="tableName" class="form-control search-input" placeholder="按中文表名、英文表名搜索血缘关系"
+        #tableName="ngModel" (ngModelChange)='tableNameChange($event)'>
       <div id="list" *ngIf="isFocus" (click)="chooseTable($event)">
         <ul class="chList" *ngIf="!isChNm">
-          <li *ngFor="let li of searchList">{{ li.tblEnNm }}</li>
+          <li *ngFor="let li of searchList">{{ "(" + li.dbNm + ")" + li.tblEnNm }}</li>
         </ul>
         <ul class="enList" *ngIf="isChNm">
-          <li *ngFor="let li of searchList">{{ li.tblChNm }}</li>
+          <li *ngFor="let li of searchList">{{ "(" + li.dbNm + ")" + li.tblChNm }}</li>
         </ul>
       </div>
     </div>
