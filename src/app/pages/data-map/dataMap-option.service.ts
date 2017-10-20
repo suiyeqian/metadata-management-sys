@@ -7,7 +7,12 @@ export class DatamapOptionService {
   getOption() {
     let option = {
     title: {},
-    tooltip: {},
+    tooltip: {
+      formatter: function(params: any) {
+        
+      },
+      extraCssText: 'text-align: left;'
+    },
     animationDurationUpdate: 1500,
     animationEasingUpdate: 'quinticInOut',
     series: [{
