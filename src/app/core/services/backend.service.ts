@@ -6,10 +6,9 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class BackendService {
   // private baseUrl = 'http://10.17.2.26:8190/' + 'mdms/';
-  // private loginUrl = 'http://10.17.2.26:8188/bdportal'+'/resources/mdms/login.html';
-  // 耀毅
-  private baseUrl = 'http://10.14.1.155:8188/mdms/';
-  private loginUrl = 'http://10.14.1.155:8082/bdportal' + '/resources/mdms/login.html';
+  private baseUrl = '/mdms/';
+    private loginUrl = 'http://10.17.2.26:8188/bdportal/resources/mdms/login.html';
+  // private loginUrl = 'http://data.xiaoniu66.com/bdportal/resources/mdms/login.html';
   jsonHeaders = new Headers({
     'Content-Type': 'application/json',
     'X-Requested-SystemCode' : 'neo_mdms',
@@ -52,9 +51,7 @@ export class BackendService {
   private handleError(error: any): Promise<any> {
     if (error.json().message === '登录已过期！请重新登录!') {
       localStorage.clear();
-      // window.location.href = 'http://10.17.2.26:8188/bdportal/resources/mdms/login.html';
-      // 耀毅
-      window.location.href = 'http://10.14.1.155:8082/bdportal/resources/mdms/login.html';
+      // window.location.href = 'http://10.14.1.155:8082/bdportal/resources/mdms/login.html';
     }
     return Promise.reject(error.message || error);
   }

@@ -8,7 +8,7 @@ export class DatamapOptionService {
     let option = {
     title: {},
     tooltip: {
-      formatter: (params:any): any => {
+      formatter: (params: any):any => {
         console.log(params);
       },
       extraCssText: 'text-align: left;'
