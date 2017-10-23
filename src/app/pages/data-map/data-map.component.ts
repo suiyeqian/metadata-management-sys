@@ -26,11 +26,11 @@ export class DataMapComponent implements OnInit {
   searchTime = {};
   isFocus = false;
 
-  dbReg = /\((.+?)\)/;
 
   relatedOption: any;
   bloodRelationMapOption: any;
   showAlert = false;
+  inputAlert = false;
 
   mockData = {
     "code": 0,
@@ -111,10 +111,11 @@ export class DataMapComponent implements OnInit {
     }
   }
 
+  // private dbReg = /\((.+?)\)/;
   private tableNameType = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
   private searchTableListUrl = 'datamap/searchTableInfo';
   private bubbleDataUrl = 'datamap/searchDataMap';
-  private searchBloodRelationTableUrl = 'datamap/searchBloodRelationInfo';
+  private searchBloodRelationTableUrl = 'datamap/searchTableBloodRelationInfo';
 
 
   constructor(
@@ -151,11 +152,11 @@ export class DataMapComponent implements OnInit {
   }
 
   chooseTable($event): void {
-    var str = $event.target.innerHTML;
-    var dbName = str.match(this.dbReg)[0];
-    var tableName = str.substring(str.indexOf(')') + 1);
+    let str = $event.target.innerHTML;
+    let dbName = str.split('.')[0];
+    let tableName = str.split('.')[1];
     this.searchModel.tableName = tableName;
-    this.searchModel.dbName = dbName;
+    this.searchModel.dbName = dbName + '.';
     this.isFocus = false;
 // console.log(this.searchModel);
   }
@@ -169,7 +170,6 @@ export class DataMapComponent implements OnInit {
 
   delaySearch(msg: string, fn: any, wait: number): any {
     if (this.searchTime[msg]) {
-// console.log(msg);
         window.clearTimeout(this.searchTime[msg]);
         delete this.searchTime[msg];
     }
@@ -181,18 +181,80 @@ export class DataMapComponent implements OnInit {
 
   tableNameChange(name: string): void {
 // console.log(this.searchModel);
-    this.tableName = name;
-    if (this.tableNameType.test(name)) {
-      this.isChNm = true;
+// console.log(name);
+    if (name.indexOf('.') !== -1) {
+      if (name.match(/\./g).length > 1) {
+        this.inputAlert = true;
+        this.searchModel.tableName = '';
+      }else {
+        if (this.tableNameType.test(name)) {
+          this.isChNm = true;
+        }else {
+          this.isChNm = false;
+        }        
+        this.tableName = name.split('.')[1];
+        this.searchModel.tableName = name.split('.')[1];
+        this.searchModel.dbName = name.split('.')[0] + '.';
+      }
     }else {
-      this.isChNm = false;
+      if (this.tableNameType.test(name)) {
+        this.isChNm = true;
+      }else {
+        this.isChNm = false;
+      }
+      this.searchModel.dbName = '';
+      this.tableName = name;
+      this.searchModel.tableName = name;
     }
     if (name) {
       this.delaySearch('send', () => {
-        this.getTableList(name);
+        this.getTableList(this.tableName);
       }, 500);
     }else {
       return;
+    }
+  }
+
+  unique(arr: Array<any>): Array<any> {
+    let ret = [];
+    let len = arr.length;
+    let isRepeat;
+    for (let i = 0; i < len; i++) {
+      isRepeat = false;
+      for (let j = i + 1; j < len; j++) {
+        if (arr[i].stringVal === arr[j].stringVal) {
+          isRepeat = true;
+          break;
+        }
+      }
+      if (!isRepeat) {
+          ret.push(arr[i]);
+      }
+    }
+    return ret;
+  }
+  
+  // 中文字符排序
+  order(words: string): string {
+      return words.split('').sort(function(a, b){
+        return a.localeCompare(b);
+      }).join('');
+  }
+  
+  
+  onSearch(): void {
+    if (this.searchModel.tableName.trim()) {
+      this.backendService
+        .getItemsByJsonParams(this.searchBloodRelationTableUrl, {tableName: this.searchModel.tableName.trim(),dbName: this.searchModel.dbName.replace('.','').trim()})
+        .then((res) => {
+          if (!res) {
+            this.showAlert = true;
+          }else {
+            (res.subTableBloodDTO || res.parentTableBloodDTO) ? this.renderBloodRelationMap(res) : this.showAlert = true;
+
+          }
+          // (res) ? this.renderBloodRelationMap(this.mockData.data) : this.showAlert = true;
+        });
     }
   }
 
@@ -602,43 +664,7 @@ export class DataMapComponent implements OnInit {
 // console.log(opt);
   }
 
-  unique(arr: Array<any>): Array<any> {
-    let ret = [];
-    let len = arr.length;
-    let isRepeat;
-    for (let i = 0; i < len; i++) {
-      isRepeat = false;
-      for (let j = i + 1; j < len; j++) {
-        if (arr[i].stringVal === arr[j].stringVal) {
-          isRepeat = true;
-          break;
-        }
-      }
-      if (!isRepeat) {
-          ret.push(arr[i]);
-      }
-    }
-    return ret;
-  }
-
-  // 中文字符排序
-  order(words: string): string {
-      return words.split('').sort(function(a, b){
-        return a.localeCompare(b);
-      }).join('');
-  }
-
-
-  onSearch(): void {
-    if (this.searchModel.tableName.trim()) {
-      this.backendService
-        .getItemsByJsonParams(this.searchBloodRelationTableUrl, {tableName: this.searchModel.tableName.trim(),dbName: this.searchModel.dbName.match(this.dbReg)[1]})
-        .then((res) => {
-          // res.groupBlood ? this.renderBloodRelationMap(res) : this.showAlert = true;
-          res.groupBlood ? this.renderBloodRelationMap(this.mockData.data) : this.showAlert = true;
-        });
-    }
-  }
+  
 
   renderBloodRelationMap(data: any): void {
     let initOp = this.datamapOpt.getOption();
@@ -648,11 +674,12 @@ export class DataMapComponent implements OnInit {
     seriesData[0] = {
       name: data.tableName,
       symbolSize: 100,
-      tips: `库名表名：${data.tableName}<br><p style="margin-left:5em;margin-bottom:0;">${data.dbNm}</p>
+      tips: `表名：${data.tableName}<br>
+             库名：${data.dbNm}<br>
              创建时间：${data.createTime}<br>
              最后修改时间：${data.dataUpdateTime}<br>
-             负责人：${data.dbOwnerName}<br>
-             表空间大小：${data.physicsStore}`,
+             负责人：${data.dbOwnerName || '无'}<br>
+             表空间大小：${data.physicsStore}M`,
       edgeSymbol: 'arrow',
       x: 300,
       y: 300,
@@ -728,21 +755,22 @@ export class DataMapComponent implements OnInit {
         };
         link.source = data.tableName;
         link.target = arr1[i].tableName;
-        link.tip = `job_name:${arr1[i].jobInfo.jobName}<br>
-                    job创建时间:${arr1[i].jobInfo.createTime}<br>
-                    job负责人:${arr1[i].jobInfo.createBy}<br>
-                    最后运行时间:${arr1[i].jobInfo.updateTime}`;
+        link.tip = `job_name：${arr1[i].jobInfo.jobName}<br>
+                    job创建时间：${arr1[i].jobInfo.createTime}<br>
+                    job负责人：${arr1[i].jobInfo.createBy}<br>
+                    最后运行时间：${arr1[i].jobInfo.updateTime}`;
         link['value'] = 100;
         links.push(link);
 
-        element.tips = `库名表名：${arr1[i].tableName}<br><p style="margin-left:5em;margin-bottom:0;">${arr1[i].dbNm}</p>
+        element.tips = `表名：${arr1[i].tableName}<br>
+                        库名：${arr1[i].dbNm}<br>
                         创建时间：${arr1[i].createTime}<br>
                         最后修改时间：${arr1[i].dataUpdateTime}<br>
-                        负责人：${arr1[i].dbOwnerName}<br>
-                        表空间大小：${arr1[i].physicsStore}`;
+                        负责人：${arr1[i].dbOwnerName || '无'}<br>
+                        表空间大小：${arr1[i].physicsStore}M`;
         element.name = arr1[i].tableName;
         seriesData.push(element);
-console.log(seriesData);
+// console.log(seriesData);
 
         if (arr1[i].subTableBloodDTO) {
           for (let j = 0; j < arr1[i].subTableBloodDTO.length; j++) {
@@ -792,18 +820,19 @@ console.log(seriesData);
             };
             link.source = arr1[i].tableName;
             link.target = arr1[i].subTableBloodDTO[j].tableName;
-            link.tip = `job_name:${arr1[i].subTableBloodDTO[j].jobInfo.jobName}<br>
-                        job创建时间:${arr1[i].subTableBloodDTO[j].jobInfo.createTime}<br>
-                        job负责人:${arr1[i].subTableBloodDTO[j].jobInfo.createBy}<br>
-                        最后运行时间:${arr1[i].subTableBloodDTO[j].jobInfo.updateTime}`;
+            link.tip = `job_name：${arr1[i].subTableBloodDTO[j].jobInfo.jobName}<br>
+                        job创建时间：${arr1[i].subTableBloodDTO[j].jobInfo.createTime}<br>
+                        job负责人：${arr1[i].subTableBloodDTO[j].jobInfo.createBy}<br>
+                        最后运行时间：${arr1[i].subTableBloodDTO[j].jobInfo.updateTime}`;
             link['value'] = 100;
             links.push(link);
 
-            element.tips = `库名表名：${arr1[i].subTableBloodDTO[j].tableName}<br><p style="margin-left:5em;margin-bottom:0;">${arr1[i].subTableBloodDTO[j].dbNm}</p>
+            element.tips = `表名：${arr1[i].subTableBloodDTO[j].tableName}<br>
+                          库名${arr1[i].subTableBloodDTO[j].dbNm}<br>
                           创建时间：${arr1[i].subTableBloodDTO[j].createTime}<br>
                           最后修改时间：${arr1[i].subTableBloodDTO[j].dataUpdateTime}<br>
-                          负责人：${arr1[i].subTableBloodDTO[j].dbOwnerName}<br>
-                          表空间大小：${arr1[i].subTableBloodDTO[j].physicsStore}`;
+                          负责人：${arr1[i].subTableBloodDTO[j].dbOwnerName || '无'}<br>
+                          表空间大小：${arr1[i].subTableBloodDTO[j].physicsStore}M`;
             element.name = arr1[i].subTableBloodDTO[j].tableName;
             seriesData.push(element);
           }
@@ -858,18 +887,19 @@ console.log(seriesData);
         };
         link.target = data.tableName;
         link.source = arr2[i].tableName;
-        link.tip = `job_name:${arr2[i].jobInfo.jobName}<br>
-                    job创建时间:${arr2[i].jobInfo.createTime}<br>
-                    job负责人:${arr2[i].jobInfo.createBy}<br>
-                    最后运行时间:${arr2[i].jobInfo.updateTime}`;
+        link.tip = `job_name：${arr2[i].jobInfo.jobName}<br>
+                    job创建时间：${arr2[i].jobInfo.createTime}<br>
+                    job负责人：${arr2[i].jobInfo.createBy}<br>
+                    最后运行时间：${arr2[i].jobInfo.updateTime}`;
         link['value'] = 100;
         links.push(link);
 
-        element.tips = `库名表名：${arr2[i].tableName}<br><p style="margin-left:5em;margin-bottom:0;">${arr2[i].dbNm}</p>
+        element.tips = `表名：${arr2[i].tableName}<br>
+                        库名${arr2[i].dbNm}<br>
                         创建时间：${arr2[i].createTime}<br>
                         最后修改时间：${arr2[i].dataUpdateTime}<br>
-                        负责人：${arr2[i].dbOwnerName}<br>
-                        表空间大小：${arr2[i].physicsStore}`;
+                        负责人：${arr2[i].dbOwnerName || '无'}<br>
+                        表空间大小：${arr2[i].physicsStore}M`;
         element.name = arr2[i].tableName;
         seriesData.push(element);
 // console.log(seriesData);
@@ -922,18 +952,19 @@ console.log(seriesData);
             };
             link.target = arr2[i].tableName;
             link.source = arr2[i].parentTableBloodDTO[j].tableName;
-            link.tip = `job_name:${arr2[i].parentTableBloodDTO[j].jobInfo.jobName}<br>
-                        job创建时间:${arr2[i].parentTableBloodDTO[j].jobInfo.createTime}<br>
-                        job负责人:${arr2[i].parentTableBloodDTO[j].jobInfo.createBy}<br>
-                        最后运行时间:${arr2[i].parentTableBloodDTO[j].jobInfo.updateTime}`;
+            link.tip = `job_name：${arr2[i].parentTableBloodDTO[j].jobInfo.jobName}<br>
+                        job创建时间：${arr2[i].parentTableBloodDTO[j].jobInfo.createTime}<br>
+                        job负责人：${arr2[i].parentTableBloodDTO[j].jobInfo.createBy}<br>
+                        最后运行时间：${arr2[i].parentTableBloodDTO[j].jobInfo.updateTime}`;
             link['value'] = 100;
             links.push(link);
 
-            element.tips = `库名表名：${arr2[i].parentTableBloodDTO[j].tableName}<br><p style="margin-left:5em;margin-bottom:0;">${arr2[i].parentTableBloodDTO[j].dbNm}</p>
+            element.tips = `表名：${arr2[i].parentTableBloodDTO[j].tableName}<br>
+                            库名${arr2[i].parentTableBloodDTO[j].dbNm}<br>
                             创建时间：${arr2[i].parentTableBloodDTO[j].createTime}<br>
                             最后修改时间：${arr2[i].parentTableBloodDTO[j].dataUpdateTime}<br>
-                            负责人：${arr2[i].parentTableBloodDTO[j].dbOwnerName}<br>
-                            表空间大小：${arr2[i].parentTableBloodDTO[j].physicsStore}`;
+                            负责人：${arr2[i].parentTableBloodDTO[j].dbOwnerName || '无'}<br>
+                            表空间大小：${arr2[i].parentTableBloodDTO[j].physicsStore}M`;
             element.name = arr2[i].parentTableBloodDTO[j].tableName;
             seriesData.push(element);
           }
