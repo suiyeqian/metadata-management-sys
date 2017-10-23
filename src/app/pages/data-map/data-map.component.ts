@@ -32,86 +32,7 @@ export class DataMapComponent implements OnInit {
   showAlert = false;
   inputAlert = false;
 
-  mockData = {
-    "code": 0,
-    "success": true,
-    "msg": "成功",
-    "data": {
-      "tableName": "dwd_evt_zx_cust_rfnd_smr",
-      "dbNm": "dwd_data",
-      "dbOwnerName": null,
-      "createTime": "2017-5-09 02:10:10",
-      "dataUpdateTime": "2017-7-31 03:07:19",
-      "physicsStore": 1,
-      "jobInfo": null,
-      "subTableBloodDTO": [{
-          "tableName": "dma_opr_zx_widetable",
-          "dbNm": "dma_opr_data_od",
-          "dbOwnerName": null,
-          "createTime": "2017-5-10 03:13:11",
-          "dataUpdateTime": "2017-7-31 03:07:19",
-          "physicsStore": 7,
-          "jobInfo": {
-            "jobName": "job_dma_opr_zx_widetable",
-            "createBy": "liaojinbo",
-            "createTime": "2016-12-26 06:05:49",
-            "updateTime": "2016-12-26 06:06:03"
-          },
-          "subTableBloodDTO": null,
-          "parentTableBloodDTO": null
-        },
-        {
-          "tableName": "rpt_operation_daily_report",
-          "dbNm": "dma_zxopr_data",
-          "dbOwnerName": null,
-          "createTime": "2017-7-17 04:16:45",
-          "dataUpdateTime": "2017-7-31 03:07:19",
-          "physicsStore": 6,
-          "jobInfo": {
-            "jobName": "job_dma_opr_zx_Rpt_Operation_Daily_Report",
-            "createBy": "liaojinbo",
-            "createTime": "2017-5-23 05:28:18",
-            "updateTime": "2017-7-20 03:02:55"
-          },
-          "subTableBloodDTO": [{
-            "tableName": "rpt_operation_daily_report2",
-            "dbNm": "dma_zxopr_data",
-            "dbOwnerName": null,
-            "createTime": "2017-7-17 04:16:45",
-            "dataUpdateTime": "2017-7-31 03:07:19",
-            "physicsStore": 6,
-            "jobInfo": {
-              "jobName": "job_dma_opr_zx_Rpt_Operation_Daily_Report",
-              "createBy": "liaojinbo",
-              "createTime": "2017-5-23 05:28:18",
-              "updateTime": "2017-7-20 03:02:55"
-            },
-            "subTableBloodDTO": null,
-            "parentTableBloodDTO": null
-          }],
-          "parentTableBloodDTO": null
-        }
-      ],
-      "parentTableBloodDTO": [{
-        "tableName": "dwd_evt_zx_cust_trm_rfnd_dtl",
-        "dbNm": "dwd_data",
-        "dbOwnerName": null,
-        "createTime": "2017-5-09 01:52:55",
-        "dataUpdateTime": "2017-7-31 03:07:19",
-        "physicsStore": 10,
-        "jobInfo": {
-          "jobName": "job_dwd_evt_zx_cust_rfnd_smr",
-          "createBy": "liaojinbo",
-          "createTime": "2017-5-02 06:30:26",
-          "updateTime": "2017-6-29 06:10:33"
-        },
-        "subTableBloodDTO": null,
-        "parentTableBloodDTO": null
-      }]
-    }
-  }
 
-  // private dbReg = /\((.+?)\)/;
   private tableNameType = /[\u4E00-\u9FA5\uF900-\uFA2D]/;
   private searchTableListUrl = 'datamap/searchTableInfo';
   private bubbleDataUrl = 'datamap/searchDataMap';
@@ -191,7 +112,7 @@ export class DataMapComponent implements OnInit {
           this.isChNm = true;
         }else {
           this.isChNm = false;
-        }        
+        }
         this.tableName = name.split('.')[1];
         this.searchModel.tableName = name.split('.')[1];
         this.searchModel.dbName = name.split('.')[0] + '.';
@@ -233,15 +154,14 @@ export class DataMapComponent implements OnInit {
     }
     return ret;
   }
-  
+
   // 中文字符排序
   order(words: string): string {
       return words.split('').sort(function(a, b){
         return a.localeCompare(b);
       }).join('');
   }
-  
-  
+
   onSearch(): void {
     if (this.searchModel.tableName.trim()) {
       this.backendService
@@ -251,9 +171,7 @@ export class DataMapComponent implements OnInit {
             this.showAlert = true;
           }else {
             (res.subTableBloodDTO || res.parentTableBloodDTO) ? this.renderBloodRelationMap(res) : this.showAlert = true;
-
           }
-          // (res) ? this.renderBloodRelationMap(this.mockData.data) : this.showAlert = true;
         });
     }
   }
@@ -322,7 +240,7 @@ export class DataMapComponent implements OnInit {
     this.adjustBubble(this.relatedOption);
 // console.log(this.relatedOption);
   }
-  
+
 
   adjustBubble(opt: any): void {
     opt.series[0].data.map((node: any) => {
@@ -664,7 +582,6 @@ export class DataMapComponent implements OnInit {
 // console.log(opt);
   }
 
-  
 
   renderBloodRelationMap(data: any): void {
     let initOp = this.datamapOpt.getOption();
@@ -672,7 +589,8 @@ export class DataMapComponent implements OnInit {
     let links = [];
 
     seriesData[0] = {
-      name: data.tableName,
+      id: data.id.toString(),
+      name: data.tableName.substring(0, 10) + '\n' + data.tableName.substring(10),
       symbolSize: 100,
       tips: `表名：${data.tableName}<br>
              库名：${data.dbNm}<br>
@@ -710,6 +628,7 @@ export class DataMapComponent implements OnInit {
     if (arr1) {
       for (let i = 0; i < arr1.length; i++) {
         let element = {
+          id: arr1[i].id.toString(),
           name: '',
           tips: '',
           x: (300 + (Math.random() * (20 - 0) + i * 20)),
@@ -753,8 +672,8 @@ export class DataMapComponent implements OnInit {
             }
           }
         };
-        link.source = data.tableName;
-        link.target = arr1[i].tableName;
+        link.source = data.id.toString();
+        link.target = arr1[i].id.toString();
         link.tip = `job_name：${arr1[i].jobInfo.jobName}<br>
                     job创建时间：${arr1[i].jobInfo.createTime}<br>
                     job负责人：${arr1[i].jobInfo.createBy}<br>
@@ -768,13 +687,14 @@ export class DataMapComponent implements OnInit {
                         最后修改时间：${arr1[i].dataUpdateTime}<br>
                         负责人：${arr1[i].dbOwnerName || '无'}<br>
                         表空间大小：${arr1[i].physicsStore}M`;
-        element.name = arr1[i].tableName;
+        element.name = arr1[i].tableName.substring(0, 10) + '\n' + arr1[i].tableName.substring(10);
         seriesData.push(element);
 // console.log(seriesData);
 
         if (arr1[i].subTableBloodDTO) {
           for (let j = 0; j < arr1[i].subTableBloodDTO.length; j++) {
             let element = {
+              id: arr1[i].subTableBloodDTO[j].id.toString(),
               name: '',
               tips: '',
               symbolSize: 100,
@@ -818,8 +738,8 @@ export class DataMapComponent implements OnInit {
                 }
               }
             };
-            link.source = arr1[i].tableName;
-            link.target = arr1[i].subTableBloodDTO[j].tableName;
+            link.source = arr1[i].id.toString();
+            link.target = arr1[i].subTableBloodDTO[j].id.toString();
             link.tip = `job_name：${arr1[i].subTableBloodDTO[j].jobInfo.jobName}<br>
                         job创建时间：${arr1[i].subTableBloodDTO[j].jobInfo.createTime}<br>
                         job负责人：${arr1[i].subTableBloodDTO[j].jobInfo.createBy}<br>
@@ -833,7 +753,7 @@ export class DataMapComponent implements OnInit {
                           最后修改时间：${arr1[i].subTableBloodDTO[j].dataUpdateTime}<br>
                           负责人：${arr1[i].subTableBloodDTO[j].dbOwnerName || '无'}<br>
                           表空间大小：${arr1[i].subTableBloodDTO[j].physicsStore}M`;
-            element.name = arr1[i].subTableBloodDTO[j].tableName;
+            element.name = arr1[i].subTableBloodDTO[j].tableName.substring(0, 10) + '\n' + arr1[i].subTableBloodDTO[j].tableName.substring(10);
             seriesData.push(element);
           }
         }
@@ -842,6 +762,7 @@ export class DataMapComponent implements OnInit {
     if (arr2) {
       for (let i = 0; i < arr2.length; i++) {
         let element = {
+          id: arr2[i].id.toString(),
           name: '',
           tips: '',
           symbolSize: 100,
@@ -885,8 +806,8 @@ export class DataMapComponent implements OnInit {
             }
           }
         };
-        link.target = data.tableName;
-        link.source = arr2[i].tableName;
+        link.target = data.id.toString();
+        link.source = arr2[i].id.toString();
         link.tip = `job_name：${arr2[i].jobInfo.jobName}<br>
                     job创建时间：${arr2[i].jobInfo.createTime}<br>
                     job负责人：${arr2[i].jobInfo.createBy}<br>
@@ -900,13 +821,13 @@ export class DataMapComponent implements OnInit {
                         最后修改时间：${arr2[i].dataUpdateTime}<br>
                         负责人：${arr2[i].dbOwnerName || '无'}<br>
                         表空间大小：${arr2[i].physicsStore}M`;
-        element.name = arr2[i].tableName;
+        element.name = arr2[i].tableName.substring(0, 10) + '\n' + arr2[i].tableName.substring(10);
         seriesData.push(element);
 // console.log(seriesData);
         if (arr2[i].parentTableBloodDTO) {
           for (let j = 0; j < arr2[i].parentTableBloodDTO.length; j++) {
             let element = {
-              id: 'pers' + i + j,
+              id: arr2[j].parentTableBloodDTO[j].id.toString(),
               name: '',
               tips: '',
               symbolSize: 100,
@@ -950,8 +871,8 @@ export class DataMapComponent implements OnInit {
                 }
               }
             };
-            link.target = arr2[i].tableName;
-            link.source = arr2[i].parentTableBloodDTO[j].tableName;
+            link.target = arr2[i].id.toString();
+            link.source = arr2[i].parentTableBloodDTO[j].id.toString();
             link.tip = `job_name：${arr2[i].parentTableBloodDTO[j].jobInfo.jobName}<br>
                         job创建时间：${arr2[i].parentTableBloodDTO[j].jobInfo.createTime}<br>
                         job负责人：${arr2[i].parentTableBloodDTO[j].jobInfo.createBy}<br>
@@ -965,7 +886,7 @@ export class DataMapComponent implements OnInit {
                             最后修改时间：${arr2[i].parentTableBloodDTO[j].dataUpdateTime}<br>
                             负责人：${arr2[i].parentTableBloodDTO[j].dbOwnerName || '无'}<br>
                             表空间大小：${arr2[i].parentTableBloodDTO[j].physicsStore}M`;
-            element.name = arr2[i].parentTableBloodDTO[j].tableName;
+            element.name = arr2[i].parentTableBloodDTO[j].tableName.substring(0, 10) + '\n' + arr2[i].parentTableBloodDTO[j].tableName.substring(10);
             seriesData.push(element);
           }
         }
