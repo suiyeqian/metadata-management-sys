@@ -587,7 +587,6 @@ export class DataMapComponent implements OnInit {
     let initOp = this.datamapOpt.getOption();
     let seriesData = [];
     let links = [];
-
     seriesData[0] = {
       id: data.id.toString(),
       name: data.tableName.substring(0, 10) + '\n' + data.tableName.substring(10),
@@ -625,6 +624,7 @@ export class DataMapComponent implements OnInit {
     };
     let arr1 = data.subTableBloodDTO;
     let arr2 = data.parentTableBloodDTO;
+
     if (arr1) {
       for (let i = 0; i < arr1.length; i++) {
         let element = {
@@ -689,7 +689,6 @@ export class DataMapComponent implements OnInit {
                         表空间大小：${arr1[i].physicsStore}M`;
         element.name = arr1[i].tableName.substring(0, 10) + '\n' + arr1[i].tableName.substring(10);
         seriesData.push(element);
-// console.log(seriesData);
 
         if (arr1[i].subTableBloodDTO) {
           for (let j = 0; j < arr1[i].subTableBloodDTO.length; j++) {
@@ -823,11 +822,10 @@ export class DataMapComponent implements OnInit {
                         表空间大小：${arr2[i].physicsStore}M`;
         element.name = arr2[i].tableName.substring(0, 10) + '\n' + arr2[i].tableName.substring(10);
         seriesData.push(element);
-// console.log(seriesData);
         if (arr2[i].parentTableBloodDTO) {
           for (let j = 0; j < arr2[i].parentTableBloodDTO.length; j++) {
             let element = {
-              id: arr2[j].parentTableBloodDTO[j].id.toString(),
+              id: arr2[i].parentTableBloodDTO[j].id.toString(),
               name: '',
               tips: '',
               symbolSize: 100,

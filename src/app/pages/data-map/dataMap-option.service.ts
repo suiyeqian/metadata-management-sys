@@ -29,7 +29,7 @@ export class DatamapOptionService {
       label: {
         normal: {
           textStyle: {
-            color: '',
+            color: '#fff',
             fontSize: 12
           },
           show: true
