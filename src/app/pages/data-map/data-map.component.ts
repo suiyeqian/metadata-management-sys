@@ -747,7 +747,7 @@ export class DataMapComponent implements OnInit {
             links.push(link);
 
             element.tips = `表名：${arr1[i].subTableBloodDTO[j].tableName}<br>
-                          库名${arr1[i].subTableBloodDTO[j].dbNm}<br>
+                          库名：${arr1[i].subTableBloodDTO[j].dbNm}<br>
                           创建时间：${arr1[i].subTableBloodDTO[j].createTime}<br>
                           最后修改时间：${arr1[i].subTableBloodDTO[j].dataUpdateTime}<br>
                           负责人：${arr1[i].subTableBloodDTO[j].dbOwnerName || '无'}<br>
@@ -815,7 +815,7 @@ export class DataMapComponent implements OnInit {
         links.push(link);
 
         element.tips = `表名：${arr2[i].tableName}<br>
-                        库名${arr2[i].dbNm}<br>
+                        库名：${arr2[i].dbNm}<br>
                         创建时间：${arr2[i].createTime}<br>
                         最后修改时间：${arr2[i].dataUpdateTime}<br>
                         负责人：${arr2[i].dbOwnerName || '无'}<br>
@@ -879,7 +879,7 @@ export class DataMapComponent implements OnInit {
             links.push(link);
 
             element.tips = `表名：${arr2[i].parentTableBloodDTO[j].tableName}<br>
-                            库名${arr2[i].parentTableBloodDTO[j].dbNm}<br>
+                            库名：${arr2[i].parentTableBloodDTO[j].dbNm}<br>
                             创建时间：${arr2[i].parentTableBloodDTO[j].createTime}<br>
                             最后修改时间：${arr2[i].parentTableBloodDTO[j].dataUpdateTime}<br>
                             负责人：${arr2[i].parentTableBloodDTO[j].dbOwnerName || '无'}<br>
